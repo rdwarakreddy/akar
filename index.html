@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AKAR Design Studio | Your Vision. Our Design.</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#FAF9F6", /* Premium Warm Bone White */
+              "on-surface": "#111111", /* Rich Soft Black */
+              "primary": "#111111",
+              "secondary": "#8C764D", /* Muted Antique Gold */
+              "surface-container": "#F3F1EC", /* Soft Layering Tone */
+              "outline-variant": "#E5E0D8"
+            },
+            fontFamily: {
+              'serif-premium': ['Cormorant Garamond', 'serif'],
+              'sans-premium': ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'infinite-scroll': 'infinite-scroll 40s linear infinite',
+            },
+            keyframes: {
+              'infinite-scroll': {
+                '0%': { transform: 'translateX(0)' },
+                '100%': { transform: 'translateX(-50%)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #FAF9F6;
+        }
+        
+        /* Smooth Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+        }
+
+        /* Smooth Reveal Transitions */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered Line Animation base */
+        .line-hide {
+            overflow: hidden;
+            display: inline-block;
+        }
+        .line-rise {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+        .active .line-rise {
+            transform: translateY(0);
+        }
+
+        /* Elegant Hover Lines */
+        .hover-underline {
+            position: relative;
+        }
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Prevent scroll when mobile menu is active */
+        .overflow-hidden-mobile {
+            overflow: hidden !important;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
+    <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
+        <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
+        
+        <!-- Desktop Menu Version -->
+        <div class="hidden lg:flex items-center gap-10">
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="index.html">Home</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="services.html">Services</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="Budgetplanner.html">Budget Planner</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="about.html">About Us</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="hidden lg:block">
+            <button class="border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                Get a Quotation
+            </button>
+        </div>
+
+        <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none" aria-label="Toggle navigation menu">
+            <div class="w-6 h-5 relative flex flex-col justify-between overflow-hidden">
+                <span id="line1" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+                <span id="line2" class="w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
+                <span id="line3" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+            </div>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Version -->
+    <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+        <div class="flex flex-col gap-6">
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="index.html">Home</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="services.html">Services</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="about.html">About Us</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
+            <button class="w-full bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                Get a Quotation
+            </button>
+            <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
+                <a href="#">Instagram</a>
+                <span>—</span>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="pt-24">
+    <section class="relative min-h-[calc(100vh-6rem)] flex items-center justify-center overflow-hidden bg-surface py-8 md:py-12 px-4 sm:px-8 md:px-16 max-w-[90rem] mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full relative z-10">
+            
+            <div class="lg:col-span-6 flex flex-col justify-center active order-2 lg:order-1 lg:pr-8">
+                <div class="flex items-center gap-3 mb-4 md:mb-6 reveal-element active">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-[0.4em] text-secondary font-medium">Bespoke Spatial Architecture</span>
+                </div>
+                
+                <h1 class="font-serif-premium text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-light tracking-tight mb-6 md:mb-8 leading-[1.15] text-primary line-hide">
+                    <span class="line-rise">Crafting Spaces</span><br>
+                    <span class="line-rise italic font-normal text-secondary">That Tell Your</span><br>
+                    <span class="line-rise">Unique Story.</span>
+                </h1>
+                
+                <p class="font-sans-premium text-sm sm:text-base md:text-lg tracking-wide font-light mb-6 text-on-surface/80 reveal-element active leading-relaxed max-w-xl">
+                    Where avant-garde vision meets impeccable execution. We redefine luxury living through clean lines, organic geometry, and quiet elegance.
+                </p>
+                
+                <p class="font-sans-premium text-xs sm:text-sm max-w-lg opacity-70 font-light leading-relaxed mb-8 md:mb-10 text-on-surface/60 reveal-element active">
+                    From elite residential concepts to high-performance corporate environments, AKAR structural layouts deliver sensory balances of form, modern materials, and atmospheric light choreography.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 reveal-element active">
+                    <button class="bg-primary text-surface px-6 sm:px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary hover:text-surface transition-all duration-300 shadow-sm w-full sm:w-auto">
+                        Our Services Portfolio
+                    </button>
+                    <button class="border border-primary/40 text-primary px-6 sm:px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300 w-full sm:w-auto">
+                        Consult Our Architects
+                    </button>
+                </div>
+                
+                <div class="hidden sm:grid grid-cols-3 gap-4 sm:gap-6 pt-8 md:pt-12 mt-8 md:mt-12 border-t border-outline-variant/60 reveal-element active">
+                    <div>
+                        <span class="font-sans-premium text-[9px] sm:text-[10px] uppercase tracking-widest text-on-surface/40 block mb-1">Concept Studio</span>
+                        <span class="font-serif-premium text-xs text-on-surface/80">Pure Restraint</span>
+                    </div>
+                    <div>
+                        <span class="font-sans-premium text-[9px] sm:text-[10px] uppercase tracking-widest text-on-surface/40 block mb-1">Curation</span>
+                        <span class="font-serif-premium text-xs text-on-surface/80">Premium Materials</span>
+                    </div>
+                    <div>
+                        <span class="font-sans-premium text-[9px] sm:text-[10px] uppercase tracking-widest text-on-surface/40 block mb-1">Coordinates</span>
+                        <span class="font-serif-premium text-xs text-on-surface/80">12.97° N, 77.59° E</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-6 relative w-full order-1 lg:order-2 flex justify-center items-center">
+                <div class="w-full aspect-[4/5] sm:aspect-[16/10] lg:aspect-[4/5] xl:aspect-[1:1] relative overflow-hidden bg-surface-container border border-outline-variant/30 rounded-xs shadow-lg reveal-element active">
+                    <div class="absolute inset-0 field-parallax" data-speed="-0.02">
+                        <img class="w-full h-full object-cover object-center scale-110" alt="Minimalist luxury architectural concrete design structure" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80"/>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                </div>
+                
+                <div class="hidden sm:block absolute bottom-4 left-4 right-4 sm:right-auto sm:left-6 lg:-left-10 bg-surface border border-outline-variant/60 p-5 sm:p-8 max-w-xs shadow-2xl reveal-element active z-20">
+                    <span class="font-serif-premium text-2xl sm:text-3xl text-secondary block mb-2">01 // Distinction</span>
+                    <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">
+                        Every structural configuration is customized precisely around lighting metrics, material integrity, and long-form ergonomic utility.
+                    </p>
+                </div>
+                
+                <div class="absolute top-0 right-0 transform translate-x-2 -translate-y-6 hidden xl:flex flex-col items-end opacity-30 font-sans-premium text-[9px] tracking-[0.3em] uppercase select-none text-on-surface">
+                    <span>INDEX // AK — 026</span>
+                    <span>© DESIGN STANDARD STUDIO</span>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="bg-surface-container py-12 md:py-16 border-b border-outline-variant/30">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-8 gap-x-4 text-center items-center">
+                <div class="reveal-element">
+                    <div class="font-serif-premium text-2xl sm:text-4xl font-light text-primary">150+</div>
+                    <div class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/60 mt-1">Projects Completed</div>
+                </div>
+                <div class="reveal-element">
+                    <div class="font-serif-premium text-2xl sm:text-4xl font-light text-primary">5+</div>
+                    <div class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/60 mt-1">Years Experience</div>
+                </div>
+                <div class="reveal-element">
+                    <div class="font-serif-premium text-lg sm:text-2xl font-light text-primary tracking-wide">End-to-End</div>
+                    <div class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/60 mt-1">Execution</div>
+                </div>
+                <div class="reveal-element">
+                    <div class="font-serif-premium text-lg sm:text-2xl font-light text-primary tracking-wide">On-Time</div>
+                    <div class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/60 mt-1">Project Delivery</div>
+                </div>
+                <div class="reveal-element col-span-2 md:col-span-1">
+                    <div class="font-serif-premium text-lg sm:text-2xl font-light text-primary tracking-wide">Transparent</div>
+                    <div class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/60 mt-1">Pricing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 px-6 sm:px-8 md:px-16 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center">
+            <div class="md:col-span-6 relative overflow-hidden bg-surface-container aspect-[4/5] field-parallax" data-speed="0.04">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100" alt="Pinterest inspired minimal layout workspace setup" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"/>
+            </div>
+            <div class="md:col-span-6 lg:col-span-5 md:col-start-7 lg:col-start-8 reveal-element">
+                <span class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary block mb-4">The Studio Profile</span>
+                <h3 class="font-serif-premium text-3xl sm:text-4xl md:text-5xl font-light mb-6 md:mb-8 leading-snug">Designing Spaces That Inspire & Endure</h3>
+                <p class="font-sans-premium text-xs sm:text-sm text-on-surface/70 leading-relaxed font-light mb-4 sm:mb-6">
+                    At AKAR Design Studio, we believe every space should reflect personality, purpose, and timeless design. Our approach combines modern aesthetics, smart planning, and seamless execution to create environments that are both beautiful and functional.
+                </p>
+                <p class="font-sans-premium text-xs sm:text-sm text-on-surface/70 leading-relaxed font-light mb-8 md:mb-10">
+                    We specialize in architecture, interiors, and turnkey execution for villas, apartments, offices, retail spaces, and commercial projects.
+                </p>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-primary hover-underline inline-block" href="about.html">
+                    Learn More About Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 bg-surface-container">
+        <div class="px-6 sm:px-8 md:px-16 max-w-7xl mx-auto">
+            <div class="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-baseline border-b border-on-surface/10 pb-8 reveal-element">
+                <div>
+                    <h2 class="font-serif-premium text-3xl sm:text-4xl md:text-5xl font-light">Our Expertise</h2>
+                    <p class="font-sans-premium text-xs text-on-surface/60 mt-3 font-light tracking-wide">Complete architecture and interior design solutions crafted for modern living and business spaces.</p>
+                </div>
+                <span class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/40 mt-4 md:mt-0">Capabilities</span>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-12 md:gap-y-16">
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">01</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Architecture Design</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">Creative architectural planning with modern aesthetics, ventilation, and space efficiency.</p>
+                </div>
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">02</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Interior Design</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">Elegant and functional interiors designed around your lifestyle and preferences.</p>
+                </div>
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">03</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Turnkey Projects</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">End-to-end project execution including planning, materials, supervision, and delivery.</p>
+                </div>
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">04</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Commercial Design</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">Professional office, retail, and hospitality spaces that elevate customer experience.</p>
+                </div>
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">05</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Renovation & Remodeling</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">Transform existing spaces into modern, functional, and visually appealing environments.</p>
+                </div>
+                <div class="group border-b border-on-surface/10 pb-6 md:pb-8 reveal-element">
+                    <span class="font-serif-premium text-xl text-secondary block mb-3 md:mb-4">06</span>
+                    <h3 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 group-hover:text-secondary transition-colors duration-300">Project Management</h3>
+                    <p class="font-sans-premium text-xs text-on-surface/60 leading-relaxed font-light">Complete site coordination, vendor management, quality checks, and timeline monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 bg-surface">
+        <div class="px-6 sm:px-8 md:px-16 max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-24 reveal-element">
+                <h2 class="font-serif-premium text-3xl sm:text-4xl md:text-5xl font-light mb-4">Our Design Process</h2>
+                <p class="font-sans-premium text-[10px] sm:text-xs text-on-surface/60 uppercase tracking-widest font-light">A transparent and collaborative journey from concept to completion.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-12 md:gap-y-16">
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 01</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Understand Your Requirements</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">We discuss your ideas, lifestyle, functionality, expectations, and budget.</p>
+                </div>
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 02</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Site Visit & Analysis</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">We analyze site conditions, measurements, and project possibilities.</p>
+                </div>
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 03</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Concept & Design Development</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Layouts, mood boards, material selection, and 3D visualizations are prepared.</p>
+                </div>
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 04</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Detailed Drawings & Planning</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Working drawings, technical details, and execution documentation are finalized.</p>
+                </div>
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 05</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Execution & Supervision</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Our team manages on-site execution, quality checks, and vendor coordination.</p>
+                </div>
+                <div class="reveal-element">
+                    <div class="text-[10px] sm:text-xs uppercase font-sans-premium tracking-widest text-secondary mb-3">Phase 06</div>
+                    <h4 class="font-serif-premium text-lg sm:text-xl font-normal mb-2 text-primary">Final Handover</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Project completion, quality assurance, and smooth handover of your dream space.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 bg-surface border-t border-outline-variant/30">
+        <div class="px-6 sm:px-8 md:px-16 max-w-7xl mx-auto">
+            <div class="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-baseline reveal-element">
+                <div>
+                    <h2 class="font-serif-premium text-3xl sm:text-5xl md:text-6xl font-light tracking-wide">Our Recent Work</h2>
+                    <p class="font-sans-premium text-xs text-on-surface/60 mt-3 font-light">A curated exploration into our complex structural and visual spatial layouts.</p>
+                </div>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] hover-underline mt-4 md:mt-0" href="#">View Full Portfolio</a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[22rem] sm:auto-rows-[25rem] md:auto-rows-[28rem]">
+                
+                <div class="md:col-span-2 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 object-center" alt="Premium luxury architecture exterior villa" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8 opacity-95 group-hover:opacity-100 transition-opacity duration-300">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Architecture</span>
+                        <h4 class="font-serif-premium text-xl md:text-2xl text-white font-light tracking-wide">Luxury Villa – Bangalore</h4>
+                        <p class="font-sans-premium text-[11px] text-white/70 font-light mt-1 max-w-md hidden sm:block">Modern contemporary villa with premium exterior treatments and balanced structural symmetry.</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" alt="Minimal clean warm tone aesthetic apartment room" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Interior Layout</span>
+                        <h4 class="font-serif-premium text-lg md:text-xl text-white font-light tracking-wide">Elegant Apartment – Mysore</h4>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" alt="Commercial space interior architecture design line" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Corporate Spaces</span>
+                        <h4 class="font-serif-premium text-lg md:text-xl text-white font-light tracking-wide">Modern Office – Hubballi</h4>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 object-center" alt="Pinterest cozy rich aesthetic living room" src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Living Expanses</span>
+                        <h4 class="font-serif-premium text-xl md:text-2xl text-white font-light tracking-wide">Contemporary Living Environments</h4>
+                        <p class="font-sans-premium text-[11px] text-white/70 font-light mt-1 max-w-md hidden sm:block">Sophisticated layout patterns integrated natively with premium ambient architectural light treatments.</p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" alt="Luxury minimal bedroom suite setup lighting" src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Private Spaces</span>
+                        <h4 class="font-serif-premium text-lg md:text-xl text-white font-light tracking-wide">Premium Bedroom Suites</h4>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 relative group overflow-hidden bg-surface-container border border-outline-variant/20 reveal-element">
+                    <img class="w-full h-full object-cover scale-105 group-hover:scale-100 transition-transform duration-1000" alt="Clean minimal premium modular kitchen layout marble" src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 md:p-8">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-widest text-secondary mb-1">Culinary Modules</span>
+                        <h4 class="font-serif-premium text-lg md:text-xl text-white font-light tracking-wide">Minimalist Kitchen Systems</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 bg-surface-container">
+        <div class="px-6 sm:px-8 md:px-16 max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-24 reveal-element">
+                <h2 class="font-serif-premium text-3xl sm:text-4xl md:text-5xl font-light mb-4">Why Clients Choose AKAR</h2>
+                <div class="w-12 h-[1px] bg-secondary mx-auto mt-6"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 md:gap-x-12 gap-y-12 md:gap-y-16">
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Creative & Functional Designs</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Spaces designed beautifully without compromising practicality.</p>
+                </div>
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Personalized Approach</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Every design is customized to suit client lifestyle and needs.</p>
+                </div>
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Quality Execution</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Premium materials, detailed workmanship, and professional supervision.</p>
+                </div>
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Transparent Process</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Clear communication, timelines, and budget planning.</p>
+                </div>
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Experienced Team</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Architects, interior designers, and execution experts working together.</p>
+                </div>
+                <div class="reveal-element">
+                    <h4 class="font-serif-premium text-xl sm:text-2xl font-light mb-3 text-primary">Client Satisfaction</h4>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">Strong focus on trust, long-term relationships, and project success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 md:py-32 bg-surface border-t border-outline-variant/40 overflow-hidden select-none">
+        <span class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary block text-center mb-12 md:mb-16">What Our Clients Say</span>
+        
+        <div class="flex overflow-hidden w-full relative group">
+            <div class="flex gap-6 md:gap-8 py-4 whitespace-nowrap animate-infinite-scroll group-hover:[animation-play-state:paused]">
+                
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "AKAR transformed our dream home beautifully. The entire journey was smooth, transparent, and completely professional."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Rohit & Sneha, Bangalore</span>
+                </div>
+                
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "The team delivered exactly what we envisioned with excellent structural detailing, smart budgeting and perfect execution."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Prakash, Mysore</span>
+                </div>
+                
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "Highly professional and premium creative team. The architectural final outcome far exceeded our native workflow expectations."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Anitha, Hubballi</span>
+                </div>
+
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "Their space management planning transformed our tight layout dimensions into a light, breathing architectural haven."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Vikram, Bangalore</span>
+                </div>
+
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "AKAR transformed our dream home beautifully. The entire journey was smooth, transparent, and completely professional."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Rohit & Sneha, Bangalore</span>
+                </div>
+                
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "The team delivered exactly what we envisioned with excellent structural detailing, smart budgeting and perfect execution."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Prakash, Mysore</span>
+                </div>
+                
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "Highly professional and premium creative team. The architectural final outcome far exceeded our native workflow expectations."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Anitha, Hubballi</span>
+                </div>
+
+                <div class="inline-block w-[18rem] sm:w-[24rem] md:w-[32rem] bg-surface-container border border-outline-variant/40 p-6 md:p-10 whitespace-normal">
+                    <p class="font-serif-premium text-base sm:text-lg md:text-xl font-light italic leading-relaxed text-on-surface/90 mb-4 md:mb-6">
+                        "Their space management planning transformed our tight layout dimensions into a light, breathing architectural haven."
+                    </p>
+                    <span class="font-sans-premium text-[10px] sm:text-xs uppercase tracking-widest text-secondary block font-medium">— Vikram, Bangalore</span>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section class="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden bg-black">
+        <div class="hidden md:block absolute inset-0 opacity-35 field-parallax" data-speed="-0.1">
+            <img class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80" alt="Pinterest high end luxury interior texture profile"/>
+        </div>
+        <div class="relative z-10 text-center text-white px-6 max-w-3xl reveal-element">
+            <h2 class="font-serif-premium text-3xl sm:text-5xl md:text-7xl font-light mb-6 tracking-wide leading-tight">Let’s Create Your Dream Space Together</h2>
+            <p class="font-sans-premium text-xs sm:text-sm tracking-wide opacity-80 font-light mb-8 md:mb-12 max-w-lg mx-auto leading-relaxed">
+                Book a free consultation with our design experts and start your project with confidence.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center w-full max-w-sm sm:max-w-none mx-auto">
+                <button class="bg-white text-black px-10 md:px-12 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-transparent hover:text-white border border-white transition-all duration-300 w-full sm:w-auto">
+                    Book Consultation
+                </button>
+                <button class="border border-white/40 text-white px-10 md:px-12 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto">
+                    Call Us
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-surface py-16 md:py-24 border-t border-outline-variant/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-8">
+        <div>
+            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface mb-4 md:mb-6">AKAR</div>
+            <p class="font-sans-premium text-xs text-on-surface/50 leading-relaxed max-w-xs font-light">
+                Redefining spatial expressions through premium architectural precision and warm minimalist execution aesthetics.
+            </p>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-4 md:mb-6">Inquiries</h6>
+            <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
+                <li><a class="hover:text-secondary transition-colors" href="#">The Studio Portfolio</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Core Capabilities</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Journal & Insights</a></li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-4 md:mb-6">Studio Location</h6>
+            <ul class="space-y-2 font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">
+                <li>123 Design Lane,</li>
+                <li>Architecture Hub, Bangalore, IN</li>
+                <li>hello@akardesign.studio</li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-4 md:mb-6">Connect</h6>
+            <div class="flex gap-6 font-sans-premium text-xs text-on-surface/60 font-light">
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">Instagram</a>
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 mt-16 md:mt-20 pt-8 border-t border-outline-variant/40 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+        <p class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/40">
+            © 2026 AKAR Design Studio. All rights reserved.
+        </p>
+        <p class="font-sans-premium text-[10px] sm:text-[11px] uppercase tracking-widest text-on-surface/40">
+            Designed with absolute luxury restraint.
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // 1. Interactive Mobile Menu System
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bodyElement = document.body;
+        
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open sliding menu panel
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                bodyElement.classList.add('overflow-hidden-mobile');
+                
+                // Transform Hamburguer Icon into clean "X" Geometry
+                line1.style.transform = "rotate(45deg) translateY(-2px)";
+                line2.style.opacity = "0";
+                line3.style.transform = "rotate(-45deg) translateY(2px)";
+            } else {
+                // Close sliding panel
+                mobileMenu.classList.remove('translate-x-0');
+                mobileMenu.classList.add('translate-x-full');
+                bodyElement.classList.remove('overflow-hidden-mobile');
+                
+                // Revert X Geometry back to Standard Hamburguer Line System
+                line1.style.transform = "none";
+                line2.style.opacity = "1";
+                line3.style.transform = "none";
+            }
+        }
+
+        menuToggleBtn.addEventListener('click', toggleMenu);
+
+        // Close mobile panel smoothly if a sub-navigation element is clicked
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+
+        // 2. Refined Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-element, .line-hide').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // 3. High-Performance Inertial Parallax Effect for Desktop viewports
+        const parallaxElements = document.querySelectorAll('.field-parallax');
+        
+        window.addEventListener('scroll', () => {
+            // Run parallax only on medium up to desktop screens to optimize rendering cycles
+            if (window.innerWidth >= 768) {
+                const scrolledY = window.pageYOffset;
+                
+                parallaxElements.forEach(element => {
+                    const speed = parseFloat(element.getAttribute('data-speed')) || 0.1;
+                    const targetTranslation = scrolledY * speed;
+                    element.style.transform = `translateY(${targetTranslation}px)`;
+                });
+            } else {
+                // Clear active transformations on dynamic resizing transitions
+                parallaxElements.forEach(element => {
+                    element.style.transform = 'none';
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

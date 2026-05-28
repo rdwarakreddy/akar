@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Our Services | AKAR Design Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#FAF9F6", /* Premium Warm Bone White */
+              "on-surface": "#111111", /* Rich Soft Black */
+              "primary": "#111111",
+              "secondary": "#8C764D", /* Muted Antique Gold */
+              "surface-container": "#F3F1EC", /* Soft Layering Tone */
+              "outline-variant": "#E5E0D8"
+            },
+            fontFamily: {
+              'serif-premium': ['Cormorant Garamond', 'serif'],
+              'sans-premium': ['Inter', 'sans-serif'],
+            }
+          },
+        },
+      }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-color: #FAF9F6;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+        }
+
+        /* Smooth Reveal Transitions matching Home page */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .line-hide {
+            overflow: hidden;
+            display: inline-block;
+        }
+        .line-rise {
+            display: inline-block;
+            transform: translateY(100%);
+            transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+        .active .line-rise {
+            transform: translateY(0);
+        }
+
+        .hover-underline {
+            position: relative;
+        }
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Prevent scroll when mobile menu is active */
+        .overflow-hidden-mobile {
+            overflow: hidden !important;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
+    <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
+        <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
+        
+        <div class="hidden lg:flex items-center gap-10">
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="index.html">Home</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-primary font-medium border-b border-primary/40 pb-1" href="services.html">Service</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="Budgetplanner.html">Budget Planner</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="about.html">About Us</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="hidden lg:block">
+            <button class="border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                Get a Quotation
+            </button>
+        </div>
+
+        <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none" aria-label="Toggle navigation menu">
+            <div class="w-6 h-5 relative flex flex-col justify-between overflow-hidden">
+                <span id="line1" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+                <span id="line2" class="w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
+                <span id="line3" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+            </div>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+        <div class="flex flex-col gap-6">
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="index.html">Home</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-primary font-medium transition-colors" href="services.html">Service</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="about.html">About Us</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
+            <button class="w-full bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                Get a Quotation
+            </button>
+            <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
+                <a href="#">Instagram</a>
+                <span>—</span>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="pt-24">
+    <section class="py-24 md:py-32 px-6 sm:px-8 md:px-16 max-w-7xl mx-auto border-b border-outline-variant/30">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start active">
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-3 mb-4 reveal-element active">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <span class="font-sans-premium text-xs uppercase tracking-[0.4em] text-secondary font-medium">Core Capabilities</span>
+                </div>
+                <h1 class="font-serif-premium text-4xl sm:text-5xl md:text-7xl font-light tracking-tight line-hide mb-2">
+                    <span class="line-rise">Architectural Design &</span><br>
+                    <span class="line-rise italic font-normal text-secondary">Turnkey Discipline.</span>
+                </h1>
+            </div>
+            <div class="lg:col-span-5 lg:pt-12">
+                <p class="font-sans-premium text-sm text-on-surface/60 font-light tracking-wide leading-relaxed reveal-element active mb-6">
+                    We offer structured design methodologies across premium spaces. Select an administrative blueprint type below to view localized scopes of action and evaluate direct project pricing parameters.
+                </p>
+                <div class="flex flex-wrap gap-2 pt-2 reveal-element active">
+                    <a href="#architecture" class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">01 / Architecture</a>
+                    <a href="#interior" class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">02 / Interior</a>
+                    <a href="#turnkey" class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">03 / Turnkey</a>
+                    <a href="#commercial" class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">04 / Commercial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-surface relative">
+        <div class="px-6 sm:px-8 md:px-16 max-w-7xl mx-auto space-y-48">
+            
+            <div id="architecture" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-5 reveal-element">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="font-serif-premium text-sm italic text-secondary">01 /</span>
+                        <span class="font-sans-premium text-[11px] font-medium uppercase tracking-[0.3em] text-secondary">Spatial Frameworks</span>
+                    </div>
+                    <h2 class="font-serif-premium text-3xl md:text-5xl font-light mb-6 tracking-wide text-primary">Architecture Design</h2>
+                    <p class="font-sans-premium text-sm text-on-surface/70 leading-relaxed font-light mb-8">
+                        Modern architectural solutions focused on functionality, aesthetics, sustainability, and efficient space planning.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8 bg-surface-container/60 p-6 border-l-2 border-secondary">
+                        <span class="font-sans-premium text-[10px] uppercase tracking-[0.2em] text-on-surface/40 block">Blueprints Included</span>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-serif-premium text-base text-on-surface/90">
+                            <li class="flex items-center gap-2">Floor Planning</li>
+                            <li class="flex items-center gap-2">Elevation Design</li>
+                            <li class="flex items-center gap-2">3D Visualization</li>
+                            <li class="flex items-center gap-2">Working Drawings</li>
+                            <li class="flex items-center gap-2 sm:col-span-2">Structural Coordination</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="Budgetplanner.html" class="inline-flex items-center justify-between w-full sm:w-auto gap-8 bg-primary text-surface px-6 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 group">
+                        <span>Estimate Architecture Budget</span>
+                        <span class="material-symbols-outlines text-xs font-light group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                </div>
+
+                <div class="lg:col-span-7 grid grid-cols-12 gap-4 relative">
+                    <div class="col-span-12 sm:col-span-8 overflow-hidden bg-surface-container aspect-[4/5] shadow-sm reveal-element">
+                        <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Architecture structural execution layout" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"/>
+                    </div>
+                    <div class="col-span-4 self-end overflow-hidden bg-surface-container aspect-[3/4] shadow-md relative -left-8 md:-left-16 bottom-8 border-4 border-surface hidden sm:block reveal-element">
+                        <img class="w-full h-full object-cover" alt="Minimal concrete details" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80"/>
+                    </div>
+                </div>
+            </div>
+
+            <div id="interior" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 lg:order-2 lg:col-start-7 reveal-element">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="font-serif-premium text-sm italic text-secondary">02 /</span>
+                        <span class="font-sans-premium text-[11px] font-medium uppercase tracking-[0.3em] text-secondary">Materialization</span>
+                    </div>
+                    <h2 class="font-serif-premium text-3xl md:text-5xl font-light mb-6 tracking-wide text-primary">Interior Design</h2>
+                    <p class="font-sans-premium text-sm text-on-surface/70 leading-relaxed font-light mb-8">
+                        Elegant interior spaces designed with creativity, comfort, and lifestyle-focused functionality.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 pb-8 mb-8 border-b border-outline-variant/60">
+                        <div>
+                            <span class="font-sans-premium text-[10px] uppercase text-on-surface/40 tracking-wider block mb-2">Aesthetic Planning</span>
+                            <ul class="font-serif-premium text-base text-on-surface/80 space-y-1">
+                                <li>Space Planning</li>
+                                <li>Furniture Layouts</li>
+                                <li>Material Selection</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="font-sans-premium text-[10px] uppercase text-on-surface/40 tracking-wider block mb-2">Technical Systematics</span>
+                            <ul class="font-serif-premium text-base text-on-surface/80 space-y-1">
+                                <li>Lighting Design</li>
+                                <li>False Ceiling Design</li>
+                                <li>Color Themes</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="Budgetplanner.html" class="inline-flex items-center justify-between w-full sm:w-auto gap-8 bg-transparent border border-primary text-primary px-6 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300 group">
+                        <span>Calculate Interior Fitting Cost</span>
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div class="lg:col-span-6 lg:order-1 relative overflow-hidden bg-surface-container aspect-[16/11] reveal-element">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" alt="Interior Design luxury workspace furniture setup" src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80"/>
+                    <div class="absolute right-4 bottom-4 bg-surface text-primary font-sans-premium text-[10px] tracking-widest px-4 py-2 border border-outline-variant/30">MODULE // 02</div>
+                </div>
+            </div>
+
+            <div id="turnkey" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-4 reveal-element">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="font-serif-premium text-sm italic text-secondary">03 /</span>
+                        <span class="font-sans-premium text-[11px] font-medium uppercase tracking-[0.3em] text-secondary">End-to-End Handover</span>
+                    </div>
+                    <h2 class="font-serif-premium text-3xl md:text-5xl font-light mb-6 tracking-wide text-primary">Turnkey Execution</h2>
+                    <p class="font-sans-premium text-sm text-on-surface/70 leading-relaxed font-light mb-8">
+                        Complete end-to-end project execution managed by our expert team for hassle-free delivery. We absorb complete vendor risk management.
+                    </p>
+
+                    <a href="Budgetplanner.html" class="inline-flex items-center justify-between w-full gap-4 bg-primary text-surface px-6 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 group">
+                        <span>Launch Full Turnkey Planner</span>
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-surface-container p-8 border border-outline-variant/40 flex flex-col justify-between aspect-square reveal-element">
+                        <div class="font-serif-premium text-xl text-secondary">Structural Works</div>
+                        <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed my-4">
+                            All complex masonry, civil changes, electrical rewiring, lighting arrays, and absolute premium plumbing implementation pipelines.
+                        </p>
+                        <span class="text-xs font-sans-premium tracking-widest text-primary/30">CIVIL & UTILITY</span>
+                    </div>
+
+                    <div class="bg-surface-container p-8 border border-outline-variant/40 flex flex-col justify-between aspect-square reveal-element">
+                        <div class="font-serif-premium text-xl text-secondary">Artisanal Fit-Outs</div>
+                        <p class="font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed my-4">
+                            Premium customized carpentry, fine wall treatments, precise furniture fabrication, and careful on-site technical supervision modules.
+                        </p>
+                        <span class="text-xs font-sans-premium tracking-widest text-primary/30">CARPENTRY & TIMBER</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="commercial" class="scroll-mt-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 lg:order-2 lg:col-start-8 reveal-element">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="font-serif-premium text-sm italic text-secondary">04 /</span>
+                        <span class="font-sans-premium text-[11px] font-medium uppercase tracking-[0.3em] text-secondary">Brand Ecosystems</span>
+                    </div>
+                    <h2 class="font-serif-premium text-3xl md:text-5xl font-light mb-6 tracking-wide text-primary">Commercial Design</h2>
+                    <p class="font-sans-premium text-sm text-on-surface/70 leading-relaxed font-light mb-8">
+                        Professional office and retail interiors that enhance productivity, customer experience, and brand identity.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1 bg-surface-container text-xs font-sans-premium font-light text-on-surface/80">Office Interiors</span>
+                        <span class="px-3 py-1 bg-surface-container text-xs font-sans-premium font-light text-on-surface/80">Retail Stores</span>
+                        <span class="px-3 py-1 bg-surface-container text-xs font-sans-premium font-light text-on-surface/80">Cafes & Restaurants</span>
+                        <span class="px-3 py-1 bg-surface-container text-xs font-sans-premium font-light text-on-surface/80">Workspace Planning</span>
+                    </div>
+
+                    <a href="Budgetplanner.html" class="inline-flex items-center justify-between w-full sm:w-auto gap-8 bg-transparent border-b-2 border-primary text-primary py-2 font-sans-premium text-xs uppercase tracking-widest hover:text-secondary hover:border-secondary transition-all duration-300 group">
+                        <span>Configure Corporate Budget Metrics</span>
+                        <span>→</span>
+                    </a>
+                </div>
+
+                <div class="lg:col-span-6 lg:order-1 overflow-hidden bg-surface-container aspect-[4/3] reveal-element">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100" alt="Commercial interior showroom architecture layout" src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80"/>
+                </div>
+            </div>
+
+            <div class="scroll-mt-32 bg-surface-container p-8 md:p-16 border border-outline-variant/60 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center reveal-element">
+                <div class="lg:col-span-7">
+                    <span class="font-sans-premium text-[11px] font-medium uppercase tracking-[0.3em] text-secondary block mb-2">05 / Retrofitting</span>
+                    <h3 class="font-serif-premium text-2xl md:text-4xl font-light text-primary mb-4">Renovation & Remodeling</h3>
+                    <p class="font-sans-premium text-sm text-on-surface/70 font-light leading-relaxed max-w-xl">
+                        Upgrade existing spaces with modern aesthetics, improved functionality, and efficient structural restoration planning.
+                    </p>
+                </div>
+                <div class="lg:col-span-5 lg:justify-self-end w-full lg:w-auto">
+                    <a href="Budgetplanner.html" class="inline-flex items-center justify-center w-full bg-primary text-surface px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                        <span>Analyze Remodeling Budget</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-32 bg-surface-container border-t border-b border-outline-variant/40">
+        <div class="px-6 sm:px-8 md:px-16 max-w-5xl mx-auto text-center reveal-element">
+            <span class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary block mb-4">Methodology</span>
+            <h2 class="font-serif-premium text-4xl md:text-6xl font-light mb-6 text-primary">How We Work</h2>
+            <p class="font-sans-premium text-sm md:text-base text-on-surface/70 font-light leading-relaxed max-w-2xl mx-auto mb-10">
+                From initial consultation to final handover, our streamlined process ensures quality, transparency, and timely execution.
+            </p>
+            <a class="inline-block bg-primary text-surface px-10 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 shadow-sm" href="index.html#process">
+                Explore Our Process
+            </a>
+        </div>
+    </section>
+
+    <section class="py-32 bg-surface relative overflow-hidden">
+        <div class="absolute right-0 bottom-0 opacity-[0.03] select-none pointer-events-none translate-x-10 translate-y-10">
+            <span class="font-serif-premium text-[20rem] font-light leading-none">AKAR</span>
+        </div>
+        <div class="px-6 sm:px-8 md:px-16 max-w-4xl mx-auto text-center relative z-10 reveal-element">
+            <h2 class="font-serif-premium text-3xl md:text-5xl font-light mb-4 text-primary">Need Help Choosing the Right Service?</h2>
+            <p class="font-sans-premium text-xs md:text-sm text-on-surface/60 font-light tracking-wide max-w-xl mx-auto mb-12">
+                Talk with our design experts to find the perfect solution for your project and budget.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button class="w-full sm:w-auto bg-primary text-surface px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                    Get Free Consultation
+                </button>
+                <button class="w-full sm:w-auto border border-primary/40 text-primary px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                    Call Now
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-surface py-24 border-t border-outline-variant/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <div>
+            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface mb-6">AKAR</div>
+            <p class="font-sans-premium text-xs text-on-surface/50 leading-relaxed max-w-xs font-light">
+                Redefining spatial expressions through premium architectural precision and warm minimalist execution aesthetics.
+            </p>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Inquiries</h6>
+            <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
+                <li><a class="hover:text-secondary transition-colors" href="#">The Studio Portfolio</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Core Capabilities</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Journal & Insights</a></li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Studio Location</h6>
+            <ul class="space-y-2 font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">
+                <li>123 Design Lane,</li>
+                <li>Architecture Hub, Bangalore, IN</li>
+                <li>hello@akardesign.studio</li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Connect</h6>
+            <div class="flex gap-6 font-sans-premium text-xs text-on-surface/60 font-light">
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">Instagram</a>
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 mt-20 pt-8 border-t border-outline-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+            © 2026 AKAR Design Studio. All rights reserved.
+        </p>
+        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+            Designed with absolute luxury restraint.
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // 1. Interactive Mobile Menu System
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const bodyElement = document.body;
+        
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                bodyElement.classList.add('overflow-hidden-mobile');
+                
+                line1.style.transform = "rotate(45deg) translateY(-2px)";
+                line2.style.opacity = "0";
+                line3.style.transform = "rotate(-45deg) translateY(2px)";
+            } else {
+                mobileMenu.classList.remove('translate-x-0');
+                mobileMenu.classList.add('translate-x-full');
+                bodyElement.classList.remove('overflow-hidden-mobile');
+                
+                line1.style.transform = "none";
+                line2.style.opacity = "1";
+                line3.style.transform = "none";
+            }
+        }
+
+        if (menuToggleBtn && mobileMenu) {
+            menuToggleBtn.addEventListener('click', toggleMenu);
+        }
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if(isMenuOpen) toggleMenu();
+            });
+        });
+
+        // 2. Refined Intersection Observer for Scroll Reveal Animations
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-element, .line-hide').forEach(el => {
+            revealObserver.observe(el);
+        });
+    });
+</script>
+</body>
+</html>

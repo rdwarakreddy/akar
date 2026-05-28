@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Smart Budget Planner | AKAR Design Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#FAF9F6",
+              "on-surface": "#111111",
+              "primary": "#111111",
+              "secondary": "#8C764D",
+              "surface-container": "#F3F1EC",
+              "outline-variant": "#E5E0D8"
+            },
+            fontFamily: {
+              'serif-premium': ['Cormorant Garamond', 'serif'],
+              'sans-premium': ['Inter', 'sans-serif'],
+            }
+          },
+        },
+      }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF9F6;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FAF9F6; }
+        ::-webkit-scrollbar-thumb { background: #111111; }
+
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hover-underline {
+            position: relative;
+        }
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Smooth dynamic dropdown animations */
+        .custom-dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+        }
+        .custom-dropdown-container.active .custom-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .custom-dropdown-container.active .chevron-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
+    <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
+        <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
+        
+        <div class="hidden lg:flex items-center gap-10">
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="index.html">Home</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="services.html">Services</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="Budgetplanner.html">Budget Planner</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="about.html">About Us</a>
+            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="hidden lg:block">
+            <button class="border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                Get a Quotation
+            </button>
+        </div>
+
+        <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none" aria-label="Toggle navigation menu">
+            <div class="w-6 h-5 relative flex flex-col justify-between overflow-hidden">
+                <span id="line1" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+                <span id="line2" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
+                <span id="line3" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+            </div>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+        <div class="flex flex-col gap-6">
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="index.html">Home</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="services.html">Services</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="about.html">About Us</a>
+            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="contactus.html">Contact Us</a>
+        </div>
+        
+        <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
+            <button class="w-full bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                Get a Quotation
+            </button>
+            <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
+                <a href="#">Instagram</a>
+                <span>—</span>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="pt-24">
+    <section class="py-20 md:py-28 px-8 md:px-16 max-w-7xl mx-auto border-b border-outline-variant/30">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            <div class="lg:col-span-7">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <span class="font-sans-premium text-xs uppercase tracking-[0.4em] text-secondary font-medium">Algorithmic Estimation</span>
+                </div>
+                <h1 class="font-serif-premium text-5xl md:text-7xl font-light tracking-tight mb-2">
+                    Smart Budget <span class="italic font-normal text-secondary">Planner.</span>
+                </h1>
+                <p class="font-sans-premium text-sm md:text-base text-on-surface/60 font-light tracking-wide mt-4">
+                    Get an estimated project budget instantly based on your requirements.
+                </p>
+            </div>
+            <div class="lg:col-span-5 lg:pt-12 bg-surface-container/50 p-8 border border-outline-variant/40">
+                <h3 class="font-serif-premium text-2xl font-light text-primary mb-3">Plan Your Dream Project Smarter</h3>
+                <p class="font-sans-premium text-xs md:text-sm text-on-surface/70 font-light leading-relaxed">
+                    Our intelligent budget planner helps you estimate project costs based on project type, built-up area, finish quality, and execution scope. The estimate updates dynamically as choices alter.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-8 md:px-16 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            
+            <form id="plannerForm" class="lg:col-span-6 space-y-12" onsubmit="return false;">
+                
+                <div class="space-y-4">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>01 /</span> Project Location Parameters
+                    </h2>
+                    <div class="space-y-2">
+                        <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Project Location / City Zone</label>
+                        
+                        <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                            <input type="hidden" id="location" value="metro">
+                            <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                <span class="selected-text">Tier 1 Metro (Bangalore, Mumbai, Delhi NCR)</span>
+                                <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                </svg>
+                            </button>
+                            <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                <div data-value="metro" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Tier 1 Metro (Bangalore, Mumbai, Delhi NCR)</div>
+                                <div data-value="tier2" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Tier 2 Hubs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>02 /</span> Project Information Specifications
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Project Blueprint Type</label>
+                            
+                            <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                                <input type="hidden" id="projectType" value="villa">
+                                <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                    <span class="selected-text">Villa Portfolio</span>
+                                    <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                    </svg>
+                                </button>
+                                <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                    <div data-value="villa" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Villa Portfolio</div>
+                                    <div data-value="apartment" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Premium Apartment</div>
+                                    <div data-value="commercial" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Commercial Complex</div>
+                                    <div data-value="office" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Corporate Office Space</div>
+                                    <div data-value="interior" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Interior Only Execution</div>
+                                    <div data-value="turnkey" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Turnkey Project Solution</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Built-Up Footprint Area</label>
+                            
+                            <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                                <input type="hidden" id="areaRange" value="1500">
+                                <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                    <span class="selected-text">1000 – 2000 sq.ft.</span>
+                                    <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                    </svg>
+                                </button>
+                                <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                    <div data-value="750" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">500 – 1000 sq.ft.</div>
+                                    <div data-value="1500" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">1000 – 2000 sq.ft.</div>
+                                    <div data-value="3000" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">2000 – 4000 sq.ft.</div>
+                                    <div data-value="custom" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Specify Custom Area Size</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="customAreaBox" class="pt-2 hidden transition-all duration-300">
+                        <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-secondary mb-1">Enter Exact Custom Square Footage</label>
+                        <input type="number" id="customAreaInput" value="1500" min="100" class="w-full border-t-0 border-r-0 border-l-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2 px-0"/>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>03 /</span> Materialization & Workflow Scope
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Finishing Standard Palette</label>
+                            
+                            <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                                <input type="hidden" id="finishing" value="premium">
+                                <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                    <span class="selected-text">Premium Editorial Grade</span>
+                                    <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                    </svg>
+                                </button>
+                                <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                    <div data-value="basic" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Basic Minimal Framework</div>
+                                    <div data-value="premium" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Premium Editorial Grade</div>
+                                    <div data-value="luxury" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Luxury Bespoke Atelier</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Operational Project Scope</label>
+                            
+                            <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                                <input type="hidden" id="scope" value="turnkey">
+                                <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                    <span class="selected-text">Turnkey Handover Infrastructure</span>
+                                    <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                    </svg>
+                                </button>
+                                <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                    <div data-value="design" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Design Consultation Only</div>
+                                    <div data-value="execution" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Design + Active Execution Workflow</div>
+                                    <div data-value="turnkey" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Turnkey Handover Infrastructure</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>04 /</span> Logistics Allocation
+                    </h2>
+                    <div class="space-y-2">
+                        <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Timeline Schedule Preference</label>
+                        
+                        <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
+                            <input type="hidden" id="timeline" value="standard">
+                            <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
+                                <span class="selected-text">Standard Structural Flow</span>
+                                <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin='round' stroke-width='1.5' d='M19 9l-7 7-7-7'/>
+                                </svg>
+                            </button>
+                            <div class="custom-dropdown-menu absolute left-0 w-full z-30 bg-surface-container border border-outline-variant/60 shadow-lg mt-1 divide-y divide-outline-variant/30 max-h-60 overflow-y-auto">
+                                <div data-value="standard" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Standard Structural Flow</div>
+                                <div data-value="fasttrack" class="dropdown-item px-4 py-3 text-xs md:text-sm font-sans-premium font-light text-on-surface hover:bg-outline-variant/30 cursor-pointer transition-colors">Fast Track High-Velocity Delivery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>05 /</span> Additional Custom Tailoring
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="modularKitchen" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Modular Kitchen Arrays</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="smartHome" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Smart Home Automation</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="landscape" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Landscape Spatial Design</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="customFurniture" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Custom Furniture Crafting</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="falseCeiling" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Geometric False Ceilings</span>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
+                            <input type="checkbox" value="lighting" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <span class="font-sans-premium text-xs font-light text-on-surface/80">Premium Studio Lighting</span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+
+            <div class="lg:col-span-6 lg:sticky lg:top-32 space-y-10 bg-surface-container p-8 md:p-12 border border-outline-variant">
+                
+                <div class="border-b border-outline-variant/60 pb-8">
+                    <span class="font-sans-premium text-[10px] uppercase tracking-[0.3em] text-secondary block mb-2">Estimated Budget Range</span>
+                    <p class="font-sans-premium text-xs text-on-surface/60 font-light mb-4">Based on your selected requirements, your estimated project budget is:</p>
+                    <div id="budgetDisplay" class="font-serif-premium text-4xl md:text-5xl tracking-wide text-primary transition-all duration-300">
+                        ₹28.5 Lakhs – ₹42.8 Lakhs
+                    </div>
+                    <p class="font-sans-premium text-[11px] text-on-surface/40 font-light italic leading-relaxed mt-5">
+                        * Disclaimer: This is an approximate estimate. Final pricing may vary depending on materials, site conditions, design complexity, and customization parameters.
+                    </p>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-sans-premium text-xs uppercase tracking-widest text-primary font-medium">Visual Cost Distribution Metric</h4>
+                    <div class="space-y-4" id="visualProgressBarContainer">
+                        </div>
+                </div>
+
+                <div class="pt-2">
+                    <h4 class="font-sans-premium text-xs uppercase tracking-widest text-primary font-medium mb-4">Budget Breakdown</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left font-sans-premium text-xs">
+                            <thead>
+                                <tr class="border-b border-outline-variant text-on-surface/40 uppercase tracking-wider">
+                                    <th class="py-3 font-light">Category Segment</th>
+                                    <th class="py-3 text-center font-light">Percentage Allocation</th>
+                                    <th class="py-3 text-right font-light">Estimated Cost Value</th>
+                                </tr>
+                            </thead>
+                            <tbody id="breakdownTableBody" class="divide-y divide-outline-variant/30 text-on-surface/80 font-light">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-surface border-t border-b border-outline-variant/40">
+        <div class="max-w-7xl mx-auto px-8 md:px-16">
+            <div class="text-center max-w-xl mx-auto mb-16">
+                <span class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary block mb-2">Reference Framework Metrics</span>
+                <h2 class="font-serif-premium text-3xl md:text-5xl font-light text-primary tracking-wide">Base Price Estimator Guide</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="border border-outline-variant/50 p-6 bg-surface-container/30">
+                    <div class="font-sans-premium text-xs uppercase tracking-widest text-secondary mb-2">Residential Construction</div>
+                    <div class="font-serif-premium text-2xl font-light text-primary">₹1,800 – ₹3,200 <span class="text-xs text-on-surface/40 font-sans-premium">/ sq.ft.</span></div>
+                </div>
+                <div class="border border-outline-variant/50 p-6 bg-surface-container/30">
+                    <div class="font-sans-premium text-xs uppercase tracking-widest text-secondary mb-2">Interior Design Suite</div>
+                    <div class="font-serif-premium text-2xl font-light text-primary">₹900 – ₹2,000 <span class="text-xs text-on-surface/40 font-sans-premium">/ sq.ft.</span></div>
+                </div>
+                <div class="border border-outline-variant/50 p-6 bg-surface-container/30">
+                    <div class="font-sans-premium text-xs uppercase tracking-widest text-secondary mb-2">Commercial Spaces</div>
+                    <div class="font-serif-premium text-2xl font-light text-primary">₹2,000 – ₹3,500 <span class="text-xs text-on-surface/40 font-sans-premium">/ sq.ft.</span></div>
+                </div>
+                <div class="border border-outline-variant/50 p-6 bg-surface-container/30">
+                    <div class="font-sans-premium text-xs uppercase tracking-widest text-secondary mb-2">Turnkey Projects</div>
+                    <div class="font-serif-premium text-2xl font-light text-primary">₹2,500 – ₹4,500+ <span class="text-xs text-on-surface/40 font-sans-premium">/ sq.ft.</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-28 bg-surface-container text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.02] select-none pointer-events-none text-right flex items-end justify-end translate-x-20 translate-y-20">
+            <span class="font-serif-premium text-[25rem] font-light leading-none">AKAR</span>
+        </div>
+        <div class="max-w-4xl mx-auto px-8 relative z-10">
+            <h2 class="font-serif-premium text-4xl md:text-6xl font-light mb-6 tracking-wide text-primary">Want an Accurate Detailed Proposal?</h2>
+            <p class="font-sans-premium text-sm md:text-base text-on-surface/60 font-light max-w-2xl mx-auto leading-relaxed mb-12">
+                Book a free consultation with our experts for a customized quotation and project planning session.
+            </p>
+            <button class="bg-primary text-surface px-12 py-5 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 shadow-md">
+                Book Free Consultation
+            </button>
+        </div>
+    </section>
+</main>
+
+<footer class="bg-surface py-24 border-t border-outline-variant/60">
+    <div class="max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <div>
+            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface mb-6">AKAR</div>
+            <p class="font-sans-premium text-xs text-on-surface/50 leading-relaxed max-w-xs font-light">
+                Redefining spatial expressions through premium architectural precision and warm minimalist execution aesthetics.
+            </p>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Inquiries</h6>
+            <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
+                <li><a class="hover:text-secondary transition-colors" href="#">The Studio Portfolio</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Core Capabilities</a></li>
+                <li><a class="hover:text-secondary transition-colors" href="#">Journal & Insights</a></li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Studio Location</h6>
+            <ul class="space-y-2 font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">
+                <li>123 Design Lane,</li>
+                <li>Architecture Hub, Bangalore, IN</li>
+                <li>hello@akardesign.studio</li>
+            </ul>
+        </div>
+        <div>
+            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Connect</h6>
+            <div class="flex gap-6 font-sans-premium text-xs text-on-surface/60 font-light">
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">Instagram</a>
+                <a class="hover:text-secondary hover-underline transition-colors" href="#">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-8 md:px-16 mt-20 pt-8 border-t border-outline-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+            © 2026 AKAR Design Studio. All rights reserved.
+        </p>
+        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+            Designed with absolute luxury restraint.
+        </p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const areaRange = document.getElementById("areaRange");
+        const customAreaBox = document.getElementById("customAreaBox");
+        const customAreaInput = document.getElementById("customAreaInput");
+
+        // --- Mobile Menu Toggle Implementation ---
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const line1 = document.getElementById('line1');
+        const line2 = document.getElementById('line2');
+        const line3 = document.getElementById('line3');
+        let isMenuOpen = false;
+
+        if (menuToggleBtn && mobileMenu) {
+            menuToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isMenuOpen = !isMenuOpen;
+                
+                // Animate Slide In/Out panel
+                mobileMenu.style.transform = isMenuOpen ? 'translateX(0)' : 'translateX(100%)';
+                
+                // Morph hamburger lines into clean studio close vector
+                line1.style.transform = isMenuOpen ? 'rotate(45deg) translateY(6px)' : 'none';
+                line2.style.opacity = isMenuOpen ? '0' : '1';
+                line3.style.transform = isMenuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none';
+            });
+
+            // Auto close mobile layer if link inside is selected
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    mobileMenu.style.transform = 'translateX(100%)';
+                    line1.style.transform = 'none';
+                    line2.style.opacity = '1';
+                    line3.style.transform = 'none';
+                });
+            });
+        }
+
+        // Custom Dropdown Menu Controller Framework
+        document.querySelectorAll('.custom-dropdown-trigger').forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const currentContainer = trigger.parentElement;
+                
+                // Close other open components
+                document.querySelectorAll('.custom-dropdown-container').forEach(container => {
+                    if (container !== currentContainer) container.classList.remove('active');
+                });
+                
+                currentContainer.classList.toggle('active');
+            });
+        });
+
+        // Dropdown Option Item Selection Handling Matrix
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const container = item.closest('.custom-dropdown-container');
+                const hiddenInput = container.querySelector('input[type="hidden"]');
+                const labelSpan = container.querySelector('.selected-text');
+                
+                const selectedValue = item.getAttribute('data-value');
+                const selectedText = item.innerText;
+
+                // Sync custom structures with form processing states
+                hiddenInput.value = selectedValue;
+                labelSpan.innerText = selectedText;
+                
+                container.classList.remove('active');
+
+                // Fire recalculation engine sequence 
+                runLiveCalculation();
+            });
+        });
+
+        // Close dropdown layers when viewport outside perimeter is registered
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-dropdown-container').forEach(container => {
+                container.classList.remove('active');
+            });
+        });
+
+        // Mathematical cost weighting metrics parameters
+        const baseMatrixRates = {
+            villa: { min: 2200, max: 3500 },
+            apartment: { min: 1800, max: 2800 },
+            commercial: { min: 2000, max: 3500 },
+            office: { min: 2200, max: 3200 },
+            interior: { min: 900, max: 2000 },
+            turnkey: { min: 2500, max: 4500 }
+        };
+
+        const allocationPercentages = [
+            { name: "Civil Construction", key: "civil", pct: 45, color: "#8C764D" },
+            { name: "Interior Works", key: "interior", pct: 25, color: "#A39274" },
+            { name: "Electrical & Plumbing", key: "electric", pct: 10, color: "#111111" },
+            { name: "Furniture & Decor", key: "furniture", pct: 10, color: "#BDB099" },
+            { name: "Design & Consultation", key: "design", pct: 5, color: "#4A4A4A" },
+            { name: "Contingency", key: "misc", pct: 5, color: "#E5E0D8" }
+        ];
+
+        function formatLakhs(value) {
+            let lakhs = value / 100000;
+            return `₹${lakhs.toFixed(1)} Lakhs`;
+        }
+
+        function runLiveCalculation() {
+            // Determine structural layout size
+            let areaSize = parseInt(areaRange.value);
+            if (areaRange.value === "custom") {
+                customAreaBox.classList.remove("hidden");
+                areaSize = parseInt(customAreaInput.value) || 0;
+            } else {
+                customAreaBox.classList.add("hidden");
+            }
+
+            // Target base project rates metrics
+            const selectedType = document.getElementById("projectType").value;
+            let rates = baseMatrixRates[selectedType] || baseMatrixRates.apartment;
+
+            let calculatedMin = rates.min * areaSize;
+            let calculatedMax = rates.max * areaSize;
+
+            // Factor Location Parameters Modifier Matrix
+            if (document.getElementById("location").value === "metro") {
+                calculatedMin *= 1.15;
+                calculatedMax *= 1.20;
+            }
+
+            // Factor Finishing Standard Modifiers Pipeline Arrays
+            const finish = document.getElementById("finishing").value;
+            if (finish === "basic") { calculatedMin *= 0.85; calculatedMax *= 0.90; }
+            if (finish === "luxury") { calculatedMin *= 1.40; calculatedMax *= 1.65; }
+
+            // Factor Scope Modifiers
+            const scope = document.getElementById("scope").value;
+            if (scope === "design") { calculatedMin *= 0.15; calculatedMax *= 0.15; }
+            if (scope === "execution") { calculatedMin *= 0.85; calculatedMax *= 0.85; }
+
+            // Factor Time-Schedules Priority Adders Modifiers
+            if (document.getElementById("timeline").value === "fasttrack") {
+                calculatedMin *= 1.10;
+                calculatedMax *= 1.12;
+            }
+
+            // Evaluate Accumulator Additional Dynamic Checklist Items
+            let flatAddonCost = 0;
+            document.querySelectorAll(".addon-checkbox:checked").forEach((checkbox) => {
+                if (checkbox.value === "modularKitchen") flatAddonCost += 250000;
+                if (checkbox.value === "smartHome") flatAddonCost += 350000;
+                if (checkbox.value === "landscape") flatAddonCost += 200000;
+                if (checkbox.value === "customFurniture") flatAddonCost += 400000;
+                if (checkbox.value === "falseCeiling") flatAddonCost += 150000;
+                if (checkbox.value === "lighting") flatAddonCost += 180000;
+            });
+
+            calculatedMin += flatAddonCost;
+            calculatedMax += flatAddonCost;
+
+            // Display Render Dynamic Output Logic Canvas
+            document.getElementById("budgetDisplay").innerText = `${formatLakhs(calculatedMin)} – ${formatLakhs(calculatedMax)}`;
+
+            // Populate Breakdown Tables and Dynamic UI Progress Indicators
+            const averageMidpointBudget = (calculatedMin + calculatedMax) / 2;
+            const tableBody = document.getElementById("breakdownTableBody");
+            const visualProgressContainer = document.getElementById("visualProgressBarContainer");
+            
+            tableBody.innerHTML = "";
+            visualProgressContainer.innerHTML = "";
+
+            allocationPercentages.forEach((segment) => {
+                const segmentCost = (averageMidpointBudget * segment.pct) / 100;
+                
+                // Construct Table Matrix View Components
+                const row = document.createElement("tr");
+                row.className = "hover:bg-surface-container transition-colors";
+                row.innerHTML = `
+                    <td class="py-3 font-normal text-on-surface">${segment.name}</td>
+                    <td class="py-3 text-center text-secondary font-medium">${segment.pct}%</td>
+                    <td class="py-3 text-right text-primary font-medium">${formatLakhs(segmentCost)}</td>
+                `;
+                tableBody.appendChild(row);
+
+                // Construct Graphics Canvas Bar Representation Modules
+                const progressWidget = document.createElement("div");
+                progressWidget.className = "space-y-1.5";
+                progressWidget.innerHTML = `
+                    <div class="flex justify-between text-[11px] font-sans-premium text-on-surface/70">
+                        <span>${segment.name}</span>
+                        <span>${segment.pct}%</span>
+                    </div>
+                    <div class="w-full bg-outline-variant/40 h-[4px]">
+                        <div class="h-full transition-all duration-700" style="width: ${segment.pct}%; background-color: ${segment.color}"></div>
+                    </div>
+                `;
+                visualProgressContainer.appendChild(progressWidget);
+            });
+        }
+
+        // Event hooks for non-dropdown nodes
+        document.querySelectorAll(".addon-checkbox").forEach(box => box.addEventListener("change", runLiveCalculation));
+        customAreaInput.addEventListener("input", runLiveCalculation);
+
+        // Run instantiation routine on page load parameters trigger
+        runLiveCalculation();
+    });
+</script>
+</body>
+</html>
