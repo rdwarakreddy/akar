@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght=200;300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -167,7 +167,12 @@
     <section class="py-20 px-8 md:px-16 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
-            <form id="plannerForm" class="lg:col-span-6 space-y-12" onsubmit="return false;">
+            <form id="plannerForm" class="lg:col-span-6 space-y-12">
+                <input type="hidden" name="access_key" value="f0e931f9-63bf-4311-a614-04f9891d5a90">
+                <input type="hidden" name="subject" value="New Project Budget Estimation - AKAR Design Studio">
+                <input type="hidden" name="from_name" value="AKAR Budget Planner">
+                
+                <input type="hidden" id="calculated_budget_range" name="Estimated Budget Range" value="">
                 
                 <div class="space-y-4">
                     <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
@@ -177,7 +182,7 @@
                         <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Project Location / City Zone</label>
                         
                         <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                            <input type="hidden" id="location" value="metro">
+                            <input type="hidden" id="location" name="Location Zone" value="metro">
                             <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                 <span class="selected-text">Tier 1 Metro (Bangalore, Mumbai, Delhi NCR)</span>
                                 <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -202,7 +207,7 @@
                             <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Project Blueprint Type</label>
                             
                             <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                                <input type="hidden" id="projectType" value="villa">
+                                <input type="hidden" id="projectType" name="Project Type" value="villa">
                                 <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                     <span class="selected-text">Villa Portfolio</span>
                                     <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -224,7 +229,7 @@
                             <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Built-Up Footprint Area</label>
                             
                             <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                                <input type="hidden" id="areaRange" value="1500">
+                                <input type="hidden" id="areaRange" name="Area Range Standard" value="1500">
                                 <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                     <span class="selected-text">1000 – 2000 sq.ft.</span>
                                     <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -243,7 +248,7 @@
 
                     <div id="customAreaBox" class="pt-2 hidden transition-all duration-300">
                         <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-secondary mb-1">Enter Exact Custom Square Footage</label>
-                        <input type="number" id="customAreaInput" value="1500" min="100" class="w-full border-t-0 border-r-0 border-l-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2 px-0"/>
+                        <input type="number" id="customAreaInput" name="Custom Square Footage" value="1500" min="100" class="w-full border-t-0 border-r-0 border-l-0 border-b border-primary/40 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2 px-0"/>
                     </div>
                 </div>
 
@@ -256,7 +261,7 @@
                             <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Finishing Standard Palette</label>
                             
                             <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                                <input type="hidden" id="finishing" value="premium">
+                                <input type="hidden" id="finishing" name="Finishing Palette" value="premium">
                                 <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                     <span class="selected-text">Premium Editorial Grade</span>
                                     <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -275,7 +280,7 @@
                             <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Operational Project Scope</label>
                             
                             <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                                <input type="hidden" id="scope" value="turnkey">
+                                <input type="hidden" id="scope" name="Operational Scope" value="turnkey">
                                 <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                     <span class="selected-text">Turnkey Handover Infrastructure</span>
                                     <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -300,7 +305,7 @@
                         <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Timeline Schedule Preference</label>
                         
                         <div class="custom-dropdown-container relative w-full border-b border-outline-variant/80">
-                            <input type="hidden" id="timeline" value="standard">
+                            <input type="hidden" id="timeline" name="Timeline Speed" value="standard">
                             <button type="button" class="custom-dropdown-trigger w-full flex justify-between items-center text-left text-xs md:text-sm font-sans-premium font-light py-3 px-0 text-on-surface">
                                 <span class="selected-text">Standard Structural Flow</span>
                                 <svg class="chevron-icon h-4 w-4 text-secondary transition-transform duration-300 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -321,30 +326,66 @@
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="modularKitchen" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon Modular Kitchen" value="modularKitchen" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Modular Kitchen Arrays</span>
                         </label>
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="smartHome" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon Smart Home" value="smartHome" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Smart Home Automation</span>
                         </label>
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="landscape" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon Landscape" value="landscape" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Landscape Spatial Design</span>
                         </label>
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="customFurniture" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon Custom Furniture" value="customFurniture" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Custom Furniture Crafting</span>
                         </label>
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="falseCeiling" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon False Ceiling" value="falseCeiling" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Geometric False Ceilings</span>
                         </label>
                         <label class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/40 cursor-pointer select-none hover:bg-surface-container/60 transition-colors">
-                            <input type="checkbox" value="lighting" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
+                            <input type="checkbox" name="Addon Premium Lighting" value="lighting" class="addon-checkbox text-primary focus:ring-0 rounded-none border-outline-variant w-4 h-4"/>
                             <span class="font-sans-premium text-xs font-light text-on-surface/80">Premium Studio Lighting</span>
                         </label>
                     </div>
+                </div>
+
+                <div class="space-y-6 pt-4">
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-medium flex items-center gap-2">
+                        <span>06 /</span> Client Contact Information
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="space-y-1">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Full Name</label>
+                            <input type="text" name="Client Name" required placeholder="e.g., Alexander Wright" class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30"/>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-1">
+                                <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Email Address</label>
+                                <input type="email" name="Client Email" required placeholder="e.g., alex@studio.com" class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30"/>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Phone Number</label>
+                                <input type="tel" name="Client Phone" placeholder="e.g., +91 98765 43210" class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30"/>
+                            </div>
+                        </div>
+
+                        <div class="space-y-1 pt-2">
+                            <label class="block font-sans-premium text-[10px] uppercase tracking-wider text-on-surface/50">Project Brief Notes (Optional)</label>
+                            <textarea name="Project Brief" rows="2" placeholder="Describe architectural vision or site specific notes..." class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-primary focus:ring-0 text-xs md:text-sm font-sans-premium font-light py-2 px-0 bg-transparent text-on-surface placeholder-on-surface/30 resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" id="submitFormBtn" class="w-full bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                        Transmit Estimate Configuration
+                    </button>
+                    <div id="formResponseMessage" class="mt-4 text-xs font-sans-premium font-light hidden"></div>
                 </div>
             </form>
 
@@ -637,7 +678,9 @@
             calculatedMax += flatAddonCost;
 
             // Display Render Dynamic Output Logic Canvas
-            document.getElementById("budgetDisplay").innerText = `${formatLakhs(calculatedMin)} – ${formatLakhs(calculatedMax)}`;
+            const finalString = `${formatLakhs(calculatedMin)} – ${formatLakhs(calculatedMax)}`;
+            document.getElementById("budgetDisplay").innerText = finalString;
+            document.getElementById("calculated_budget_range").value = finalString;
 
             // Populate Breakdown Tables and Dynamic UI Progress Indicators
             const averageMidpointBudget = (calculatedMin + calculatedMax) / 2;
@@ -682,6 +725,62 @@
 
         // Run instantiation routine on page load parameters trigger
         runLiveCalculation();
+
+        // --- Web3Forms Form Submission Interceptor ---
+        const plannerForm = document.getElementById('plannerForm');
+        const responseMessage = document.getElementById('formResponseMessage');
+        const submitBtn = document.getElementById('submitFormBtn');
+
+        if (plannerForm) {
+            plannerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Visual State Feedback
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Transmitting Configurations...";
+                responseMessage.classList.remove('hidden', 'text-emerald-600', 'text-rose-600');
+                responseMessage.classList.add('text-on-surface/50');
+                responseMessage.innerText = "Connecting to transmission architecture...";
+
+                const formData = new FormData(plannerForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let jsonRes = await response.json();
+                    if (response.status == 200) {
+                        responseMessage.classList.remove('text-on-surface/50', 'text-rose-600');
+                        responseMessage.classList.add('text-emerald-600');
+                        responseMessage.innerText = "Configuration transmission successful. Our studio team will connect shortly.";
+                        plannerForm.reset();
+                        runLiveCalculation(); // Reset visual layout metrics
+                    } else {
+                        console.log(response);
+                        responseMessage.classList.remove('text-on-surface/50', 'text-emerald-600');
+                        responseMessage.classList.add('text-rose-600');
+                        responseMessage.innerText = jsonRes.message || "Transmission paused. Please connect directly via hello@akardesign.studio";
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    responseMessage.classList.remove('text-on-surface/50', 'text-emerald-600');
+                    responseMessage.classList.add('text-rose-600');
+                    responseMessage.innerText = "System error: Transmission failed. Connect via hello@akardesign.studio";
+                })
+                .then(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Transmit Estimate Configuration";
+                });
+            });
+        }
     });
 </script>
 </body>
