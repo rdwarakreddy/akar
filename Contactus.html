@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Contact Us | AKAR Design Studio</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "surface": "#FAF9F6",
-              "on-surface": "#111111",
-              "primary": "#111111",
-              "secondary": "#8C764D",
-              "surface-container": "#F3F1EC",
-              "outline-variant": "#E5E0D8"
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#FAF9F6",
+                        "on-surface": "#111111",
+                        "primary": "#111111",
+                        "secondary": "#8C764D",
+                        "surface-container": "#F3F1EC",
+                        "outline-variant": "#E5E0D8"
+                    },
+                    fontFamily: {
+                        'serif-premium': ['Cormorant Garamond', 'serif'],
+                        'sans-premium': ['Inter', 'sans-serif'],
+                    }
+                },
             },
-            fontFamily: {
-              'serif-premium': ['Cormorant Garamond', 'serif'],
-              'sans-premium': ['Inter', 'sans-serif'],
-            }
-          },
-        },
-      }
+        }
     </script>
-    
+
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #FAF9F6;
             overflow-x: hidden;
         }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #FAF9F6; }
-        ::-webkit-scrollbar-thumb { background: #111111; }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #111111;
+        }
 
         .overflow-hidden-mobile {
             overflow: hidden !important;
@@ -52,13 +66,16 @@
             transform: translateY(30px);
             transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .reveal-element.active {
             opacity: 1;
             transform: translateY(0);
         }
+
         .hover-underline {
             position: relative;
         }
+
         .hover-underline::after {
             content: '';
             position: absolute;
@@ -71,241 +88,307 @@
             transform-origin: bottom right;
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .hover-underline:hover::after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
     </style>
 </head>
+
 <body class="bg-surface text-on-surface antialiased">
 
-<header class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
-    <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
-        <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
-        
-        <div class="hidden lg:flex items-center gap-10">
-            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="index.html">Home</a>
-            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="services.html">Services</a>
-            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="Budgetplanner.html">Budget Planner</a>
-            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="about.html">About Us</a>
-            <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="Contactus.html">Contact Us</a>
-        </div>
-        
-        <div class="hidden lg:block">
-            <button class="border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
-                Get a Quotation
+    <header
+        class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
+        <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
+            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
+
+            <div class="hidden lg:flex items-center gap-10">
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                    href="index.html">Home</a>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                    href="services.html">Services</a>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                    href="Budgetplanner.html">Budget Planner</a>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                    href="about.html">About Us</a>
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                    href="Contactus.html">Contact Us</a>
+            </div>
+
+            <div class="hidden lg:block">
+                <a href="Contactus.html"
+                    class="inline-block border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                    Get a Quotation
+                </a>
+            </div>
+
+            <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none"
+                aria-label="Toggle navigation menu">
+                <div class="w-6 h-4 relative flex flex-col justify-between overflow-hidden">
+                    <span id="line1"
+                        class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-center"></span>
+                    <span id="line2" class="w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
+                    <span id="line3"
+                        class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-center"></span>
+                </div>
             </button>
+        </nav>
+
+        <div id="mobile-menu"
+            class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+            <div class="flex flex-col gap-6">
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                    href="index.html">Home</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                    href="services.html">Services</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                    href="Budgetplanner.html">Budget Planner</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                    href="about.html">About Us</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                    href="Contactus.html">Contact Us</a>
+            </div>
+
+            <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
+                <a href="Contactus.html"
+                    class="block w-full text-center bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                    Get a Quotation
+                </a>
+                <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
+                    <a href="https://www.instagram.com/akar.design.studio?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">Instagram</a>
+                    <span>—</span>
+                    <a href="https://www.linkedin.com/company/akar-design-studio/">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Updated Body Section for Contact Information -->
+    <main class="pt-24 min-h-[85vh] flex flex-col justify-center">
+        <section class="py-16 md:py-24 px-8 md:px-16 max-w-7xl mx-auto w-full">
+            <div class="max-w-4xl mb-16">
+                <div class="flex items-center gap-3 mb-6 reveal-element">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <span
+                        class="font-sans-premium text-xs uppercase tracking-[0.4em] text-secondary font-medium">Connect
+                        With Us</span>
+                </div>
+                <h1 class="font-serif-premium text-5xl md:text-7xl font-light tracking-tight mb-6 reveal-element">
+                    Let's Build Your <span class="italic font-normal text-secondary">Dream</span> Space
+                </h1>
+                <p
+                    class="font-sans-premium text-sm md:text-base text-on-surface/60 font-light tracking-wide max-w-2xl leading-relaxed reveal-element">
+                    Skip the complex forms. Connect directly with our design collective through your preferred channel
+                    below. We look forward to realizing your spatial visions.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+
+                <a href="tel:+919663346095"
+                    class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-secondary text-3xl font-light">call</span>
+                        <span
+                            class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Voice Call</h3>
+                        <p
+                            class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">
+                            Direct Studio Line</p>
+                        <p
+                            class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">
+                            +91 96633 46095</p>
+                    </div>
+                </a>
+
+                <a href="https://wa.me/919663346095" target="_blank" rel="noopener noreferrer"
+                    class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-secondary text-3xl font-light">chat</span>
+                        <span
+                            class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">WhatsApp</h3>
+                        <p
+                            class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">
+                            Instant Consultation</p>
+                        <p
+                            class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">
+                            Chat with a Designer</p>
+                    </div>
+                </a>
+
+                <a href="mailto:info@akararchitects.com"
+                    class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-secondary text-3xl font-light">mail</span>
+                        <span
+                            class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Email Us</h3>
+                        <p
+                            class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">
+                            Project Design Briefs</p>
+                        <p
+                            class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">
+                            info@akararchitects.com</p>
+                    </div>
+                </a>
+
+                <div
+                    class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
+                    <div class="flex justify-between items-start">
+                        <span class="material-symbols-outlined text-secondary text-3xl font-light">location_on</span>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Our Studio</h3>
+                        <p class="font-sans-premium text-[10px] text-on-surface/50 font-light tracking-wider uppercase">
+                            138/F, 62, Doddakallasandra, Konanakunte, Bengaluru, Karnataka 560062</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-surface py-24 border-t border-outline-variant/60">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+            <div>
+                <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface mb-6">AKAR</div>
+                <p class="font-sans-premium text-xs text-on-surface/50 leading-relaxed max-w-xs font-light">
+                    Redefining spatial expressions through premium architectural precision and warm minimalist execution
+                    aesthetics.
+                </p>
+            </div>
+            <div>
+                <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">
+                    Inquiries</h6>
+                <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
+                    <li><a class="hover:text-secondary transition-colors" href="services.html">Our Services
+                            Portfolio</a></li>
+                    <li><a class="hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a>
+                    </li>
+                    <li><a class="hover:text-secondary transition-colors" href="about.html">About Our Studio</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Studio
+                    Location</h6>
+                <ul class="space-y-2 font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">
+                    <li>138/F, 62, Doddakallasandra,</li>
+                    <li>Konanakunte, Bengaluru,</li>
+                    <li>Karnataka 560062</li>
+                    <li class="pt-2">Tel: <a href="tel:+919663346095"
+                            class="hover:text-secondary transition-colors font-medium">+91 96633 46095</a></li>
+                    <li>Mail: <a href="mailto:info@akararchitects.com"
+                            class="hover:text-secondary transition-colors">info@akararchitects.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">
+                    Connect</h6>
+                <div class="flex flex-wrap gap-x-4 gap-y-2 font-sans-premium text-xs text-on-surface/60 font-light">
+                    <a class="hover:text-secondary hover-underline transition-colors"
+                        href="https://www.instagram.com/akar.design.studio?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr"
+                        target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a class="hover:text-secondary hover-underline transition-colors"
+                        href="https://www.facebook.com/akararchitect" target="_blank"
+                        rel="noopener noreferrer">Facebook</a>
+                    <a class="hover:text-secondary hover-underline transition-colors"
+                        href="https://www.linkedin.com/company/akar-design-studio/" target="_blank"
+                        rel="noopener noreferrer">LinkedIn</a>
+                    <a class="hover:text-secondary hover-underline transition-colors"
+                        href="https://in.pinterest.com/AKARDesignStudio_architects/" target="_blank"
+                        rel="noopener noreferrer">Pinterest</a>
+                    <a class="hover:text-secondary hover-underline transition-colors"
+                        href="https://www.youtube.com/@AKARDesignStudio" target="_blank"
+                        rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
         </div>
 
-        <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none" aria-label="Toggle navigation menu">
-            <div class="w-6 h-4 relative flex flex-col justify-between overflow-hidden">
-                <span id="line1" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-center"></span>
-                <span id="line2" class="w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
-                <span id="line3" class="w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-center"></span>
-            </div>
-        </button>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
-        <div class="flex flex-col gap-6">
-            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="index.html">Home</a>
-            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="services.html">Services</a>
-            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a>
-            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="about.html">About Us</a>
-            <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="Contactus.html">Contact Us</a>
-        </div>
-        
-        <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
-            <button class="w-full bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
-                Get a Quotation
-            </button>
-            <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
-                <a href="#">Instagram</a>
-                <span>—</span>
-                <a href="#">LinkedIn</a>
-            </div>
-        </div>
-    </div>
-</header>
-
-<main class="pt-24 min-h-[85vh] flex flex-col justify-center">
-    <section class="py-16 md:py-24 px-8 md:px-16 max-w-7xl mx-auto w-full">
-        <div class="max-w-4xl mb-16">
-            <div class="flex items-center gap-3 mb-6 reveal-element">
-                <span class="w-8 h-[1px] bg-secondary"></span>
-                <span class="font-sans-premium text-xs uppercase tracking-[0.4em] text-secondary font-medium">Connect With Us</span>
-            </div>
-            <h1 class="font-serif-premium text-5xl md:text-7xl font-light tracking-tight mb-6 reveal-element">
-                Let's Build Your <span class="italic font-normal text-secondary">Dream</span> Space
-            </h1>
-            <p class="font-sans-premium text-sm md:text-base text-on-surface/60 font-light tracking-wide max-w-2xl leading-relaxed reveal-element">
-                Skip the complex forms. Connect directly with our design collective through your preferred channel below. We look forward to realizing your spatial visions.
+        <div
+            class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16 mt-20 pt-8 border-t border-outline-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+                © 2026 AKAR Design Studio. All rights reserved.
+            </p>
+            <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
+                Designed with warm residential restraint.
             </p>
         </div>
+    </footer>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            
-            <a href="tel:+919876543210" class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
-                <div class="flex justify-between items-start">
-                    <span class="material-symbols-outlined text-secondary text-3xl font-light">call</span>
-                    <span class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
-                </div>
-                <div>
-                    <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Voice Call</h3>
-                    <p class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">Direct Studio Line</p>
-                    <p class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">+91 98765 43210</p>
-                </div>
-            </a>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. High-End Intersection Observer for Scroll Animations
+            const observerOptions = {
+                threshold: 0.05,
+                rootMargin: '0px 0px -40px 0px'
+            };
 
-            <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
-                <div class="flex justify-between items-start">
-                    <span class="material-symbols-outlined text-secondary text-3xl font-light">chat</span>
-                    <span class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
-                </div>
-                <div>
-                    <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">WhatsApp</h3>
-                    <p class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">Instant Consultation</p>
-                    <p class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">Chat with a Designer</p>
-                </div>
-            </a>
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
 
-            <a href="mailto:hello@akardesign.studio" class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
-                <div class="flex justify-between items-start">
-                    <span class="material-symbols-outlined text-secondary text-3xl font-light">mail</span>
-                    <span class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
-                </div>
-                <div>
-                    <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Email Us</h3>
-                    <p class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">Project Design Briefs</p>
-                    <p class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">hello@akardesign.studio</p>
-                </div>
-            </a>
+            document.querySelectorAll('.reveal-element').forEach(el => {
+                revealObserver.observe(el);
+            });
 
-            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="group border border-outline-variant/60 bg-surface-container/20 p-8 flex flex-col justify-between h-56 hover:border-primary hover:bg-surface transition-all duration-500 reveal-element">
-                <div class="flex justify-between items-start">
-                    <span class="material-symbols-outlined text-secondary text-3xl font-light">distance</span>
-                    <span class="material-symbols-outlined text-on-surface/30 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 text-xl">north_east</span>
-                </div>
-                <div>
-                    <h3 class="font-serif-premium text-2xl font-light text-primary mb-1">Our Studio</h3>
-                    <p class="font-sans-premium text-xs text-on-surface/50 font-light tracking-wider uppercase mb-3">Bangalore, India</p>
-                    <p class="font-sans-premium text-xs text-secondary group-hover:text-primary transition-colors duration-300 font-medium tracking-wide">Get Map Directions</p>
-                </div>
-            </a>
+            // 2. Interactive Mobile Menu System
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const bodyElement = document.body;
 
-        </div>
-    </section>
-</main>
+            const line1 = document.getElementById('line1');
+            const line2 = document.getElementById('line2');
+            const line3 = document.getElementById('line3');
 
-<footer class="bg-surface py-24 border-t border-outline-variant/60">
-    <div class="max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-        <div>
-            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface mb-6">AKAR</div>
-            <p class="font-sans-premium text-xs text-on-surface/50 leading-relaxed max-w-xs font-light">
-                Redefining spatial expressions through premium architectural precision and warm minimalist execution aesthetics.
-            </p>
-        </div>
-        <div>
-            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Inquiries</h6>
-            <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
-                <li><a class="hover:text-secondary transition-colors" href="index.html">The Studio Portfolio</a></li>
-                <li><a class="hover:text-secondary transition-colors" href="services.html">Core Capabilities</a></li>
-                <li><a class="hover:text-secondary transition-colors" href="#">Journal & Insights</a></li>
-            </ul>
-        </div>
-        <div>
-            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Studio Location</h6>
-            <ul class="space-y-2 font-sans-premium text-xs text-on-surface/60 font-light leading-relaxed">
-                <li>123 Design Lane,</li>
-                <li>Architecture Hub, Bangalore, IN</li>
-                <li>hello@akardesign.studio</li>
-            </ul>
-        </div>
-        <div>
-            <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-medium text-on-surface mb-6">Connect</h6>
-            <div class="flex gap-6 font-sans-premium text-xs text-on-surface/60 font-light">
-                <a class="hover:text-secondary hover-underline transition-colors" href="#">Instagram</a>
-                <a class="hover:text-secondary hover-underline transition-colors" href="#">LinkedIn</a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto px-8 md:px-16 mt-20 pt-8 border-t border-outline-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
-            © 2026 AKAR Design Studio. All rights reserved.
-        </p>
-        <p class="font-sans-premium text-[11px] uppercase tracking-widest text-on-surface/40">
-            Designed with absolute luxury restraint.
-        </p>
-    </div>
-</footer>
+            let isMenuOpen = false;
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 1. High-End Intersection Observer for Scroll Animations
-        const observerOptions = {
-            threshold: 0.05,
-            rootMargin: '0px 0px -40px 0px'
-        };
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
 
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
+                if (isMenuOpen) {
+                    // Open sliding menu panel
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                    bodyElement.classList.add('overflow-hidden-mobile');
+
+                    // Transform Hamburger Icon into clean "X" Geometry
+                    line1.style.transform = "rotate(45deg) translate(4px, 4px)";
+                    line2.style.opacity = "0";
+                    line3.style.transform = "rotate(-45deg) translate(4px, -4px)";
+                } else {
+                    // Close sliding panel
+                    mobileMenu.classList.remove('translate-x-0');
+                    mobileMenu.classList.add('translate-x-full');
+                    bodyElement.classList.remove('overflow-hidden-mobile');
+
+                    // Revert X Geometry back to Standard Hamburger Line System
+                    line1.style.transform = "none";
+                    line2.style.opacity = "1";
+                    line3.style.transform = "none";
                 }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-element').forEach(el => {
-            revealObserver.observe(el);
-        });
-
-        // 2. Interactive Mobile Menu System
-        const menuToggleBtn = document.getElementById('menu-toggle-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const bodyElement = document.body;
-        
-        const line1 = document.getElementById('line1');
-        const line2 = document.getElementById('line2');
-        const line3 = document.getElementById('line3');
-
-        let isMenuOpen = false;
-
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            
-            if (isMenuOpen) {
-                // Open sliding menu panel
-                mobileMenu.classList.remove('translate-x-full');
-                mobileMenu.classList.add('translate-x-0');
-                bodyElement.classList.add('overflow-hidden-mobile');
-                
-                // Transform Hamburger Icon into clean "X" Geometry
-                line1.style.transform = "rotate(45deg) translate(4px, 4px)";
-                line2.style.opacity = "0";
-                line3.style.transform = "rotate(-45deg) translate(4px, -4px)";
-            } else {
-                // Close sliding panel
-                mobileMenu.classList.remove('translate-x-0');
-                mobileMenu.classList.add('translate-x-full');
-                bodyElement.classList.remove('overflow-hidden-mobile');
-                
-                // Revert X Geometry back to Standard Hamburger Line System
-                line1.style.transform = "none";
-                line2.style.opacity = "1";
-                line3.style.transform = "none";
             }
-        }
 
-        menuToggleBtn.addEventListener('click', toggleMenu);
+            menuToggleBtn.addEventListener('click', toggleMenu);
 
-        // Close mobile panel smoothly if a sub-navigation element is clicked
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if(isMenuOpen) toggleMenu();
+            // Close mobile panel smoothly if a sub-navigation element is clicked
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) toggleMenu();
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>
