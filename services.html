@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Our Services | AKAR Design Studio</title>
+    <title>Our Services | AKAR Design Studio - Architecture & Interior Design Services in Bengaluru</title>
+    <meta name="description" content="Explore architectural design, luxury interiors, and turnkey execution services in Bengaluru by AKAR Design Studio. Transparent pricing and clear step-by-step project workflows." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@200;300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
@@ -30,6 +31,7 @@
                     },
                     fontFamily: {
                         'serif-premium': ['Cormorant Garamond', 'serif'],
+                        'numeric': ['Bodoni Moda', 'serif'],
                         'sans-premium': ['Inter', 'sans-serif'],
                     }
                 },
@@ -38,6 +40,7 @@
     </script>
 
     <style>
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
@@ -59,8 +62,8 @@
         /* Smooth Reveal Transitions matching Home page */
         .reveal-element {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform, opacity;
         }
 
@@ -111,32 +114,51 @@
         .overflow-hidden-mobile {
             overflow: hidden !important;
         }
+
+        /* Header Style Reference from Home.html */
+        #site-header { 
+            background: #FAF9F6; 
+            border-bottom: 1px solid rgba(229,224,216,0.8); 
+        }
+
+        /* Image Card Curved Styling matching Home.html */
+        .img-curved {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-curved:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.25);
+        }
     </style>
 </head>
 
 <body class="bg-surface text-on-surface antialiased">
 
-    <header
-        class="fixed top-0 w-full z-50 bg-surface lg:bg-surface/90 lg:backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
-        <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-16 mx-auto h-24 max-w-[90rem]">
-            <div class="font-serif-premium text-3xl font-light tracking-widest text-on-surface z-50">AKAR</div>
+    <header id="site-header"
+        class="fixed top-0 w-full z-50 transition-all duration-300">
+        <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-12 mx-auto h-16 sm:h-20 max-w-[90rem]">
+            <a href="index.html" class="font-serif-premium text-2xl sm:text-3xl font-light tracking-widest text-on-surface z-50 flex items-center gap-3">
+                <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-md" />
+                AKAR
+            </a>
 
-            <div class="hidden lg:flex items-center gap-10">
-                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+            <div class="hidden lg:flex items-center gap-8">
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/80 hover:text-secondary transition-colors hover-underline"
                     href="index.html">Home</a>
                 <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-primary font-medium border-b border-primary/40 pb-1"
                     href="services.html">Services</a>
-                <!-- <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
-                    href="Budgetplanner.html">Budget Planner</a> -->
-                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/80 hover:text-secondary transition-colors hover-underline"
                     href="about.html">About Us</a>
-                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline"
+                <a class="font-sans-premium text-xs uppercase tracking-[0.2em] text-on-surface/80 hover:text-secondary transition-colors hover-underline"
                     href="contactus.html">Contact Us</a>
             </div>
 
             <div class="hidden lg:flex items-center gap-4">
-                <a href="Contactus.html"
-                    class="inline-block border border-on-surface/20 text-on-surface px-6 py-2.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                <a href="contactus.html"
+                    class="inline-block border border-on-surface/30 px-5 py-2 font-sans-premium text-xs uppercase tracking-widest text-primary hover:bg-secondary hover:border-secondary hover:text-white transition-all duration-300 rounded-md">
                     Get a Quotation
                 </a>
             </div>
@@ -155,65 +177,73 @@
         </nav>
 
         <div id="mobile-menu"
-            class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
-            <div class="flex flex-col gap-6">
-                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+            class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-24 pb-10 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+            <div class="flex flex-col gap-5">
+                <a class="mobile-nav-link font-serif-premium text-2xl font-light text-on-surface/80 hover:text-secondary transition-colors"
                     href="index.html">Home</a>
-                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-primary font-medium transition-colors"
+                <a class="mobile-nav-link font-serif-premium text-2xl font-light text-primary font-medium transition-colors"
                     href="services.html">Services</a>
-                <!-- <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
-                    href="Budgetplanner.html">Budget Planner</a> -->
-                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                <a class="mobile-nav-link font-serif-premium text-2xl font-light text-on-surface/80 hover:text-secondary transition-colors"
                     href="about.html">About Us</a>
-                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors"
+                <a class="mobile-nav-link font-serif-premium text-2xl font-light text-on-surface/80 hover:text-secondary transition-colors"
                     href="contactus.html">Contact Us</a>
             </div>
 
-            <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
-                <a href="Contactus.html"
-                    class="block w-full text-center bg-primary text-surface py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+            <div class="flex flex-col gap-6 pt-6 border-t border-outline-variant/60">
+                <a href="contactus.html"
+                    class="block w-full text-center bg-primary text-surface py-3 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 rounded-md">
                     Get a Quotation
                 </a>
                 <div class="flex gap-6 justify-center text-xs font-sans-premium tracking-wider text-on-surface/50">
-                    <a href="https://www.instagram.com/akar.design.studio?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr">Instagram</a>
+                    <a href="https://www.instagram.com/akar.design.studio?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a>
                     <span>—</span>
-                    <a href="https://www.linkedin.com/company/akar-design-studio/">LinkedIn</a>
+                    <a href="https://www.linkedin.com/company/akar-design-studio/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="pt-24">
+    <main class="pt-20">
+        <!-- Hero Section (Fixed Text Cut-Off & Human-Written SEO Content) -->
         <section class="py-16 md:py-24 px-6 sm:px-8 md:px-16 max-w-7xl mx-auto border-b border-outline-variant/30">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start active">
                 <div class="lg:col-span-7">
-                    <h1 class="font-serif-premium text-4xl sm:text-5xl md:text-6xl font-light tracking-tight line-hide mb-4">
-                        <span class="line-rise">What's Included in</span><br>
-                        <span class="line-rise italic font-normal text-secondary">Each Package</span>
+                    <h1 class="font-serif-premium text-3xl sm:text-4xl md:text-5xl font-light tracking-tight mb-4 leading-tight">
+                        Our Architecture &amp; Interior Design <span class="italic font-normal text-secondary">Services</span> in Bengaluru
                     </h1>
-                    <p class="font-sans-premium text-sm text-on-surface/60 font-light tracking-wide leading-relaxed reveal-element active">
-                        Clear scope. Transparent process. Beautiful spaces.
+                    <p class="font-sans-premium text-sm md:text-base text-on-surface/70 font-light tracking-wide leading-relaxed reveal-element active mb-8">
+                        From initial floor planning and concept designs to complete turnkey construction, our experienced team delivers transparent scope, clear timelines, and meticulous execution for homes and workspaces across Bengaluru.
                     </p>
+                    <!-- Main CTA Button leading seamlessly to Service Section below -->
+                    <div class="reveal-element active">
+                        <a href="#packages-section"
+                            class="group inline-flex items-center gap-3 bg-secondary text-white px-7 py-3.5 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300 rounded-full shadow-md hover:shadow-xl font-medium">
+                            Explore Service Packages
+                            <span class="material-symbols-outlined text-sm transition-transform duration-300 group-hover:translate-y-1">arrow_downward</span>
+                        </a>
+                    </div>
                 </div>
                 <div class="lg:col-span-5 lg:pt-8">
                     <div class="flex flex-wrap gap-2 pt-2 reveal-element active">
                         <a href="#packages-section"
-                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">01
+                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors rounded-md">01
                             / Service Packages</a>
                         <a href="#pricing-factors"
-                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">02
+                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors rounded-md">02
                             / Pricing Factors</a>
                         <a href="#process-section"
-                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors">03
+                            class="px-4 py-2 border border-outline-variant text-[11px] font-sans-premium uppercase tracking-widest hover:border-primary transition-colors rounded-md">03
                             / Step Workflow</a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section (Updated Names & Exactly 3 Services) -->
         <section id="packages-section" class="py-16 bg-surface max-w-7xl mx-auto px-6 sm:px-8 md:px-16">
             <div class="space-y-12">
                 
+                <!-- Service 1 -->
                 <div class="bg-[#E7ECE7] border border-outline-variant/40 p-6 md:p-8 rounded-2xl reveal-element">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                         <div class="lg:col-span-4 space-y-4">
@@ -221,7 +251,7 @@
                                 <div class="w-14 h-14 bg-[#3E533E] text-white flex items-center justify-center rounded-xl shadow-inner">
                                     <span class="material-symbols-outlined text-2xl">architecture</span>
                                 </div>
-                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">1. ARCHITECTURE DESIGN</h3>
+                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">1. Architecture Services in Bengaluru</h3>
                             </div>
                             <div class="pt-2">
                                 <span class="font-sans-premium text-[11px] tracking-widest text-on-surface/50 uppercase block font-medium">Starting From</span>
@@ -245,70 +275,25 @@
                         <div class="lg:col-span-3 flex flex-col justify-between h-full text-center lg:text-left pt-2 lg:pt-0">
                             <div class="space-y-2">
                                 <span class="material-symbols-outlined text-3xl text-secondary block lg:inline">home</span>
-                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">For clients who will execute construction independently.</p>
+                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">For clients who desire architectural expertise and precision layouts.</p>
                             </div>
                             <button onclick="window.location.href='contactus.html'"
-                                class="mt-6 w-full bg-primary text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                                class="mt-6 w-full bg-primary text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 font-medium">
                                 Enquire Package
                             </button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Service 2 -->
                 <div class="bg-[#F6EFEA] border border-outline-variant/40 p-6 md:p-8 rounded-2xl reveal-element">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                         <div class="lg:col-span-4 space-y-4">
                             <div class="flex items-center gap-4">
                                 <div class="w-14 h-14 bg-[#936443] text-white flex items-center justify-center rounded-xl shadow-inner">
-                                    <span class="material-symbols-outlined text-2xl">home_work</span>
-                                </div>
-                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">2. ARCHITECTURE DESIGN + EXECUTION</h3>
-                            </div>
-                            <div class="pt-2 space-y-1 border-t border-outline-variant/30 pt-2">
-                                <div>
-                                    <span class="font-sans-premium text-[10px] tracking-wider text-on-surface/50 uppercase font-medium">Design Fee: </span>
-                                    <span class="font-serif-premium text-xl text-primary font-normal">₹60 – ₹150 <span class="text-xs font-sans-premium text-on-surface/50">/ sq.ft</span></span>
-                                </div>
-                                <div>
-                                    <span class="font-sans-premium text-[10px] tracking-wider text-on-surface/50 uppercase font-medium">Construction: </span>
-                                    <span class="font-serif-premium text-xl text-secondary font-medium">₹1,800 – ₹3,500+ <span class="text-xs font-sans-premium text-on-surface/50">/ sq.ft</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="lg:col-span-5 bg-white/60 backdrop-blur-xs p-6 rounded-xl border border-white/40">
-                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-sans-premium text-xs text-on-surface/80 font-normal">
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Complete architectural design</li>
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Structural coordination</li>
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Detailed working drawings</li>
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Site supervision</li>
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Material planning</li>
-                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Vendor coordination</li>
-                                <li class="flex items-center gap-2 sm:col-span-2"><span class="text-amber-800 font-bold text-sm">✓</span> Project execution</li>
-                            </ul>
-                        </div>
-
-                        <div class="lg:col-span-3 flex flex-col justify-between h-full text-center lg:text-left pt-2 lg:pt-0">
-                            <div class="space-y-2">
-                                <span class="material-symbols-outlined text-3xl text-secondary block lg:inline">counter_1</span>
-                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">Turnkey solution for your dream home.</p>
-                            </div>
-                            <button onclick="window.location.href='contactus.html'"
-                                class="mt-6 w-full bg-[#936443] text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300">
-                                Enquire Package
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-[#EBF0F5] border border-outline-variant/40 p-6 md:p-8 rounded-2xl reveal-element">
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                        <div class="lg:col-span-4 space-y-4">
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-[#2B4C6F] text-white flex items-center justify-center rounded-xl shadow-inner">
                                     <span class="material-symbols-outlined text-2xl">chair_alt</span>
                                 </div>
-                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">3. INTERIOR DESIGN</h3>
+                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">2. Interior Design for Homes and Workplaces in Bengaluru</h3>
                             </div>
                             <div class="pt-2">
                                 <span class="font-sans-premium text-[11px] tracking-widest text-on-surface/50 uppercase block font-medium">Starting From</span>
@@ -319,71 +304,66 @@
                         
                         <div class="lg:col-span-5 bg-white/60 backdrop-blur-xs p-6 rounded-xl border border-white/40">
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-sans-premium text-xs text-on-surface/80 font-normal">
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Space planning</li>
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Furniture layout</li>
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Material & finish selection</li>
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Ceiling concepts</li>
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Lighting plan</li>
-                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> 3D visualization</li>
-                                <li class="flex items-center gap-2 sm:col-span-2"><span class="text-blue-800 font-bold text-sm">✓</span> Working drawings</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Space planning</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Furniture layout</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Material & finish selection</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Ceiling concepts</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> Lighting plan</li>
+                                <li class="flex items-center gap-2"><span class="text-amber-800 font-bold text-sm">✓</span> 3D visualization</li>
+                                <li class="flex items-center gap-2 sm:col-span-2"><span class="text-amber-800 font-bold text-sm">✓</span> Working drawings</li>
                             </ul>
                         </div>
 
                         <div class="lg:col-span-3 flex flex-col justify-between h-full text-center lg:text-left pt-2 lg:pt-0">
                             <div class="space-y-2">
                                 <span class="material-symbols-outlined text-3xl text-secondary block lg:inline">chair</span>
-                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">Design your interiors. Execute on your own terms.</p>
+                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">Custom residential and commercial interior solutions catered to modern lifestyles.</p>
                             </div>
                             <button onclick="window.location.href='contactus.html'"
-                                class="mt-6 w-full bg-[#2B4C6F] text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300">
+                                class="mt-6 w-full bg-[#936443] text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300 font-medium">
                                 Enquire Package
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-[#F1ECF5] border border-outline-variant/40 p-6 md:p-8 rounded-2xl reveal-element">
+                <!-- Service 3 -->
+                <div class="bg-[#EBF0F5] border border-outline-variant/40 p-6 md:p-8 rounded-2xl reveal-element">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                         <div class="lg:col-span-4 space-y-4">
                             <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-[#5C456D] text-white flex items-center justify-center rounded-xl shadow-inner">
-                                    <span class="material-symbols-outlined text-2xl">countertops</span>
+                                <div class="w-14 h-14 bg-[#2B4C6F] text-white flex items-center justify-center rounded-xl shadow-inner">
+                                    <span class="material-symbols-outlined text-2xl">home_work</span>
                                 </div>
-                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">4. INTERIOR DESIGN + EXECUTION</h3>
+                                <h3 class="font-serif-premium text-2xl md:text-3xl font-medium tracking-tight text-primary">3. Turnkey Design-to-Handover Services</h3>
                             </div>
-                            <div class="pt-2 space-y-2 border-t border-outline-variant/30 pt-2">
-                                <span class="font-sans-premium text-[10px] tracking-wider text-purple-900/60 font-bold uppercase block">Turnkey Interior Package</span>
+                            <div class="pt-2 space-y-1 border-t border-outline-variant/30 pt-2">
                                 <div>
-                                    <span class="font-sans-premium text-[10px] tracking-wider text-on-surface/50 uppercase font-medium">Basic: </span>
-                                    <span class="font-serif-premium text-xl text-primary font-normal">₹1,200 – ₹1,800 <span class="text-xs font-sans-premium text-on-surface/50">/ sq.ft</span></span>
-                                </div>
-                                <div>
-                                    <span class="font-sans-premium text-[10px] tracking-wider text-on-surface/50 uppercase font-medium">Premium: </span>
-                                    <span class="font-serif-premium text-xl text-secondary font-medium">₹1,800 – ₹3,500+ <span class="text-xs font-sans-premium text-on-surface/50">/ sq.ft</span></span>
+                                    <span class="font-sans-premium text-[10px] tracking-wider text-on-surface/50 uppercase font-medium">Design & Execution: </span>
+                                    <span class="font-serif-premium text-xl text-primary font-normal">₹1,800 – ₹3,500+ <span class="text-xs font-sans-premium text-on-surface/50">/ sq.ft</span></span>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="lg:col-span-5 bg-white/60 backdrop-blur-xs p-6 rounded-xl border border-white/40">
                             <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-sans-premium text-xs text-on-surface/80 font-normal">
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Design</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Modular furniture</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> False ceiling</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Electrical coordination</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Lighting</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Wardrobes & storage</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Kitchen</li>
-                                <li class="flex items-center gap-2"><span class="text-purple-800 font-bold text-sm">✓</span> Site execution</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Complete architectural & interior design</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Modular furniture & carpentry</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> False ceiling & lighting</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Material sourcing & vendors</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> On-site supervision</li>
+                                <li class="flex items-center gap-2"><span class="text-blue-800 font-bold text-sm">✓</span> Quality management</li>
+                                <li class="flex items-center gap-2 sm:col-span-2"><span class="text-blue-800 font-bold text-sm">✓</span> Complete project handover</li>
                             </ul>
                         </div>
 
                         <div class="lg:col-span-3 flex flex-col justify-between h-full text-center lg:text-left pt-2 lg:pt-0">
                             <div class="space-y-2">
-                                <span class="material-symbols-outlined text-3xl text-secondary block lg:inline">window</span>
-                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">Complete interior solution. Move in worry-free.</p>
+                                <span class="material-symbols-outlined text-3xl text-secondary block lg:inline">counter_1</span>
+                                <p class="font-sans-premium text-xs text-on-surface/70 leading-relaxed font-light">Complete design-to-build solution. Move into your dream space worry-free.</p>
                             </div>
                             <button onclick="window.location.href='contactus.html'"
-                                class="mt-6 w-full bg-[#5C456D] text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300">
+                                class="mt-6 w-full bg-[#2B4C6F] text-white py-3 rounded-xl font-sans-premium text-xs uppercase tracking-widest hover:bg-primary transition-all duration-300 font-medium">
                                 Enquire Package
                             </button>
                         </div>
@@ -393,6 +373,7 @@
             </div>
         </section>
 
+        <!-- Pricing Factors -->
         <section id="pricing-factors" class="py-16 bg-surface-container border-t border-b border-outline-variant/30">
             <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-16">
                 <div class="mb-12 text-center lg:text-left reveal-element">
@@ -453,6 +434,7 @@
             </div>
         </section>
 
+        <!-- Process Timeline Section with Icon-Style Realistic Images -->
         <section id="process-section" class="py-24 bg-surface max-w-7xl mx-auto px-6 sm:px-8 md:px-16">
             <div class="mb-20 reveal-element">
                 <span
@@ -465,6 +447,7 @@
 
             <div class="relative border-l border-outline-variant/80 ml-4 md:ml-32 space-y-16 py-4">
 
+                <!-- Step 01 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -474,16 +457,18 @@
                         1 – 3 Days
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 01</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">Requirement Analysis
-                            </h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-3">1
-                                – 3 Days</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=200&q=80" alt="Requirement Analysis Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 01</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">Requirement Analysis</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">1 – 3 Days</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -495,6 +480,7 @@
                     </div>
                 </div>
 
+                <!-- Step 02 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -504,16 +490,18 @@
                         3 – 5 Days
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 02</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">Site Review & Survey
-                            </h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-3">3
-                                – 5 Days</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=200&q=80" alt="Site Review & Survey Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 02</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">Site Review & Survey</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">3 – 5 Days</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -525,6 +513,7 @@
                     </div>
                 </div>
 
+                <!-- Step 03 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -534,16 +523,18 @@
                         1 – 2 Weeks
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 03</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">Concept Development
-                            </h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-3">1
-                                – 2 Weeks</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=200&q=80" alt="Concept Development Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 03</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">Concept Development</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">1 – 2 Weeks</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -554,6 +545,7 @@
                     </div>
                 </div>
 
+                <!-- Step 04 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -563,15 +555,18 @@
                         2 – 3 Weeks
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 04</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">3D Visualization</h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-3">2
-                                – 3 Weeks</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=200&q=80" alt="3D Visualization Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 04</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">3D Visualization</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">2 – 3 Weeks</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -583,6 +578,7 @@
                     </div>
                 </div>
 
+                <!-- Step 05 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -592,15 +588,18 @@
                         1 – 2 Weeks
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 05</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">Working Drawings</h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-3">1
-                                – 2 Weeks</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=200&q=80" alt="Working Drawings Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 05</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">Working Drawings</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">1 – 2 Weeks</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -612,6 +611,7 @@
                     </div>
                 </div>
 
+                <!-- Step 06 -->
                 <div class="relative reveal-element pl-8 md:pl-12 group">
                     <div
                         class="absolute -left-[6px] top-1.5 w-3 h-3 bg-surface border-2 border-secondary rounded-full group-hover:bg-secondary transition-colors duration-300">
@@ -621,17 +621,19 @@
                         2 – 4 Months
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
-                        <div class="lg:col-span-4">
-                            <span class="font-serif-premium text-xs text-secondary/70 italic block mb-1">Step 06</span>
-                            <h4 class="font-serif-premium text-xl text-primary font-normal mb-2">On-Site Execution</h4>
-                            <span
-                                class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mb-1">2
-                                – 4 Months</span>
-                            <span class="text-[10px] font-sans-premium text-on-surface/40 block font-light mb-2">(Scale
-                                Dependent)</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+                        <div class="lg:col-span-4 flex items-center gap-4">
+                            <div class="w-16 h-16 shrink-0 img-curved border border-secondary/30 bg-surface-container">
+                                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=200&q=80" alt="On-Site Execution Icon" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <span class="font-serif-premium text-xs text-secondary/70 italic block mb-0.5">Step 06</span>
+                                <h4 class="font-serif-premium text-xl text-primary font-normal">On-Site Execution</h4>
+                                <span class="inline-block md:hidden bg-surface-container text-secondary text-[10px] font-sans-premium px-2 py-0.5 uppercase tracking-wider mt-1">2 – 4 Months</span>
+                                <span class="text-[10px] font-sans-premium text-on-surface/40 block font-light mt-0.5">(Scale Dependent)</span>
+                            </div>
                         </div>
-                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6">
+                        <div class="lg:col-span-8 bg-surface-container/40 border border-outline-variant/30 p-6 rounded-xl">
                             <span
                                 class="text-[10px] uppercase tracking-widest font-medium text-on-surface/40 block mb-2">Key
                                 Deliverables</span>
@@ -646,6 +648,7 @@
             </div>
         </section>
 
+        <!-- Sticky Bottom Consultation Bar -->
         <div class="fixed bottom-0 left-0 w-full bg-[#1A2E1A] text-white py-4 px-6 md:px-12 flex justify-between items-center z-50 border-t border-white/10 shadow-2xl">
             <div class="flex items-center gap-3">
                 <span class="material-symbols-outlined text-amber-100 hidden sm:inline">calendar_month</span>
@@ -655,10 +658,16 @@
                 </div>
             </div>
             <button onclick="window.location.href='contactus.html'"
-                class="bg-[#A37B5C] text-white px-5 py-2 rounded-lg font-sans-premium text-[11px] uppercase tracking-wider hover:bg-white hover:text-[#1A2E1A] transition-all duration-300 flex items-center gap-1 font-medium">
+                class="bg-[#8C764D] text-white px-5 py-2 rounded-lg font-sans-premium text-[11px] uppercase tracking-wider hover:bg-white hover:text-[#1A2E1A] transition-all duration-300 flex items-center gap-1 font-medium">
                 Book Consultation <span class="material-symbols-outlined text-xs">chevron_right</span>
             </button>
         </div>
+
+        <!-- Floating WhatsApp Icon (Linked to 9701491742) -->
+        <a href="https://wa.me/919663346095" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
+           class="fixed bottom-20 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300">
+            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
 
         <section class="py-24 bg-surface relative overflow-hidden pb-32">
             <div
@@ -674,11 +683,11 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <button onclick="window.location.href='contactus.html'"
-                        class="w-full sm:w-auto bg-primary text-surface px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300">
+                        class="w-full sm:w-auto bg-primary text-surface px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-secondary transition-all duration-300 rounded-md font-medium">
                         Get Free Consultation
                     </button>
                     <button onclick="window.location.href='tel:+919663346095'"
-                        class="w-full sm:w-auto border border-primary/40 text-primary px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300">
+                        class="w-full sm:w-auto border border-primary/40 text-primary px-8 py-4 font-sans-premium text-xs uppercase tracking-widest hover:bg-primary hover:text-surface transition-all duration-300 rounded-md">
                         Call Now
                     </button>
                 </div>
@@ -701,8 +710,6 @@
                 <ul class="space-y-3 font-sans-premium text-xs text-on-surface/60 font-light">
                     <li><a class="hover:text-secondary transition-colors" href="services.html">Our Services
                             Portfolio</a></li>
-                    <!-- <li><a class="hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a> -->
-                    </li>
                     <li><a class="hover:text-secondary transition-colors" href="about.html">About Our Studio</a></li>
                 </ul>
             </div>
@@ -802,7 +809,7 @@
             // Refined Intersection Observer for Scroll Reveal Animations
             const observerOptions = {
                 threshold: 0.05,
-                rootMargin: '0px 0px -40px 0px'
+                rootMargin: '0px 0px -20px 0px'
             };
 
             const revealObserver = new IntersectionObserver((entries) => {

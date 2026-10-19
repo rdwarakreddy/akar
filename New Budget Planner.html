@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Budget Planner | AKAR Design Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#FAF9F6",
+                        "on-surface": "#111111",
+                        "primary": "#111111",
+                        "secondary": "#8C764D",
+                        "surface-container": "#F4EFFA",
+                        "outline-variant": "#E2DCD5"
+                    },
+                    fontFamily: {
+                        'serif-premium': ['Cormorant Garamond', 'serif'],
+                        'sans-premium': ['Inter', 'sans-serif'],
+                        'display': ['Fraunces', 'serif'],
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF9F6;
+            color: #111111;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #FAF9F6;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8C764D;
+        }
+
+        .hover-underline {
+            position: relative;
+        }
+
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .overflow-hidden-mobile {
+            overflow: hidden !important;
+        }
+
+        /* Redesigned Custom Calculator Elements */
+        .grid-canvas {
+            background-color: #FAF7F2;
+            background-image: 
+                linear-gradient(#E5DFD5 1px, transparent 1px),
+                linear-gradient(90deg, #E5DFD5 1px, transparent 1px);
+            background-size: 28px 28px;
+            background-position: -1px -1px;
+        }
+
+        /* Modern Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #D8CEBE;
+            border-radius: 2px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #9C5B3C;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #7A432A;
+        }
+
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #D8CEBE;
+            border-radius: 2px;
+        }
+
+        input[type=range]::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #9C5B3C;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        /* Clean Input Box */
+        .number-input-clean::-webkit-inner-spin-button, 
+        .number-input-clean::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        .number-input-clean {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface antialiased font-sans-premium selection:bg-secondary/20 selection:text-secondary">
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/40 transition-all duration-300">
+        <nav class="flex justify-between items-center w-full px-6 sm:px-10 md:px-16 mx-auto h-24 max-w-7xl">
+            <a href="index.html" class="font-serif-premium text-3xl font-light tracking-[0.2em] text-on-surface">AKAR</a>
+
+            <div class="hidden lg:flex items-center gap-10">
+                <a class="text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="index.html">Home</a>
+                <a class="text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="services.html">Services</a>
+                <a class="text-xs uppercase tracking-[0.2em] text-primary font-semibold border-b border-primary pb-1" href="Budgetplanner.html">Budget Planner</a>
+                <a class="text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="about.html">About Us</a>
+                <a class="text-xs uppercase tracking-[0.2em] text-on-surface/70 hover:text-primary transition-colors hover-underline" href="contactus.html">Contact Us</a>
+            </div>
+
+            <div class="hidden lg:block">
+                <a href="contactus.html" class="inline-block border border-on-surface/30 text-on-surface px-6 py-2.5 text-xs uppercase tracking-[0.2em] font-medium hover:bg-primary hover:text-surface transition-all duration-300">
+                    Get a Quotation
+                </a>
+            </div>
+
+            <button id="menu-toggle-btn" class="lg:hidden flex items-center justify-center p-2 z-50 focus:outline-none" aria-label="Toggle navigation menu">
+                <div class="w-6 h-5 relative flex flex-col justify-between overflow-hidden">
+                    <span id="line1" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+                    <span id="line2" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300"></span>
+                    <span id="line3" class="block w-full h-[1.5px] bg-on-surface transition-all duration-300 origin-left"></span>
+                </div>
+            </button>
+        </nav>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-between pt-32 pb-12 px-8 transition-all duration-500 ease-in-out translate-x-full border-l border-outline-variant/30">
+            <div class="flex flex-col gap-6">
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="index.html">Home</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="services.html">Services</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-primary font-medium transition-colors" href="Budgetplanner.html">Budget Planner</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="about.html">About Us</a>
+                <a class="mobile-nav-link font-serif-premium text-3xl font-light text-on-surface/80 hover:text-secondary transition-colors" href="contactus.html">Contact Us</a>
+            </div>
+
+            <div class="flex flex-col gap-8 pt-8 border-t border-outline-variant/60">
+                <a href="contactus.html" class="block w-full text-center bg-primary text-surface py-4 text-xs uppercase tracking-[0.2em] font-medium hover:bg-secondary transition-all duration-300">
+                    Get a Quotation
+                </a>
+                <div class="flex gap-6 justify-center text-xs tracking-[0.15em] uppercase text-on-surface/50">
+                    <a class="hover:text-secondary transition-colors" href="https://www.instagram.com/akar.design.studio">Instagram</a>
+                    <span class="text-on-surface/20">—</span>
+                    <a class="hover:text-secondary transition-colors" href="https://www.linkedin.com/company/akar-design-studio/">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <!-- Hero Title Section -->
+        <section class="py-16 md:py-20 px-6 sm:px-10 md:px-16 max-w-7xl mx-auto border-b border-outline-variant/40">
+            <div class="max-w-3xl">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="w-8 h-[1px] bg-secondary"></span>
+                    <span class="text-[11px] uppercase tracking-[0.25em] text-secondary font-semibold">Interactive Cost Matrix</span>
+                </div>
+                <h1 class="font-serif-premium text-4xl md:text-6xl font-light tracking-tight text-on-surface leading-tight">
+                    Smart Budget <span class="italic font-normal text-secondary">Planner.</span>
+                </h1>
+                <p class="text-xs md:text-sm text-on-surface/70 font-light tracking-wide leading-relaxed mt-4">
+                    Estimate your architectural or interior deployment costs dynamically. Adjust your total built-up square footage to calculate real-time projections across our tailored execution packages.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Form & Calculator Container -->
+        <section class="py-16 md:py-24 px-6 sm:px-10 md:px-16 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+                <!-- LEFT COLUMN: Contact Form Section -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="border-b border-outline-variant/60 pb-4">
+                        <h2 class="text-xs uppercase tracking-[0.25em] text-secondary font-semibold flex items-center gap-2">
+                            <span>01 /</span> Contact Information
+                        </h2>
+                    </div>
+
+                    <form id="plannerForm" class="space-y-8">
+                        <input type="hidden" name="access_key" value="f0e931f9-63bf-4311-a614-04f9891d5a90">
+                        <input type="hidden" name="subject" value="New Project Budget Estimation - AKAR Design Studio">
+                        <input type="hidden" name="from_name" value="AKAR Budget Planner">
+                        <input type="hidden" id="calculated_budget_range" name="Estimated Budget Range" value="">
+
+                        <div class="space-y-6">
+                            <!-- Full Name -->
+                            <div class="space-y-2">
+                                <label for="fullName" class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface/60">Full Name</label>
+                                <input type="text" id="fullName" name="Client Name" required placeholder="e.g., Alexander Wright"
+                                    class="w-full border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-xs md:text-sm font-light py-2 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                            </div>
+
+                            <!-- Email & Phone Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="emailAddr" class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface/60">Email Address</label>
+                                    <input type="email" id="emailAddr" name="Client Email" required placeholder="e.g., alex@studio.com"
+                                        class="w-full border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-xs md:text-sm font-light py-2 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="phoneNum" class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface/60">Phone Number</label>
+                                    <input type="tel" id="phoneNum" name="Client Phone" placeholder="e.g., +91 96633 46095"
+                                        class="w-full border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-xs md:text-sm font-light py-2 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                                </div>
+                            </div>
+
+                            <!-- Brief Notes -->
+                            <div class="space-y-2">
+                                <label for="projectBrief" class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface/60">Project Brief Notes (Optional)</label>
+                                <textarea id="projectBrief" name="Project Brief" rows="3"
+                                    placeholder="Describe architectural vision or site specific notes..."
+                                    class="w-full border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-xs md:text-sm font-light py-2 px-0 bg-transparent text-on-surface placeholder-on-surface/30 resize-none leading-relaxed transition-colors"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="pt-4">
+                            <button type="button" id="submitFormBtn"
+                                class="w-full bg-primary text-surface py-4 px-6 text-xs uppercase tracking-[0.2em] font-semibold hover:bg-secondary transition-all duration-300 shadow-sm flex items-center justify-center gap-2">
+                                <span>Book Consultation & Submit</span>
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </button>
+                            <div id="formResponseMessage" class="text-center text-xs font-light tracking-wide hidden mt-4 p-3 rounded"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- RIGHT COLUMN: Modern Redesigned Calculator -->
+                <div class="lg:col-span-7 bg-white border border-outline-variant/80 rounded-lg p-6 sm:p-10 shadow-sm space-y-8">
+                    
+                    <!-- Top Title Banner -->
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.25em] font-bold text-secondary block mb-1">Cost Estimator</span>
+                        <h2 class="font-display text-3xl md:text-4xl font-normal text-on-surface tracking-tight">
+                            See your project, priced.
+                        </h2>
+                        <p class="text-xs md:text-sm text-on-surface/60 font-light leading-relaxed mt-2">
+                            Set your approximate built-up area and get an instant estimate across all three packages — before you book a consultation.
+                        </p>
+                    </div>
+
+                    <!-- Built-Up Area Control Blueprint Box -->
+                    <div class="grid-canvas border border-outline-variant rounded-md p-6 sm:p-8 space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                            <div>
+                                <label for="akarSqftNumber" class="block text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface/50 mb-1">Built-Up Area</label>
+                                <div class="flex items-baseline gap-2">
+                                    <input type="number" id="akarSqftNumber" value="2950" min="300" max="10000" step="10" 
+                                        class="number-input-clean font-display text-4xl sm:text-5xl font-normal text-on-surface bg-transparent border-0 border-b-2 border-secondary focus:ring-0 focus:border-primary p-0 w-32 tracking-tight">
+                                    <span class="font-sans-premium text-sm font-medium text-on-surface/60">sq ft</span>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Slider -->
+                            <div class="w-full sm:w-1/2 space-y-2">
+                                <input type="range" id="akarSqftSlider" value="2950" min="300" max="10000" step="10" aria-label="Adjust built-up area">
+                                <div class="flex justify-between text-[10px] font-medium text-on-surface/50 tracking-wider">
+                                    <span>300</span>
+                                    <span>10,000 sq ft</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Tier Package Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                        
+                        <!-- Tier 1: Essential Design -->
+                        <div class="bg-surface/50 border border-outline-variant/80 rounded-md p-5 flex flex-col justify-between hover:border-outline-variant transition-all">
+                            <div>
+                                <h3 class="font-display text-lg font-medium text-on-surface mb-2">Essential Design</h3>
+                                <p class="text-[11px] text-on-surface/60 font-light leading-snug mb-4 min-h-[36px]">
+                                    Perfect for foundational space planning and key layout updates.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-dashed border-outline-variant/80">
+                                <div class="text-[10px] font-medium text-on-surface/50 mb-1">₹60 / sq. ft.</div>
+                                <div class="akar-pkg-price font-display text-xl font-medium text-on-surface tracking-tight" data-rate="60">
+                                    ₹1,77,000
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tier 2: Premium Interiors (Most Popular Featured Card) -->
+                        <div class="bg-white border-2 border-primary rounded-md p-5 flex flex-col justify-between relative shadow-md">
+                            <span class="absolute -top-3 left-4 bg-primary text-surface text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-0.5 rounded-xs">
+                                Most Popular
+                            </span>
+                            <div>
+                                <h3 class="font-display text-lg font-medium text-on-surface mt-1 mb-2">Premium Interiors</h3>
+                                <p class="text-[11px] text-on-surface/60 font-light leading-snug mb-4 min-h-[36px]">
+                                    Comprehensive luxury designs curated perfectly for your daily home living.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-dashed border-outline-variant/80">
+                                <div class="text-[10px] font-medium text-on-surface/50 mb-1">₹110 / sq. ft.</div>
+                                <div class="akar-pkg-price font-display text-xl font-medium text-on-surface tracking-tight" data-rate="110">
+                                    ₹3,24,500
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tier 3: Turnkey Luxury -->
+                        <div class="bg-surface/50 border border-outline-variant/80 rounded-md p-5 flex flex-col justify-between hover:border-outline-variant transition-all">
+                            <div>
+                                <h3 class="font-display text-lg font-medium text-on-surface mb-2">Turnkey Luxury</h3>
+                                <p class="text-[11px] text-on-surface/60 font-light leading-snug mb-4 min-h-[36px]">
+                                    End-to-end management, sourcing, and ultimate home delivery.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-dashed border-outline-variant/80">
+                                <div class="text-[10px] font-medium text-on-surface/50 mb-1">₹1,200 / sq. ft.</div>
+                                <div class="akar-pkg-price font-display text-xl font-medium text-on-surface tracking-tight" data-rate="1200">
+                                    ₹35,40,000
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Disclaimer Footnote -->
+                    <p class="text-[11px] text-on-surface/50 font-light leading-relaxed pt-2">
+                        * This is a preliminary estimate based on built-up area only. Final quotation depends on site conditions, material selection, and scope finalized during consultation.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface py-20 border-t border-outline-variant/60">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+            <div>
+                <div class="font-serif-premium text-3xl font-light tracking-[0.2em] text-on-surface mb-6">AKAR</div>
+                <p class="text-xs text-on-surface/50 leading-relaxed max-w-xs font-light tracking-wide">
+                    Redefining spatial expressions through premium architectural precision and warm minimalist execution aesthetics.
+                </p>
+            </div>
+            <div>
+                <h6 class="text-xs uppercase tracking-[0.2em] font-semibold text-on-surface mb-6">Inquiries</h6>
+                <ul class="space-y-3 text-xs text-on-surface/60 font-light tracking-wide">
+                    <li><a class="hover:text-secondary transition-colors" href="services.html">Our Services Portfolio</a></li>
+                    <li><a class="hover:text-secondary transition-colors" href="Budgetplanner.html">Budget Planner</a></li>
+                    <li><a class="hover:text-secondary transition-colors" href="about.html">About Our Studio</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-xs uppercase tracking-[0.2em] font-semibold text-on-surface mb-6">Studio Location</h6>
+                <ul class="space-y-2 text-xs text-on-surface/60 font-light leading-relaxed tracking-wide">
+                    <li>138/F, 62, Doddakallasandra,</li>
+                    <li>Konanakunte, Bengaluru,</li>
+                    <li>Karnataka 560062</li>
+                    <li class="pt-2">Tel: <a href="tel:+919663346095" class="hover:text-secondary transition-colors font-medium">+91 96633 46095</a></li>
+                    <li>Mail: <a href="mailto:info@akararchitects.com" class="hover:text-secondary transition-colors">info@akararchitects.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="text-xs uppercase tracking-[0.2em] font-semibold text-on-surface mb-6">Connect</h6>
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-on-surface/60 font-light tracking-wide">
+                    <a class="hover:text-secondary hover-underline transition-colors" href="https://www.instagram.com/akar.design.studio" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a class="hover:text-secondary hover-underline transition-colors" href="https://www.facebook.com/akararchitect" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    <a class="hover:text-secondary hover-underline transition-colors" href="https://www.linkedin.com/company/akar-design-studio/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a class="hover:text-secondary hover-underline transition-colors" href="https://in.pinterest.com/AKARDesignStudio_architects/" target="_blank" rel="noopener noreferrer">Pinterest</a>
+                    <a class="hover:text-secondary hover-underline transition-colors" href="https://www.youtube.com/@AKARDesignStudio" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 md:px-16 mt-16 pt-8 border-t border-outline-variant/40 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-on-surface/40">
+                © 2026 AKAR Design Studio. All rights reserved.
+            </p>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-on-surface/40">
+                Designed with warm residential restraint.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Mobile Drawer Controls ---
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const bodyElement = document.body;
+            const line1 = document.getElementById('line1');
+            const line2 = document.getElementById('line2');
+            const line3 = document.getElementById('line3');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                    bodyElement.classList.add('overflow-hidden-mobile');
+                    line1.style.transform = "rotate(45deg) translateY(6px)";
+                    line2.style.opacity = "0";
+                    line3.style.transform = "rotate(-45deg) translateY(-6px)";
+                } else {
+                    mobileMenu.classList.remove('translate-x-0');
+                    mobileMenu.classList.add('translate-x-full');
+                    bodyElement.classList.remove('overflow-hidden-mobile');
+                    line1.style.transform = "none";
+                    line2.style.opacity = "1";
+                    line3.style.transform = "none";
+                }
+            }
+
+            if (menuToggleBtn && mobileMenu) {
+                menuToggleBtn.addEventListener('click', toggleMenu);
+            }
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => { if (isMenuOpen) toggleMenu(); });
+            });
+
+            // --- Calculator Engine ---
+            const numberInput = document.getElementById('akarSqftNumber');
+            const slider = document.getElementById('akarSqftSlider');
+            const priceEls = document.querySelectorAll('.akar-pkg-price');
+
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            });
+
+            function clamp(val) {
+                return Math.max(300, Math.min(10000, val || 0));
+            }
+
+            function updateCalculator(sqft) {
+                sqft = clamp(sqft);
+                if (numberInput) numberInput.value = sqft;
+                if (slider) slider.value = sqft;
+                
+                priceEls.forEach(el => {
+                    const rate = parseFloat(el.getAttribute('data-rate'));
+                    el.textContent = formatter.format(rate * sqft);
+                });
+
+                const calculatedField = document.getElementById("calculated_budget_range");
+                if (calculatedField && priceEls.length >= 3) {
+                    calculatedField.value = `Essential: ${priceEls[0].textContent}, Premium: ${priceEls[1].textContent}, Turnkey: ${priceEls[2].textContent} (Area: ${sqft} sq ft)`;
+                }
+            }
+
+            if (numberInput && slider) {
+                numberInput.addEventListener('input', () => updateCalculator(parseFloat(numberInput.value)));
+                slider.addEventListener('input', () => updateCalculator(parseFloat(slider.value)));
+                updateCalculator(2950); // Initialized default from reference image
+            }
+
+            // --- Form Submission Handler ---
+            const plannerForm = document.getElementById('plannerForm');
+            const submitBtn = document.getElementById('submitFormBtn');
+            const responseMessage = document.getElementById('formResponseMessage');
+
+            if (submitBtn && plannerForm) {
+                submitBtn.addEventListener('click', () => {
+                    if (!plannerForm.checkValidity()) {
+                        plannerForm.reportValidity();
+                        return;
+                    }
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerText = "Transmitting Request...";
+                    responseMessage.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-700', 'bg-rose-50', 'text-rose-700');
+                    responseMessage.classList.add('bg-gray-100', 'text-gray-600');
+                    responseMessage.innerText = "Submitting form data...";
+
+                    const formData = new FormData(plannerForm);
+                    const object = Object.fromEntries(formData);
+                    const json = JSON.stringify(object);
+
+                    fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: json
+                    })
+                    .then(async (response) => {
+                        let jsonRes = await response.json();
+                        if (response.status == 200) {
+                            responseMessage.className = "text-center text-xs font-medium tracking-wide mt-4 p-3 rounded bg-emerald-50 text-emerald-700";
+                            responseMessage.innerText = "Submission successful! Our team will contact you shortly.";
+                            plannerForm.reset();
+                            updateCalculator(2950);
+                        } else {
+                            responseMessage.className = "text-center text-xs font-medium tracking-wide mt-4 p-3 rounded bg-rose-50 text-rose-700";
+                            responseMessage.innerText = jsonRes.message || "Transmission failed. Please try again.";
+                        }
+                    })
+                    .catch(error => {
+                        responseMessage.className = "text-center text-xs font-medium tracking-wide mt-4 p-3 rounded bg-rose-50 text-rose-700";
+                        responseMessage.innerText = "System error: Unable to transmit form.";
+                    })
+                    .then(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Book Consultation & Submit</span><span class="material-symbols-outlined text-sm">arrow_forward</span>';
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

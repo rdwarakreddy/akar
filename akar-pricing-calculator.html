@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AKAR — Project Cost Estimator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+  /* ============================================================
+     Everything below is scoped under .akar-calc — safe to paste
+     directly into services.html or index.html without touching
+     the rest of the site's styles.
+     ============================================================ */
+
+  .akar-calc {
+    --ink: #2A241D;
+    --ink-soft: #6B6157;
+    --stone: #F1EAE0;
+    --card: #FDFBF8;
+    --line: #E1D6C6;
+    --accent: #9C5B3C;
+    --accent-ink: #FDFBF8;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--stone);
+    padding: 72px 24px;
+    box-sizing: border-box;
+  }
+  .akar-calc *, .akar-calc *::before, .akar-calc *::after { box-sizing: inherit; }
+
+  .akar-calc__inner { max-width: 1040px; margin: 0 auto; }
+
+  .akar-calc__eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .akar-calc__title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+  }
+  .akar-calc__sub {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 520px;
+    margin: 0 0 44px;
+  }
+
+  /* --- Blueprint-grid input panel (signature element) --- */
+  .akar-calc__panel {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 36px 32px;
+    margin-bottom: 40px;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+    background-color: var(--card);
+  }
+  .akar-calc__panel-inner {
+    background: var(--card);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 20px 32px;
+  }
+  .akar-calc__label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    width: 100%;
+  }
+  .akar-calc__figure {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 6vw, 56px);
+    font-weight: 500;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .akar-calc__figure input {
+    font-family: 'Fraunces', serif;
+    font-size: inherit;
+    font-weight: inherit;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    width: 5.5ch;
+    padding: 0 2px 2px;
+  }
+  .akar-calc__figure input:focus { outline: none; border-bottom-color: var(--ink); }
+  .akar-calc__figure span { font-size: 0.4em; color: var(--ink-soft); font-family: 'Inter', sans-serif; font-weight: 500; }
+
+  .akar-calc__slider { flex: 1 1 260px; min-width: 220px; }
+  .akar-calc__slider input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    height: 4px;
+    cursor: pointer;
+  }
+  .akar-calc__slider-range {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* --- Package cards --- */
+  .akar-calc__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 780px) {
+    .akar-calc__grid { grid-template-columns: 1fr; }
+  }
+
+  .akar-calc__card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .akar-calc__card--popular {
+    border-color: var(--ink);
+    box-shadow: 0 2px 0 var(--ink);
+  }
+  .akar-calc__badge {
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: var(--ink);
+    color: var(--accent-ink);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  .akar-calc__pkg-name {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 6px 0 6px;
+  }
+  .akar-calc__pkg-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0 0 20px;
+    min-height: 40px;
+  }
+  .akar-calc__pkg-rate {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .akar-calc__pkg-price {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--ink);
+    border-top: 1px dashed var(--line);
+    padding-top: 16px;
+    margin-top: auto;
+  }
+
+  .akar-calc__footnote {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-top: 28px;
+    max-width: 640px;
+  }
+
+  .akar-calc__cta-row {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .akar-calc__cta {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--accent-ink);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 14px 26px;
+    border-radius: 3px;
+    transition: background 0.15s ease;
+  }
+  .akar-calc__cta:hover { background: var(--accent); }
+  .akar-calc__cta:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .akar-calc__cta { transition: none; }
+  }
+</style>
+</head>
+<body style="margin:0;">
+
+<section class="akar-calc">
+  <div class="akar-calc__inner">
+
+    <div class="akar-calc__eyebrow">Cost Estimator</div>
+    <h2 class="akar-calc__title">See your project, priced.</h2>
+    <p class="akar-calc__sub">Set your approximate built-up area and get an instant estimate across all three packages — before you book a consultation.</p>
+
+    <div class="akar-calc__panel">
+      <div class="akar-calc__panel-inner">
+        <div class="akar-calc__label">Built-up area</div>
+        <div class="akar-calc__figure">
+          <input type="number" id="akarSqftNumber" value="1500" min="300" max="10000" step="10" aria-label="Built-up area in square feet">
+          <span>sq&nbsp;ft</span>
+        </div>
+        <div class="akar-calc__slider">
+          <input type="range" id="akarSqftSlider" value="1500" min="300" max="10000" step="10" aria-label="Adjust built-up area">
+          <div class="akar-calc__slider-range"><span>300</span><span>10,000 sq ft</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="akar-calc__grid">
+
+      <div class="akar-calc__card">
+        <div class="akar-calc__pkg-name">Essential Design</div>
+        <p class="akar-calc__pkg-desc">Perfect for foundational space planning and key layout updates.</p>
+        <div class="akar-calc__pkg-rate">₹60 / sq. ft.</div>
+        <div class="akar-calc__pkg-price" data-rate="60">₹90,000</div>
+      </div>
+
+      <div class="akar-calc__card akar-calc__card--popular">
+        <div class="akar-calc__badge">Most Popular</div>
+        <div class="akar-calc__pkg-name">Premium Interiors</div>
+        <p class="akar-calc__pkg-desc">Comprehensive luxury designs curated perfectly for your daily home living.</p>
+        <div class="akar-calc__pkg-rate">₹110 / sq. ft.</div>
+        <div class="akar-calc__pkg-price" data-rate="110">₹1,65,000</div>
+      </div>
+
+      <div class="akar-calc__card">
+        <div class="akar-calc__pkg-name">Turnkey Luxury</div>
+        <p class="akar-calc__pkg-desc">End-to-end management, sourcing, and ultimate home delivery.</p>
+        <div class="akar-calc__pkg-rate">₹1,200 / sq. ft.</div>
+        <div class="akar-calc__pkg-price" data-rate="1200">₹18,00,000</div>
+      </div>
+
+    </div>
+
+    <p class="akar-calc__footnote">This is a preliminary estimate based on built-up area only. Final quotation depends on site conditions, material selection, and scope finalized during consultation.</p>
+
+    <div class="akar-calc__cta-row">
+      <a class="akar-calc__cta" href="Contactus.html">Get a Detailed Quotation</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function() {
+  var numberInput = document.getElementById('akarSqftNumber');
+  var slider = document.getElementById('akarSqftSlider');
+  var priceEls = document.querySelectorAll('.akar-calc__pkg-price');
+
+  var formatter = new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  });
+
+  function clamp(val) {
+    val = Math.max(300, Math.min(10000, val || 0));
+    return val;
+  }
+
+  function update(sqft) {
+    sqft = clamp(sqft);
+    numberInput.value = sqft;
+    slider.value = sqft;
+    priceEls.forEach(function(el) {
+      var rate = parseFloat(el.getAttribute('data-rate'));
+      el.textContent = formatter.format(rate * sqft);
+    });
+  }
+
+  numberInput.addEventListener('input', function() { update(parseFloat(numberInput.value)); });
+  slider.addEventListener('input', function() { update(parseFloat(slider.value)); });
+
+  update(1500);
+})();
+</script>
+
+</body>
+</html>
