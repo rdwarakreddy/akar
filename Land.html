@@ -1,709 +1,2301 @@
 <!DOCTYPE html>
 <html lang="en" style="color-scheme:dark">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AKAR Design Studio | Architecture, Interiors &amp; Turnkey Execution</title>
-<meta name="description" content="AKAR Design Studio: minimalist luxury residential architecture and home interior design. Happy Diwali and Dasara. Explore our services and book a consultation.">
-<meta name="theme-color" content="#0b0b0c">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.pexels.com" crossorigin>
-<link rel="preload" as="image" href="https://images.pexels.com/photos/34378030/pexels-photo-34378030.jpeg?auto=compress&cs=tinysrgb&w=1400" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-/* =========================================================
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AKAR Design Studio | Architecture, Interiors &amp; Turnkey Execution</title>
+  <meta name="description"
+    content="AKAR Design Studio: minimalist luxury residential architecture and home interior design. Happy Diwali and Dasara. Explore our services and book a consultation.">
+  <meta name="theme-color" content="#0b0b0c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.pexels.com" crossorigin>
+  <link rel="preload" as="image"
+    href="https://images.pexels.com/photos/34378030/pexels-photo-34378030.jpeg?auto=compress&cs=tinysrgb&w=1400"
+    fetchpriority="high">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    /* =========================================================
    AKAR Design Studio – Diwali & Dasara (v5)
    Editorial Swiss grid: paper, thick black rules, rounded
    monochrome photography, wide display type, orange accent.
    No external scripts: CSS 3D house + canvas crackers.
-   Photos: Pexels (free licence) – swap any src for your own.
    ========================================================= */
-:root{
-  --paper:#0b0b0c; --paper-2:#151413; --ink:#f3ede1; --line:#37322a; --night:#000; --rule:3px;
-  --orange:#f2b13c; --gold:#e8c46a; --red:#7d0f24; --white:#fbf6ea; --on:#0b0b0c;
-  --display:"Bodoni Moda","Playfair Display",Didot,Georgia,serif;
-  --sans:"Jost",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:"DM Mono",ui-monospace,Menlo,monospace;
-  --ease:cubic-bezier(.22,.8,.24,1);
-  --gutter:clamp(10px,1.8vw,26px); --nav:64px;
-}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:rgba(255,77,18,.2)}
-@media (pointer:fine){html{overscroll-behavior:none}}
-body{margin:0;font-family:var(--sans);font-size:16px;background:var(--paper);color:var(--ink);line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
-img,svg,canvas{display:block;max-width:100%}
-a{color:inherit;text-decoration:none}
-a,button{touch-action:manipulation}
-h1,h2,h3,p,ol,ul,figure{margin:0}
-ol,ul{padding:0;list-style:none}
-section[id]{scroll-margin-top:var(--nav)}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
-.skip{position:fixed;left:16px;top:-80px;z-index:400;background:var(--orange);color:var(--on);padding:12px 18px;border-radius:999px;font-weight:700;transition:top .3s var(--ease)}
-.skip:focus{top:max(16px,env(safe-area-inset-top))}
-.mono{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+    :root {
+      --paper: #0b0b0c;
+      --paper-2: #151413;
+      --ink: #f3ede1;
+      --line: #37322a;
+      --night: #000;
+      --rule: 3px;
+      --orange: #f2b13c;
+      --gold: #e8c46a;
+      --red: #7d0f24;
+      --white: #fbf6ea;
+      --on: #0b0b0c;
+      --display: "Cormorant Garamond", "Bodoni Moda", Georgia, serif;
+      --sans: "Jost", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --mono: "DM Mono", ui-monospace, Menlo, monospace;
+      --ease: cubic-bezier(.22, .8, .24, 1);
+      --gutter: clamp(10px, 1.8vw, 26px);
+      --nav: 64px;
+    }
 
-[data-speed]{transform:translate3d(0,var(--py,0px),0);will-change:transform}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
 
-/* ---------- board / cell system (grid gap = rules) ---------- */
-.page{padding-inline:var(--gutter)}
-.board{display:grid;gap:var(--rule);background:var(--line);padding:var(--rule);position:relative}
-.page+.page .board,.page+.build .board,.build+.page .board{margin-top:calc(var(--rule)*-1)}
-.cell{position:relative;background:var(--paper);padding:clamp(14px,1.7vw,26px);min-width:0;overflow:hidden}
-.cell.night{background:var(--night);color:var(--white)}
-.cell.orange{background:var(--orange);color:var(--on)}
-.cell.flush{padding:0}
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: rgba(255, 77, 18, .2)
+    }
 
-/* photo frame: rounded, monochrome, parallax-ready */
-.ph{position:relative;overflow:hidden;border-radius:20px;background:#1b1916;isolation:isolate}
-.ph img{position:absolute;inset:-9% 0;width:100%;height:118%;object-fit:cover;transform:translate3d(0,var(--py,0px),0);will-change:transform}
-.bw img{filter:grayscale(1) contrast(1.08) brightness(1.02);transition:filter .6s var(--ease)}
-.bw:hover img,.cell:hover>.bw img,a:hover .bw img{filter:grayscale(0) contrast(1.02)}
+    @media (pointer:fine) {
+      html {
+        overscroll-behavior: none
+      }
+    }
 
-/* type */
-.display{font-family:var(--display);font-weight:500;letter-spacing:-.025em;line-height:1.04;text-wrap:balance}
-.kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--orange)}
-.small{font-size:.86rem;line-height:1.55;max-width:44ch}
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 16px;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.55;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased
+    }
 
-/* buttons */
-.btn{position:relative;display:inline-flex;align-items:center;gap:14px;padding:6px 6px 6px 24px;border-radius:999px;border:var(--rule) solid var(--ink);background:var(--ink);color:var(--on);font:600 .86rem/1 var(--sans);letter-spacing:.04em;overflow:hidden;isolation:isolate;cursor:pointer;transition:color .4s var(--ease);white-space:nowrap}
-.btn b{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--orange);color:var(--on);font-size:1.05rem;font-weight:500;transition:transform .5s var(--ease)}
-.btn::before{content:"";position:absolute;inset:0;background:var(--orange);transform:translateX(-101%);transition:transform .55s var(--ease);z-index:-1}
-.btn:hover::before,.btn:focus-visible::before{transform:none}
-.btn:hover b,.btn:focus-visible b{transform:rotate(45deg);background:var(--on);color:var(--orange)}
-.btn--light{background:transparent;color:var(--ink)}
-.btn--light::before{background:var(--ink)}
-.btn--light:hover{color:var(--on)}
-.btn--white{background:var(--white);color:var(--ink);border-color:var(--white)}
-.btn--white::before{background:var(--orange)}
-.btn--white:hover{color:var(--on);border-color:var(--orange)}
-.btn--outline-w{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
-.btn--outline-w::before{background:#fff}.btn--outline-w:hover{color:var(--ink)}.btn--outline-w:hover b{background:var(--orange);color:var(--on)}
-.ctas{display:flex;flex-wrap:wrap;gap:12px}
+    img,
+    svg,
+    canvas {
+      display: block;
+      max-width: 100%
+    }
 
-/* reveals (simple, one-time) */
-.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease) var(--d,0s),transform 1s var(--ease) var(--d,0s)}
-.js .rv.in{opacity:1;transform:none}
-.js .wipe{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s var(--ease) var(--d,0s)}
-.js .wipe.in{clip-path:inset(0 0 0 0)}
-.js [data-split] .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em}
-.js [data-split] .w>span{display:inline-block;transform:translateY(110%);transition:transform 1s var(--ease);transition-delay:calc(var(--i)*60ms + .15s)}
-.js [data-split].in .w>span{transform:none}
+    a {
+      color: inherit;
+      text-decoration: none
+    }
 
-/* ---------- NAV ---------- */
-.nav{position:fixed;inset:0 0 auto 0;z-index:300;background:var(--paper);height:var(--nav);padding-inline:var(--gutter);padding-top:env(safe-area-inset-top);box-sizing:content-box}
-.nav__board{display:grid;grid-template-columns:auto 1fr auto;gap:var(--rule);background:var(--line);padding:var(--rule);height:var(--nav);margin-top:6px}
-.nav .cell{display:flex;align-items:center;padding:0 clamp(14px,1.6vw,24px);overflow:visible}
-.logo{gap:10px;font-family:var(--display);font-size:1.05rem;letter-spacing:.04em}
-.logo i{width:12px;height:12px;border-radius:50%;background:var(--orange)}
-.logo small{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;opacity:.7}
-.nav__links{justify-content:center;gap:clamp(18px,3vw,44px);font-size:.82rem;font-weight:500;letter-spacing:.06em}
-.nav__links a{position:relative;padding:4px 0}
-.nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
-.nav__links a:hover::after,.nav__links a:focus-visible::after{transform:scaleX(1);transform-origin:left}
-.nav__cta{background:var(--orange);color:var(--on);font-weight:700;font-size:.84rem;letter-spacing:.04em;gap:10px;transition:background-color .4s}
-.nav__cta:hover{background:var(--ink);color:var(--on)}
-.burger{display:none;width:44px;height:44px;margin-left:auto;background:none;border:0;cursor:pointer;position:relative}
-.burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--ink);transition:transform .4s var(--ease),top .4s var(--ease)}
-.burger span:first-child{top:17px}.burger span:last-child{top:25px}
-.burger[aria-expanded="true"] span:first-child{top:21px;transform:rotate(45deg)}
-.burger[aria-expanded="true"] span:last-child{top:21px;transform:rotate(-45deg)}
-.progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:500;pointer-events:none}
-.progress span{display:block;height:100%;background:var(--orange);transform-origin:left;transform:scaleX(0)}
+    a,
+    button {
+      touch-action: manipulation
+    }
 
-/* ---------- HERO ---------- */
-.hero{padding-top:calc(var(--nav) + 6px + var(--rule) - 1px)}
-.hero__board{grid-template-columns:repeat(12,1fr);grid-template-rows:minmax(300px,1.3fr) minmax(230px,1fr) auto;grid-template-areas:"t t t t t t t t p p p p" "t t t t t t t t k k k k" "a a a b b b c c c d d d";min-height:calc(100svh - var(--nav) - 14px)}
-.hero__title{grid-area:t;display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-.hero__photo{grid-area:p;padding:12px}
-.hero__photo .ph{height:100%;min-height:240px}
-.hero__fw{grid-area:k}
-.stat{display:flex;flex-direction:column;justify-content:flex-end;gap:2px;padding-block:14px}
-.st-a{grid-area:a}.st-b{grid-area:b}.st-c{grid-area:c}.st-d{grid-area:d}
-.stat b{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1;font-variant-numeric:tabular-nums}
-.stat span{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
-.hero__top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 12px;border:var(--rule) solid var(--orange);border-radius:999px;font-weight:600;font-size:.8rem;background:rgba(242,177,60,.12);color:var(--orange)}
-.pill i{width:10px;height:10px;border-radius:50%;background:var(--orange);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.35}}
-.sun{width:clamp(58px,7vw,96px);flex:0 0 auto;transform:rotate(var(--rot,0deg))}
-.hero__h1{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,5.6vw,5.4rem);line-height:.98;letter-spacing:-.035em;max-width:13ch;font-weight:500;text-wrap:balance}
-.hero__h1 em{font-style:normal;color:var(--orange)}
-.hero__foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
-.hero__eyebrow{max-width:34ch}
+    h1,
+    h2,
+    h3,
+    p,
+    ol,
+    ul,
+    figure {
+      margin: 0
+    }
 
-/* crackers (canvas cells) */
-.fw{padding:0;cursor:crosshair}
-.fw canvas{position:absolute;inset:0;width:100%;height:100%}
-.fw__label{position:absolute;left:18px;bottom:16px;z-index:2;color:#ffd9a0;pointer-events:none}
-.fw__greet{position:absolute;left:18px;top:16px;z-index:2;font-family:var(--display);font-size:clamp(1rem,1.7vw,1.5rem);line-height:1.15;color:var(--white);pointer-events:none;max-width:12ch}
-.fw__greet em{font-style:normal;color:var(--gold)}
-.fw__hit{position:absolute;inset:0;z-index:3;background:none;border:0;cursor:crosshair}
-.fw__hit:focus-visible{outline-offset:-6px}
+    ol,
+    ul {
+      padding: 0;
+      list-style: none
+    }
 
-/* ---------- SERVICES ---------- */
-.services__board{grid-template-columns:repeat(3,1fr)}
-.sv-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
-.sv-head h2{font-size:clamp(2rem,4.4vw,4rem);max-width:15ch}
-.sv{display:flex;flex-direction:column;gap:18px;padding:12px 12px 12px}
-.sv__top{display:flex;justify-content:space-between;align-items:baseline;padding:6px 8px 0}
-.sv__top b{font-family:var(--display);font-weight:400;font-size:1.4rem;color:var(--orange)}
-.sv .ph{aspect-ratio:4/4.6}
-.sv h3{font-family:var(--display);font-weight:400;font-size:clamp(1.15rem,1.7vw,1.55rem);line-height:1.12;letter-spacing:-.02em;padding:0 8px;text-wrap:balance}
-.sv__cta{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding:8px 8px 8px 22px;border:var(--rule) solid var(--ink);border-radius:999px;background:var(--ink);color:var(--on);font-weight:700;font-size:.92rem;letter-spacing:.03em;overflow:hidden;isolation:isolate;transition:color .4s}
-.sv__cta::before{content:"";position:absolute;inset:0;background:var(--orange);transform:translateX(-101%);transition:transform .55s var(--ease);z-index:-1}
-.sv:hover .sv__cta::before,.sv__cta:focus-visible::before{transform:none}
-.sv__cta b{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--orange);color:var(--on);font-size:1.15rem;font-weight:500;transition:transform .5s var(--ease),background-color .4s}
-.sv:hover .sv__cta b{transform:rotate(45deg);background:var(--on);color:var(--orange)}
-.sv .ph img{opacity:0;animation:slide 15s linear infinite,kb 15s ease-in-out infinite alternate}
-.sv .ph img:nth-child(2){animation-delay:-10s,-10s}.sv .ph img:nth-child(3){animation-delay:-5s,-5s}
-.sv .ph::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(115deg,transparent 40%,rgba(255,236,180,.22) 50%,transparent 60%);transform:translateX(-120%);animation:shine 6s var(--ease) infinite;pointer-events:none}
-@keyframes slide{0%{opacity:1}30%{opacity:1}38%{opacity:0}92%{opacity:0}100%{opacity:1}}
-@keyframes kb{from{scale:1;translate:0 0}to{scale:1.14;translate:-2% 1.5%}}
-@keyframes shine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
-.sv__dots{position:absolute;left:50%;bottom:14px;translate:-50% 0;z-index:3;display:flex;gap:6px}
-.sv__dots i{width:22px;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden;position:relative}
-.sv__dots i::after{content:"";position:absolute;inset:0;background:var(--orange);transform:scaleX(0);transform-origin:left;animation:dot 15s linear infinite}
-.sv__dots i:nth-child(2)::after{animation-delay:-10s}.sv__dots i:nth-child(3)::after{animation-delay:-5s}
-@keyframes dot{0%{transform:scaleX(0)}33%{transform:scaleX(1)}33.1%,100%{transform:scaleX(0)}}
-.mega{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:clamp(20px,3vw,40px);isolation:isolate;transition:color .5s}
-.mega:hover,.mega:focus-visible{color:var(--on)}
-.mega::before{content:"";position:absolute;inset:0;background:var(--ink);transform:translateY(101%);transition:transform .6s var(--ease);z-index:-1}
-.mega:hover::before,.mega:focus-visible::before{transform:none}
-.mega span{font-family:var(--display);font-size:clamp(1.6rem,5.2vw,4.8rem);line-height:1;letter-spacing:-.03em}
-.mega b{display:grid;place-items:center;flex:0 0 auto;width:clamp(54px,7vw,96px);aspect-ratio:1;border-radius:50%;background:var(--on);color:var(--orange);font-size:clamp(1.3rem,3vw,2.4rem);font-weight:400;transition:transform .6s var(--ease),background-color .4s}
-.mega:hover b{transform:rotate(45deg);background:var(--orange);color:var(--on)}
+    section[id] {
+      scroll-margin-top: var(--nav)
+    }
 
-/* ---------- GARLAND DIVIDER ---------- */
-.garland{height:34px;background:radial-gradient(circle at 50% 50%,#ffb02e 0 34%,#ff6a1a 35% 62%,#c2330c 63% 70%,transparent 71%) 0 0/34px 34px repeat-x,var(--paper);border-block:var(--rule) solid var(--line);margin-inline:var(--gutter);margin-block:calc(var(--rule)*-1)}
+    :focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px
+    }
 
-/* ---------- 3D BUILD (pinned) ---------- */
-.build{position:relative;height:400vh}
-.build__stick{position:sticky;top:calc(var(--nav) + 6px);height:calc(100svh - var(--nav) - 6px)}
-.build__board{height:100%;grid-template-columns:5fr 7fr}
-.build__text{display:flex;flex-direction:column;justify-content:center;gap:0}
-.build__text h2{font-size:clamp(1.6rem,3.2vw,2.8rem);margin-bottom:18px;max-width:12ch}
-.steps{display:grid;gap:2px;margin-bottom:22px}
-.step{display:grid;grid-template-columns:42px 1fr;gap:10px;padding:10px 12px;border-radius:14px;border:var(--rule) solid transparent;opacity:.4;transition:opacity .5s var(--ease),background-color .5s,border-color .5s}
-.step b{font-family:var(--mono);font-weight:500;font-size:.78rem;color:var(--orange);padding-top:3px}
-.step h3{font-family:var(--display);font-weight:400;font-size:1rem;letter-spacing:-.01em}
-.step p{font-size:.84rem;max-height:0;overflow:hidden;transition:max-height .6s var(--ease)}
-.step.active{opacity:1;background:var(--paper-2);border-color:var(--orange)}
-.step.active p{max-height:5em;margin-top:4px}
-.build__view{padding:0}
-.mv{--u:40px;position:absolute;inset:0;perspective:2000px;perspective-origin:50% 30%;overflow:hidden;background:radial-gradient(ellipse at 50% 75%,rgba(255,77,18,calc(var(--glow,0)*.38)),transparent 60%),#0c0c0c}
-.mv__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 50% 55%,#000 20%,transparent 72%);mask-image:radial-gradient(ellipse at 50% 55%,#000 20%,transparent 72%)}
-.scene{position:absolute;left:50%;top:58%;width:0;height:0;transform-style:preserve-3d;transform:translateY(calc(var(--u)*1.2)) rotateX(var(--rx,-26deg)) rotateY(var(--ry,-38deg))}
-.ground{position:absolute;left:calc(var(--u)*-14);top:calc(var(--u)*-14);width:calc(var(--u)*28);height:calc(var(--u)*28);transform:translateY(calc(var(--u)*.03)) rotateX(90deg);background-image:linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px);background-size:var(--u) var(--u);border-radius:50%;-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);mask-image:radial-gradient(circle,#000 30%,transparent 70%)}
-.bx{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;visibility:hidden}
-.bx i{position:absolute;display:block;backface-visibility:hidden;background:var(--c,#ddd);box-shadow:inset 0 0 0 1px var(--edge,rgba(12,12,12,.55))}
-.bx .f,.bx .k{width:calc(var(--u)*var(--w));height:calc(var(--u)*var(--h));margin:calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--w)/-2)}
-.bx .f{transform:translateZ(calc(var(--u)*var(--d)/2))}
-.bx .k{transform:rotateY(180deg) translateZ(calc(var(--u)*var(--d)/2));background-image:linear-gradient(rgba(0,0,0,.34),rgba(0,0,0,.34))}
-.bx .r,.bx .l{width:calc(var(--u)*var(--d));height:calc(var(--u)*var(--h));margin:calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--d)/-2)}
-.bx .r{transform:rotateY(90deg) translateZ(calc(var(--u)*var(--w)/2));background-image:linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,.16))}
-.bx .l{transform:rotateY(-90deg) translateZ(calc(var(--u)*var(--w)/2));background-image:linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3))}
-.bx .t,.bx .u{width:calc(var(--u)*var(--w));height:calc(var(--u)*var(--d));margin:calc(var(--u)*var(--d)/-2) 0 0 calc(var(--u)*var(--w)/-2)}
-.bx .t{transform:rotateX(90deg) translateZ(calc(var(--u)*var(--h)/2));background-image:linear-gradient(rgba(255,255,255,.22),rgba(255,255,255,.22))}
-.bx .u{transform:rotateX(-90deg) translateZ(calc(var(--u)*var(--h)/2));background-image:linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5))}
-.bx.glass{--c:#23201c}
-.scene.lit .bx.glass i{background:linear-gradient(#ffd27a,#ff9a2e);box-shadow:0 0 calc(var(--u)*.7) calc(var(--u)*.12) rgba(255,160,50,.75)}
-.bx.flame i,.bx.bulb i{background:#ffd27a;box-shadow:0 0 calc(var(--u)*.5) calc(var(--u)*.16) rgba(255,170,50,.95)}
-.mv__tag{position:absolute;left:16px;bottom:14px;z-index:2;color:#ffd9a0}
-.mv__bar{position:absolute;right:16px;top:16px;bottom:16px;width:3px;background:rgba(255,255,255,.18);z-index:2}
-.mv__bar span{display:block;width:100%;height:100%;background:var(--orange);transform-origin:top;transform:scaleY(var(--p,0))}
-.mv__count{position:absolute;right:30px;bottom:14px;z-index:2;color:#fff;font-family:var(--display);font-size:1.5rem}
+    .skip {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 400;
+      background: var(--orange);
+      color: var(--on);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: top .3s var(--ease)
+    }
 
-/* ---------- FESTIVE / DASARA ---------- */
-.fest__board{grid-template-columns:repeat(12,1fr);grid-template-rows:auto minmax(260px,1fr);grid-template-areas:"i i i i i t t t t t t t" "i i i i i k k k k m m m"}
-.fest__idol{grid-area:i;padding:12px;background:var(--red)}
-.fest__idol .ph{height:100%;min-height:420px;border-radius:20px;border:4px solid var(--gold)}
-.fest__idol .ph img{filter:saturate(1.15) contrast(1.05)}
-.fest__idol figcaption{position:absolute;left:28px;bottom:26px;right:28px;z-index:3;font-family:var(--display);color:var(--white);font-size:clamp(1rem,1.6vw,1.4rem);text-shadow:0 2px 20px rgba(0,0,0,.7)}
-.fest__idol figcaption small{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.fest__idol .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(60,0,10,.85));z-index:2}
-.fest__text{grid-area:t;display:flex;flex-direction:column;justify-content:center}
-.fest__text h2{font-size:clamp(1.7rem,3.6vw,3.3rem);margin-bottom:18px;max-width:14ch}
-.fest__text .small{margin-bottom:26px}
-.fest__fw{grid-area:k}
-.fest__mandala{grid-area:m;display:grid;place-items:center;background:var(--gold)}
-.mandala{width:min(86%,220px);transform:rotate(var(--rot,0deg))}
+    .skip:focus {
+      top: max(16px, env(safe-area-inset-top))
+    }
 
-/* ---------- FINAL ---------- */
-.final__board{grid-template-columns:7fr 5fr}
-.final__text{display:flex;flex-direction:column;justify-content:center;gap:0;padding-block:clamp(30px,5vw,70px)}
-.final__text h2{font-size:clamp(1.9rem,4.4vw,4rem);margin-bottom:20px;max-width:14ch}
-.final__text .small{margin-bottom:28px}
-.final__photo{padding:12px}
-.final__photo .ph{height:100%;min-height:300px}
+    .mono {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .16em;
+      text-transform: uppercase
+    }
 
-/* ---------- FOOTER ---------- */
-.footer__board{grid-template-columns:2fr 1.2fr 1.2fr}
-.footer h3{font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;color:var(--orange)}
-.footer li{margin-bottom:6px;font-size:.9rem}
-.footer a:hover{color:var(--orange)}
-.footer__brand .logo{margin-bottom:14px}
-.footer__greet{font-family:var(--display);font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.2;max-width:22ch}
-.copyright{padding:14px var(--gutter) calc(16px + env(safe-area-inset-bottom));font-size:.78rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    [data-speed] {
+      transform: translate3d(0, var(--py, 0px), 0);
+      will-change: transform
+    }
 
-.motion-btn{position:fixed;z-index:450;right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:var(--rule) solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;transition:background-color .3s,color .3s}
-.motion-btn:hover{background:var(--ink);color:var(--on)}
+    /* ---------- board / cell system (grid gap = rules) ---------- */
+    .page {
+      padding-inline: var(--gutter)
+    }
 
-/* ---------- responsive ---------- */
-@media (max-width:1024px){
-  .hero__board{grid-template-columns:repeat(12,1fr);grid-template-rows:auto 280px auto auto;grid-template-areas:"t t t t t t t t t t t t" "p p p p p p k k k k k k" "a a a a a a b b b b b b" "c c c c c c d d d d d d";min-height:0}
-  .hero__title{min-height:380px}
-  .services__board{grid-template-columns:1fr}
-  .sv{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
-  .sv__top{grid-column:1/-1}.sv .ph{aspect-ratio:4/3;grid-row:2/5}.sv h3{align-self:end}
-  .fest__board{grid-template-columns:1fr 1fr;grid-template-areas:"i i" "t t" "k m";grid-template-rows:auto}
-  .fest__idol .ph{min-height:340px}
-  .fest__fw{min-height:260px}
-  .final__board{grid-template-columns:1fr}
-  .footer__board{grid-template-columns:1fr 1fr}
-  .footer__brand{grid-column:1/-1}
-}
-@media (max-width:860px){
-  .nav__board{grid-template-columns:1fr auto}
-  .nav .nav__links{position:fixed;left:0;right:0;top:calc(var(--nav) + 12px);bottom:0;background:var(--paper);flex-direction:column;justify-content:center;gap:26px;font-size:1.3rem;opacity:0;visibility:hidden;transform:translateY(-10px);overscroll-behavior:contain;transition:opacity .4s,transform .5s var(--ease),visibility .4s;z-index:20}
-  .nav .nav__links.open{opacity:1;visibility:visible;transform:none}
-  .nav__cta{display:none}
-  .burger{display:block}
-  .nav .cell.burger-cell{padding:0 6px}
-  .build{height:360vh}
-  .build__board{grid-template-columns:1fr;grid-template-rows:minmax(0,44%) minmax(0,1fr)}
-  .build__view{order:-1}
-  .build__text{justify-content:flex-start;padding-block:12px;overflow:hidden}
-  .build__text h2{font-size:1.2rem;margin-bottom:8px}.build__text .kicker{margin-bottom:6px}
-  .step{padding:6px 8px}.step h3{font-size:.86rem}.steps{margin-bottom:10px}
-  .build__text .btn{align-self:flex-start;transform:scale(.9);transform-origin:left}
-}
-@media (max-width:600px){
-  .hero__board{grid-template-areas:"t t t t t t t t t t t t" "p p p p p p p p p p p p" "k k k k k k k k k k k k" "a a a a a a b b b b b b" "c c c c c c d d d d d d";grid-template-rows:auto 280px 260px auto auto}
-  .hero__title{min-height:0}
-  .sv{display:flex}
-  .sv .ph{aspect-ratio:4/3.4}
-  .btn{width:100%;justify-content:space-between}
-  .ctas{width:100%}
-  .fest__board{grid-template-columns:1fr;grid-template-areas:"i" "t" "k" "m"}
-  .fest__mandala{min-height:200px}
-  .footer__board{grid-template-columns:1fr}
-}
+    .board {
+      display: grid;
+      gap: var(--rule);
+      background: var(--line);
+      padding: var(--rule);
+      position: relative
+    }
 
-/* ---------- motion preferences ---------- */
-html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation-play-state:paused!important}
-@media (prefers-reduced-motion:reduce){
-  .sv .ph img{animation:none!important;opacity:1}.sv .ph img+img,.sv__dots,.sv .ph::after{display:none}
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
-  .js .rv,.js .wipe,.js [data-split] .w>span{opacity:1!important;transform:none!important;clip-path:none!important}
-  [data-speed]{will-change:auto}
-}
-</style>
-<script>document.documentElement.classList.add('js');</script>
+    .page+.page .board,
+    .page+.build .board,
+    .build+.page .board {
+      margin-top: calc(var(--rule)*-1)
+    }
+
+    .cell {
+      position: relative;
+      background: var(--paper);
+      padding: clamp(14px, 1.7vw, 26px);
+      min-width: 0;
+      overflow: hidden
+    }
+
+    .cell.night {
+      background: var(--night);
+      color: var(--white)
+    }
+
+    .cell.orange {
+      background: var(--orange);
+      color: var(--on)
+    }
+
+    .cell.flush {
+      padding: 0
+    }
+
+    /* photo frame: rounded, monochrome, parallax-ready */
+    .ph {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #1b1916;
+      isolation: isolate
+    }
+
+    .ph img {
+      position: absolute;
+      inset: -9% 0;
+      width: 100%;
+      height: 118%;
+      object-fit: cover;
+      transform: translate3d(0, var(--py, 0px), 0);
+      will-change: transform
+    }
+
+    .bw img {
+      filter: grayscale(1) contrast(1.08) brightness(1.02);
+      transition: filter .6s var(--ease)
+    }
+
+    .bw:hover img,
+    .cell:hover>.bw img,
+    a:hover .bw img {
+      filter: grayscale(0) contrast(1.02)
+    }
+
+    /* type */
+    .display {
+      font-family: var(--display);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.08;
+      text-wrap: balance
+    }
+
+    .kicker {
+      font-family: var(--mono);
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px
+    }
+
+    .kicker::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--orange)
+    }
+
+    .small {
+      font-size: .86rem;
+      line-height: 1.55;
+      max-width: 44ch
+    }
+
+    /* buttons */
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 6px 6px 6px 24px;
+      border-radius: 999px;
+      border: var(--rule) solid var(--ink);
+      background: var(--ink);
+      color: var(--on);
+      font: 600 .86rem/1 var(--sans);
+      letter-spacing: .04em;
+      overflow: hidden;
+      isolation: isolate;
+      cursor: pointer;
+      transition: color .4s var(--ease);
+      white-space: nowrap
+    }
+
+    .btn b {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--on);
+      font-size: 1.05rem;
+      font-weight: 500;
+      transition: transform .5s var(--ease)
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      transform: translateX(-101%);
+      transition: transform .55s var(--ease);
+      z-index: -1
+    }
+
+    .btn:hover::before,
+    .btn:focus-visible::before {
+      transform: none
+    }
+
+    .btn:hover b,
+    .btn:focus-visible b {
+      transform: rotate(45deg);
+      background: var(--on);
+      color: var(--orange)
+    }
+
+    .btn--light {
+      background: transparent;
+      color: var(--ink)
+    }
+
+    .btn--light::before {
+      background: var(--ink)
+    }
+
+    .btn--light:hover {
+      color: var(--on)
+    }
+
+    .btn--white {
+      background: var(--white);
+      color: var(--ink);
+      border-color: var(--white)
+    }
+
+    .btn--white::before {
+      background: var(--orange)
+    }
+
+    .btn--white:hover {
+      color: var(--on);
+      border-color: var(--orange)
+    }
+
+    .btn--outline-w {
+      background: transparent;
+      color: #fff;
+      border-color: rgba(255, 255, 255, .7)
+    }
+
+    .btn--outline-w::before {
+      background: #fff
+    }
+
+    .btn--outline-w:hover {
+      color: var(--ink)
+    }
+
+    .btn--outline-w:hover b {
+      background: var(--orange);
+      color: var(--on)
+    }
+
+    .ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    /* reveals (simple, one-time) */
+    .js .rv {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .9s var(--ease) var(--d, 0s), transform 1s var(--ease) var(--d, 0s)
+    }
+
+    .js .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    .js .wipe {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 1.2s var(--ease) var(--d, 0s)
+    }
+
+    .js .wipe.in {
+      clip-path: inset(0 0 0 0)
+    }
+
+    .js [data-split] .w {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding-bottom: .1em
+    }
+
+    .js [data-split] .w>span {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 1s var(--ease);
+      transition-delay: calc(var::i)*60ms + .15s)
+    }
+
+    .js [data-split].in .w>span {
+      transform: none
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 300;
+      background: var(--paper);
+      height: var(--nav);
+      padding-inline: var(--gutter);
+      padding-top: env(safe-area-inset-top);
+      box-sizing: content-box
+    }
+
+    .nav__board {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--rule);
+      background: var(--line);
+      padding: var(--rule);
+      height: var(--nav);
+      margin-top: 6px
+    }
+
+    .nav .cell {
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(14px, 1.6vw, 24px);
+      overflow: visible
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: .04em
+    }
+
+    .logo img.company-logo {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      display: block
+    }
+
+    .logo small {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: .7;
+      display: block
+    }
+
+    .nav__links {
+      justify-content: center;
+      gap: clamp(18px, 3vw, 44px);
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .06em
+    }
+
+    .nav__links a {
+      position: relative;
+      padding: 4px 0
+    }
+
+    .nav__links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      height: 2px;
+      width: 100%;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .45s var(--ease)
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left
+    }
+
+    .nav__cta {
+      background: var(--orange);
+      color: var(--on);
+      font-weight: 700;
+      font-size: .84rem;
+      letter-spacing: .04em;
+      gap: 10px;
+      transition: background-color .4s
+    }
+
+    .nav__cta:hover {
+      background: var(--ink);
+      color: var(--on)
+    }
+
+    .progress {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      z-index: 500;
+      pointer-events: none
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: var(--orange);
+      transform-origin: left;
+      transform: scaleX(0)
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding-top: calc(var(--nav) + 6px + var(--rule) - 1px)
+    }
+
+    .hero__board {
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: minmax(300px, 1.3fr) minmax(230px, 1fr) auto;
+      grid-template-areas: "t t t t t t t t p p p p" "t t t t t t t t k k k k" "a a a b b b c c c d d d";
+      min-height: calc(100svh - var(--nav) - 14px)
+    }
+
+    .hero__title {
+      grid-area: t;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px
+    }
+
+    .hero__photo {
+      grid-area: p;
+      padding: 12px
+    }
+
+    .hero__photo .ph {
+      height: 100%;
+      min-height: 240px
+    }
+
+    .hero__fw {
+      grid-area: k
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 2px;
+      padding-block: 14px
+    }
+
+    .st-a {
+      grid-area: a
+    }
+
+    .st-b {
+      grid-area: b
+    }
+
+    .st-c {
+      grid-area: c
+    }
+
+    .st-d {
+      grid-area: d
+    }
+
+    .stat b {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums
+    }
+
+    .stat span {
+      font-size: .74rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .7
+    }
+
+    .hero__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px 8px 12px;
+      border: var(--rule) solid var(--orange);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .8rem;
+      background: rgba(242, 177, 60, .12);
+      color: var(--orange)
+    }
+
+    .pill i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse 2s ease-in-out infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .35
+      }
+    }
+
+    .sun {
+      width: clamp(58px, 7vw, 96px);
+      flex: 0 0 auto;
+      transform: rotate(var(--rot, 0deg))
+    }
+
+    .hero__h1 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(2.5rem, 5.8vw, 5.6rem);
+      line-height: .98;
+      letter-spacing: -.03em;
+      max-width: 13ch;
+      text-wrap: balance
+    }
+
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--orange)
+    }
+
+    .hero__foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .hero__eyebrow {
+      max-width: 34ch
+    }
+
+    /* crackers (canvas cells) */
+    .fw {
+      padding: 0;
+      cursor: crosshair;
+      position: relative
+    }
+
+    .fw canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none
+    }
+
+    .fw__label {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      z-index: 3;
+      color: #ffd9a0;
+      pointer-events: none
+    }
+
+    .fw__greet {
+      position: absolute;
+      left: 18px;
+      top: 16px;
+      z-index: 3;
+      font-family: var(--display);
+      font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+      line-height: 1.15;
+      color: var(--white);
+      pointer-events: none;
+      max-width: 12ch
+    }
+
+    .fw__greet em {
+      font-style: normal;
+      color: var(--gold)
+    }
+
+    .fw__hit {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      background: none;
+      border: 0;
+      cursor: crosshair
+    }
+
+    .fw__hit:focus-visible {
+      outline-offset: -6px
+    }
+
+    /* ---------- SERVICES ---------- */
+    .services__board {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    .sv-head {
+      grid-column: 1/-1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap
+    }
+
+    .sv-head h2 {
+      font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+      max-width: 15ch
+    }
+
+    .sv {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 12px 12px 12px
+    }
+
+    .sv__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 8px 0
+    }
+
+    .sv__top b {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--orange)
+    }
+
+    .sv .ph {
+      aspect-ratio: 4/4.6
+    }
+
+    .sv h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+      line-height: 1.12;
+      letter-spacing: -.02em;
+      padding: 0 8px;
+      text-wrap: balance
+    }
+
+    .sv__cta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+      padding: 8px 8px 8px 22px;
+      border: var(--rule) solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--on);
+      font-weight: 700;
+      font-size: .92rem;
+      letter-spacing: .03em;
+      overflow: hidden;
+      isolation: isolate;
+      transition: color .4s
+    }
+
+    .sv__cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      transform: translateX(-101%);
+      transition: transform .55s var(--ease);
+      z-index: -1
+    }
+
+    .sv:hover .sv__cta::before,
+    .sv__cta:focus-visible::before {
+      transform: none
+    }
+
+    .sv__cta b {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--on);
+      font-size: 1.15rem;
+      font-weight: 500;
+      transition: transform .5s var(--ease), background-color .4s
+    }
+
+    .sv:hover .sv__cta b {
+      transform: rotate(45deg);
+      background: var(--on);
+      color: var(--orange)
+    }
+
+    .sv .ph img {
+      opacity: 0;
+      animation: slide 15s linear infinite, kb 15s ease-in-out infinite alternate
+    }
+
+    .sv .ph img:nth-child(2) {
+      animation-delay: -10s, -10s
+    }
+
+    .sv .ph img:nth-child(3) {
+      animation-delay: -5s, -5s
+    }
+
+    .sv .ph::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: linear-gradient(115deg, transparent 40%, rgba(255, 236, 180, .22) 50%, transparent 60%);
+      transform: translateX(-120%);
+      animation: shine 6s var(--ease) infinite;
+      pointer-events: none
+    }
+
+    @keyframes slide {
+      0% {
+        opacity: 1
+      }
+
+      30% {
+        opacity: 1
+      }
+
+      38% {
+        opacity: 0
+      }
+
+      92% {
+        opacity: 0
+      }
+
+      100% {
+        opacity: 1
+      }
+    }
+
+    @keyframes kb {
+      from {
+        scale: 1;
+        translate: 0 0
+      }
+
+      to {
+        scale: 1.14;
+        translate: -2% 1.5%
+      }
+    }
+
+    @keyframes shine {
+
+      0%,
+      55% {
+        transform: translateX(-120%)
+      }
+
+      100% {
+        transform: translateX(120%)
+      }
+    }
+
+    .sv__dots {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      translate: -50% 0;
+      z-index: 3;
+      display: flex;
+      gap: 6px
+    }
+
+    .sv__dots i {
+      width: 22px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .28);
+      overflow: hidden;
+      position: relative
+    }
+
+    .sv__dots i::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: dot 15s linear infinite
+    }
+
+    .sv__dots i:nth-child(2)::after {
+      animation-delay: -10s
+    }
+
+    .sv__dots i:nth-child(3)::after {
+      animation-delay: -5s
+    }
+
+    @keyframes dot {
+      0% {
+        transform: scaleX(0)
+      }
+
+      33% {
+        transform: scaleX(1)
+      }
+
+      33.1%,
+      100% {
+        transform: scaleX(0)
+      }
+    }
+
+    .mega {
+      grid-column: 1/-1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: clamp(20px, 3vw, 40px);
+      isolation: isolate;
+      transition: color .5s
+    }
+
+    .mega:hover,
+    .mega:focus-visible {
+      color: var(--on)
+    }
+
+    .mega::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(101%);
+      transition: transform .6s var(--ease);
+      z-index: -1
+    }
+
+    .mega:hover::before,
+    .mega:focus-visible::before {
+      transform: none
+    }
+
+    .mega span {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 5.4vw, 5rem);
+      line-height: 1;
+      letter-spacing: -.02em
+    }
+
+    .mega b {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: clamp(54px, 7vw, 96px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--on);
+      color: var(--orange);
+      font-size: clamp(1.3rem, 3vw, 2.4rem);
+      font-weight: 500;
+      transition: transform .6s var(--ease), background-color .4s
+    }
+
+    .mega:hover b {
+      transform: rotate(45deg);
+      background: var(--orange);
+      color: var(--on)
+    }
+
+    /* ---------- GARLAND DIVIDER ---------- */
+    .garland {
+      height: 34px;
+      background: radial-gradient(circle at 50% 50%, #ffb02e 0 34%, #ff6a1a 35% 62%, #c2330c 63% 70%, transparent 71%) 0 0/34px 34px repeat-x, var(--paper);
+      border-block: var(--rule) solid var(--line);
+      margin-inline: var(--gutter);
+      margin-block: calc(var(--rule)*-1)
+    }
+
+    /* ---------- 3D BUILD (pinned) ---------- */
+    .build {
+      position: relative;
+      height: 400vh
+    }
+
+    .build__stick {
+      position: sticky;
+      top: calc(var(--nav) + 6px);
+      height: calc(100svh - var(--nav) - 6px)
+    }
+
+    .build__board {
+      height: 100%;
+      grid-template-columns: 5fr 7fr
+    }
+
+    .build__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0
+    }
+
+    .build__text h2 {
+      font-size: clamp(1.8rem, 3.4vw, 3rem);
+      margin-bottom: 18px;
+      max-width: 12ch
+    }
+
+    .steps {
+      display: grid;
+      gap: 2px;
+      margin-bottom: 22px
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: var(--rule) solid transparent;
+      opacity: .4;
+      transition: opacity .5s var(--ease), background-color .5s, border-color .5s
+    }
+
+    .step b {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: .78rem;
+      color: var(--orange);
+      padding-top: 3px
+    }
+
+    .step h3 {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -.01em
+    }
+
+    .step p {
+      font-size: .84rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .6s var(--ease)
+    }
+
+    .step.active {
+      opacity: 1;
+      background: var(--paper-2);
+      border-color: var(--orange)
+    }
+
+    .step.active p {
+      max-height: 5em;
+      margin-top: 4px
+    }
+
+    .build__view {
+      padding: 0
+    }
+
+    .mv {
+      --u: 40px;
+      position: absolute;
+      inset: 0;
+      perspective: 2000px;
+      perspective-origin: 50% 30%;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 75%, rgba(255, 77, 18, calc(var(--glow, 0)*.38)), transparent 60%), #0c0c0c
+    }
+
+    .mv__grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      -webkit-mask-image: radial-gradient(ellipse at 50% 55%, #000 20%, transparent 72%);
+      mask-image: radial-gradient(ellipse at 50% 55%, #000 20%, transparent 72%)
+    }
+
+    .scene {
+      position: absolute;
+      left: 50%;
+      top: 58%;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      transform: translateY(calc(var(--u)*1.2)) rotateX(var(--rx, -26deg)) rotateY(var(--ry, -38deg))
+    }
+
+    .ground {
+      position: absolute;
+      left: calc(var(--u)*-14);
+      top: calc(var(--u)*-14);
+      width: calc(var(--u)*28);
+      height: calc(var(--u)*28);
+      transform: translateY(calc(var(--u)*.03)) rotateX(90deg);
+      background-image: linear-gradient(rgba(255, 255, 255, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .22) 1px, transparent 1px);
+      background-size: var(--u) var(--u);
+      border-radius: 50%;
+      -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+      mask-image: radial-gradient(circle, #000 30%, transparent 70%)
+    }
+
+    .bx {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      transform-style: preserve-3d;
+      visibility: hidden
+    }
+
+    .bx i {
+      position: absolute;
+      display: block;
+      backface-visibility: hidden;
+      background: var(--c, #ddd);
+      box-shadow: inset 0 0 0 1px var(--edge, rgba(12, 12, 12, .55))
+    }
+
+    .bx .f,
+    .bx .k {
+      width: calc(var(--u)*var(--w));
+      height: calc(var(--u)*var(--h));
+      margin: calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--w)/-2)
+    }
+
+    .bx .f {
+      transform: translateZ(calc(var(--u)*var(--d)/2))
+    }
+
+    .bx .k {
+      transform: rotateY(180deg) translateZ(calc(var(--u)*var(--d)/2));
+      background-image: linear-gradient(rgba(0, 0, 0, .34), rgba(0, 0, 0, .34))
+    }
+
+    .bx .r,
+    .bx .l {
+      width: calc(var(--u)*var(--d));
+      height: calc(var(--u)*var(--h));
+      margin: calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--d)/-2)
+    }
+
+    .bx .r {
+      transform: rotateY(90deg) translateZ(calc(var(--u)*var(--w)/2));
+      background-image: linear-gradient(rgba(0, 0, 0, .16), rgba(0, 0, 0, .16))
+    }
+
+    .bx .l {
+      transform: rotateY(-90deg) translateZ(calc(var(--u)*var(--w)/2));
+      background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3))
+    }
+
+    .bx .t,
+    .bx .u {
+      width: calc(var(--u)*var(--w));
+      height: calc(var(--u)*var(--d));
+      margin: calc(var(--u)*var(--d)/-2) 0 0 calc(var(--u)*var(--w)/-2)
+    }
+
+    .bx .t {
+      transform: rotateX(90deg) translateZ(calc(var(--u)*var(--h)/2));
+      background-image: linear-gradient(rgba(255, 255, 255, .22), rgba(255, 255, 255, .22))
+    }
+
+    .bx .u {
+      transform: rotateX(-90deg) translateZ(calc(var(--u)*var(--h)/2));
+      background-image: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5))
+    }
+
+    .bx.glass {
+      --c: #23201c
+    }
+
+    .scene.lit .bx.glass i {
+      background: linear-gradient(#ffd27a, #ff9a2e);
+      box-shadow: 0 0 calc(var(--u)*.7) calc(var(--u)*.12) rgba(255, 160, 50, .75)
+    }
+
+    .bx.flame i,
+    .bx.bulb i {
+      background: #ffd27a;
+      box-shadow: 0 0 calc(var(--u)*.5) calc(var(--u)*.16) rgba(255, 170, 50, .95)
+    }
+
+    .mv__tag {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      z-index: 2;
+      color: #ffd9a0
+    }
+
+    .mv__bar {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      bottom: 16px;
+      width: 3px;
+      background: rgba(255, 255, 255, .18);
+      z-index: 2
+    }
+
+    .mv__bar span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--orange);
+      transform-origin: top;
+      transform: scaleY(var(--p, 0))
+    }
+
+    .mv__count {
+      position: absolute;
+      right: 30px;
+      bottom: 14px;
+      z-index: 2;
+      color: #fff;
+      font-family: var(--display);
+      font-size: 1.6rem
+    }
+
+    /* ---------- FESTIVE / DASARA ANIMATED DURGA & CRACKERS ---------- */
+    .fest__board {
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto minmax(260px, 1fr);
+      grid-template-areas: "i i i i i t t t t t t t" "i i i i i k k k k m m m"
+    }
+
+    .fest__idol {
+      grid-area: i;
+      padding: 12px;
+      background: var(--red);
+      position: relative
+    }
+
+    .durga-animated-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      border-radius: 20px;
+      border: 4px solid var(--gold);
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, #7d0f24 0%, #2b020a 100%);
+      isolation: isolate
+    }
+
+    /* Animated Divine Aura/Halo behind Maa Durga */
+    .durga-aura {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(242, 177, 60, 0.8) 0%, rgba(232, 196, 106, 0.3) 50%, transparent 75%);
+      animation: auraGlow 3s ease-in-out infinite alternate;
+      z-index: 1
+    }
+
+    @keyframes auraGlow {
+      0% {
+        transform: translate(-50%, -50%) scale(0.85);
+        opacity: 0.6
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1
+      }
+    }
+
+    /* Animated Durga Mandala Ring */
+    .durga-ring {
+      position: absolute;
+      top: 38%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 220px;
+      height: 220px;
+      border: 2px dashed var(--gold);
+      border-radius: 50%;
+      animation: ringRotate 20s linear infinite;
+      z-index: 1;
+      opacity: 0.6
+    }
+
+    @keyframes ringRotate {
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg)
+      }
+    }
+
+    /* Animated Durga Maa Vector Illustration */
+    .durga-svg-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2
+    }
+
+    .durga-svg {
+      width: 75%;
+      height: auto;
+      max-height: 360px;
+      filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.6));
+      animation: durgaFloat 4s ease-in-out infinite alternate
+    }
+
+    @keyframes durgaFloat {
+      0% {
+        transform: translateY(0px)
+      }
+
+      100% {
+        transform: translateY(-12px)
+      }
+    }
+
+    /* Overlay Fireworks Canvas for Jai Maa Durga Section */
+    .durga-fw-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none
+    }
+
+    .fest__idol figcaption {
+      position: absolute;
+      left: 28px;
+      bottom: 26px;
+      right: 28px;
+      z-index: 4;
+      font-family: var(--display);
+      color: var(--white);
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, .9)
+    }
+
+    .fest__idol figcaption small {
+      display: block;
+      font-family: var(--mono);
+      font-size: .64rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px
+    }
+
+    .fest__text {
+      grid-area: t;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .fest__text h2 {
+      font-size: clamp(1.9rem, 3.8vw, 3.5rem);
+      margin-bottom: 18px;
+      max-width: 14ch
+    }
+
+    .fest__text .small {
+      margin-bottom: 26px
+    }
+
+    .fest__fw {
+      grid-area: k
+    }
+
+    .fest__mandala {
+      grid-area: m;
+      display: grid;
+      place-items: center;
+      background: var(--gold)
+    }
+
+    .mandala {
+      width: min(86%, 220px);
+      transform: rotate(var(--rot, 0deg))
+    }
+
+    /* ---------- FINAL ---------- */
+    .final__board {
+      grid-template-columns: 7fr 5fr
+    }
+
+    .final__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+      padding-block: clamp(30px, 5vw, 70px)
+    }
+
+    .final__text h2 {
+      font-size: clamp(2.1rem, 4.6vw, 4.2rem);
+      margin-bottom: 20px;
+      max-width: 14ch
+    }
+
+    .final__text .small {
+      margin-bottom: 28px
+    }
+
+    .final__photo {
+      padding: 12px
+    }
+
+    .final__photo .ph {
+      height: 100%;
+      min-height: 300px
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer__board {
+      grid-template-columns: 2fr 1.2fr 1.2fr
+    }
+
+    .footer h3 {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--orange)
+    }
+
+    .footer li {
+      margin-bottom: 6px;
+      font-size: .9rem
+    }
+
+    .footer a:hover {
+      color: var(--orange)
+    }
+
+    .footer__brand .logo {
+      margin-bottom: 14px
+    }
+
+    .footer__greet {
+      font-family: var(--display);
+      font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+      line-height: 1.2;
+      max-width: 22ch
+    }
+
+    .copyright {
+      padding: 14px var(--gutter) calc(16px + env(safe-area-inset-bottom));
+      font-size: .78rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .motion-btn {
+      position: fixed;
+      z-index: 450;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: var(--rule) solid var(--ink);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      transition: background-color .3s, color .3s
+    }
+
+    .motion-btn:hover {
+      background: var(--ink);
+      color: var(--on)
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width:1024px) {
+      .hero__board {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto 280px auto auto;
+        grid-template-areas: "t t t t t t t t t t t t" "p p p p p p k k k k k k" "a a a a a a b b b b b b" "c c c c c c d d d d d d";
+        min-height: 0
+      }
+
+      .hero__title {
+        min-height: 380px
+      }
+
+      .services__board {
+        grid-template-columns: 1fr
+      }
+
+      .sv {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        align-items: center
+      }
+
+      .sv__top {
+        grid-column: 1/-1
+      }
+
+      .sv .ph {
+        aspect-ratio: 4/3;
+        grid-row: 2/5
+      }
+
+      .sv h3 {
+        align-self: end
+      }
+
+      .fest__board {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "i i" "t t" "k m";
+        grid-template-rows: auto
+      }
+
+      .durga-animated-card {
+        min-height: 340px
+      }
+
+      .fest__fw {
+        min-height: 260px
+      }
+
+      .final__board {
+        grid-template-columns: 1fr
+      }
+
+      .footer__board {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .footer__brand {
+        grid-column: 1/-1
+      }
+    }
+
+    @media (max-width:860px) {
+      .nav__board {
+        grid-template-columns: 1fr auto
+      }
+
+      .nav__links {
+        display: none !important;
+      }
+
+      .burger {
+        display: none !important;
+      }
+
+      .build {
+        height: 360vh
+      }
+
+      .build__board {
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(0, 44%) minmax(0, 1fr)
+      }
+
+      .build__view {
+        order: -1
+      }
+
+      .build__text {
+        justify-content: flex-start;
+        padding-block: 12px;
+        overflow: hidden
+      }
+
+      .build__text h2 {
+        font-size: 1.2rem;
+        margin-bottom: 8px
+      }
+
+      .build__text .kicker {
+        margin-bottom: 6px
+      }
+
+      .step {
+        padding: 6px 8px
+      }
+
+      .step h3 {
+        font-size: .86rem
+      }
+
+      .steps {
+        margin-bottom: 10px
+      }
+
+      .build__text .btn {
+        align-self: flex-start;
+        transform: scale(.9);
+        transform-origin: left
+      }
+    }
+
+    @media (max-width:600px) {
+      .hero__board {
+        grid-template-areas: "t t t t t t t t t t t t" "p p p p p p p p p p p p" "k k k k k k k k k k k k" "a a a a a a b b b b b b" "c c c c c c d d d d d d";
+        grid-template-rows: auto 280px 260px auto auto
+      }
+
+      .hero__title {
+        min-height: 0
+      }
+
+      .sv {
+        display: flex
+      }
+
+      .sv .ph {
+        aspect-ratio: 4/3.4
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .ctas {
+        width: 100%
+      }
+
+      .fest__board {
+        grid-template-columns: 1fr;
+        grid-template-areas: "i" "t" "k" "m"
+      }
+
+      .fest__mandala {
+        min-height: 200px
+      }
+
+      .footer__board {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* ---------- motion preferences ---------- */
+    html[data-motion="off"] *,
+    html[data-motion="off"] *::before,
+    html[data-motion="off"] *::after {
+      animation-play-state: paused !important
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      .sv .ph img {
+        animation: none !important;
+        opacity: 1
+      }
+
+      .sv .ph img+img,
+      .sv__dots,
+      .sv .ph::after {
+        display: none
+      }
+
+      html {
+        scroll-behavior: auto
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        transition-delay: 0s !important
+      }
+
+      .js .rv,
+      .js .wipe,
+      .js [data-split] .w>span {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important
+      }
+
+      [data-speed] {
+        will-change: auto
+      }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
+
 <body>
-<a class="skip" href="#main">Skip to Content</a>
-<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <a class="skip" href="#main">Skip to Content</a>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
-<!-- ============ NAV ============ -->
-<header class="nav" id="nav">
-  <div class="nav__board">
-    <a class="cell logo" href="Home.html" aria-label="AKAR Design Studio – Home"><i aria-hidden="true"></i><span translate="no">AKAR <small>Design Studio</small></span></a>
-    <nav class="cell nav__links" id="navLinks" aria-label="Primary">
-      <a href="Home.html">Home</a><a href="services.html">Services</a><a href="aboutus.html">About Us</a><a href="contactus.html">Contact</a>
-    </nav>
-    <a class="cell nav__cta" href="Home.html"><span>Get a Quotation</span><span aria-hidden="true">↗</span></a>
-    <span class="cell burger-cell" style="display:none"></span>
-  </div>
-</header>
-<button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks" style="position:fixed;right:calc(var(--gutter) + 8px);top:calc(env(safe-area-inset-top) + 16px);z-index:320"><span></span><span></span></button>
-<button class="motion-btn" id="motionBtn" type="button" aria-pressed="false" aria-label="Pause decorative motion"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path id="motionIcon" d="M2 1h3v10H2zM7 1h3v10H7z" fill="currentColor"/></svg></button>
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__board">
+      <!-- LOCAL PATH LOGO -->
+      <a class="cell logo" href="Home.html" aria-label="AKAR Design Studio – Home">
+        <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo"
+          onerror="this.style.display='none'">
+        <span translate="no">AKAR <small>Design Studio</small></span>
+      </a>
+      <nav class="cell nav__links" id="navLinks" aria-label="Primary">
+        <a href="Home.html">Home</a><a href="services.html">Services</a><a href="aboutus.html">About Us</a><a
+          href="contactus.html">Contact</a>
+      </nav>
+      <a class="cell nav__cta" href="Home.html"><span>Get a Quotation</span><span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <button class="motion-btn" id="motionBtn" type="button" aria-pressed="false" aria-label="Pause decorative motion"><svg
+      width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+      <path id="motionIcon" d="M2 1h3v10H2zM7 1h3v10H7z" fill="currentColor" />
+    </svg></button>
 
-<main id="main">
+  <main id="main">
 
-<!-- ============ 1. HERO ============ -->
-<section class="hero page" id="top" aria-labelledby="heroTitle">
-  <div class="board hero__board">
-    <div class="cell hero__title">
-      <div class="hero__top">
-        <p class="pill rv"><i aria-hidden="true"></i>Happy Diwali &amp; Dasara</p>
-        <svg class="sun" id="sun" viewBox="-50 -50 100 100" aria-hidden="true"><g fill="none" stroke="#f3ede1" stroke-width="2.4" stroke-linecap="round"><circle r="12" fill="#f2b13c" stroke="none"/><path d="M0-22V-44M0 22V44M-22 0H-44M22 0H44M-15.5-15.5l-15-15M15.5 15.5l15 15M-15.5 15.5l-15 15M15.5-15.5l15-15"/></g></svg>
+    <!-- ============ 1. HERO ============ -->
+    <section class="hero page" id="top" aria-labelledby="heroTitle">
+      <div class="board hero__board">
+        <div class="cell hero__title">
+          <div class="hero__top">
+            <p class="pill rv"><i aria-hidden="true"></i>Happy Diwali &amp; Dasara</p>
+            <svg class="sun" id="sun" viewBox="-50 -50 100 100" aria-hidden="true">
+              <g fill="none" stroke="#f3ede1" stroke-width="2.4" stroke-linecap="round">
+                <circle r="12" fill="#f2b13c" stroke="none" />
+                <path
+                  d="M0-22V-44M0 22V44M-22 0H-44M22 0H44M-15.5-15.5l-15-15M15.5 15.5l15 15M-15.5 15.5l-15 15M15.5-15.5l15-15" />
+              </g>
+            </svg>
+          </div>
+          <div>
+            <p class="mono hero__eyebrow rv" style="--d:.05s;margin-bottom:18px">Minimalist Luxury Residential
+              Architecture &amp; Home Interior Design</p>
+            <h1 class="hero__h1" id="heroTitle" data-split>Architecture, Interiors &amp; Turnkey Execution</h1>
+          </div>
+          <div class="hero__foot">
+            <p class="small rv" style="--d:.5s">Transform your space today. One accountable team, from the first sketch
+              to the final handover.</p>
+            <div class="ctas rv" style="--d:.65s">
+              <a class="btn" href="Home.html"><span>Explore Our Services</span><b aria-hidden="true">↗</b></a>
+              <a class="btn btn--light" href="Home.html"><span>Get a Quotation</span><b aria-hidden="true">↗</b></a>
+            </div>
+          </div>
+        </div>
+        <div class="cell hero__photo">
+          <div class="ph bw wipe"><img
+              src="https://images.pexels.com/photos/34378030/pexels-photo-34378030.jpeg?auto=compress&cs=tinysrgb&w=1400"
+              width="1400" height="809" alt="Modern luxury villa with a pool and minimalist design" fetchpriority="high"
+              decoding="async" data-speed="0.07" onerror="this.remove()"></div>
+        </div>
+        <div class="cell night fw hero__fw" data-fw>
+          <canvas aria-hidden="true"></canvas>
+          <p class="fw__greet" aria-hidden="true">Shubh <em>Diwali</em></p>
+          <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
+          <p class="fw__label mono" aria-hidden="true">Tap to light crackers ✦</p>
+        </div>
+        <div class="cell stat st-a"><b data-count="50" data-suffix="+">0</b><span>Projects Completed</span></div>
+        <div class="cell stat st-b"><b data-count="100" data-suffix="+">0</b><span>Happy Clients</span></div>
+        <div class="cell stat st-c"><b data-count="6" data-suffix="+">0</b><span>Years of Experience</span></div>
+        <div class="cell stat st-d"><b data-count="3">0</b><span>Services, One Team</span></div>
       </div>
-      <div>
-        <p class="mono hero__eyebrow rv" style="--d:.05s;margin-bottom:18px">Minimalist Luxury Residential Architecture &amp; Home Interior Design</p>
-        <h1 class="hero__h1" id="heroTitle" data-split>Architecture, Interiors &amp; Turnkey Execution</h1>
+    </section>
+
+    <!-- ============ 2. SERVICES ============ -->
+    <section class="page" id="services" aria-labelledby="svcTitle">
+      <div class="board services__board">
+        <div class="cell sv-head">
+          <div>
+            <p class="kicker rv">Our Services</p>
+            <h2 class="display rv" id="svcTitle" style="--d:.08s">Three Services. One Team.</h2>
+          </div>
+          <a class="btn btn--light rv" style="--d:.16s" href="Home.html"><span>View All Services</span><b
+              aria-hidden="true">↗</b></a>
+        </div>
+
+        <article class="cell sv">
+          <div class="sv__top"><b>01</b><span class="mono">Architecture</span></div>
+          <div class="ph bw wipe"><img
+              src="https://images.pexels.com/photos/7522607/pexels-photo-7522607.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="1650" loading="lazy" decoding="async"
+              alt="Modern residential building with a courtyard at dusk" data-speed="0.05" onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/17174768/pexels-photo-17174768.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="1650" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/12285892/pexels-photo-12285892.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="1650" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <h3>Architecture Services</h3>
+          <a class="sv__cta" href="Home.html" aria-label="Explore Architecture services"><span>Explore
+              Architecture</span><b aria-hidden="true">↗</b></a>
+        </article>
+        <article class="cell sv">
+          <div class="sv__top"><b>02</b><span class="mono">Interiors</span></div>
+          <div class="ph bw wipe" style="--d:.12s"><img
+              src="https://images.pexels.com/photos/35776702/pexels-photo-35776702.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async"
+              alt="Cozy minimalist living room with natural light" data-speed="0.05" onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/39380256/pexels-photo-39380256.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/18254581/pexels-photo-18254581.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <h3>Interior Design</h3>
+          <a class="sv__cta" href="Home.html" aria-label="Explore Interior Design services"><span>Explore
+              Interiors</span><b aria-hidden="true">↗</b></a>
+        </article>
+        <article class="cell sv">
+          <div class="sv__top"><b>03</b><span class="mono">Turnkey</span></div>
+          <div class="ph bw wipe" style="--d:.24s"><img
+              src="https://images.pexels.com/photos/6614757/pexels-photo-6614757.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async" alt="An architect making designs and layouts"
+              data-speed="0.05" onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/6487940/pexels-photo-6487940.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><img
+              src="https://images.pexels.com/photos/32473245/pexels-photo-32473245.jpeg?auto=compress&cs=tinysrgb&w=1100"
+              width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05"
+              onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <h3>Turnkey Design-to-Handover</h3>
+          <a class="sv__cta" href="Home.html" aria-label="Explore Turnkey services"><span>Explore Turnkey</span><b
+              aria-hidden="true">↗</b></a>
+        </article>
+
+        <a class="cell orange mega" href="Home.html" aria-label="Get a Quotation"><span>Get a Quotation</span><b
+            aria-hidden="true">↗</b></a>
       </div>
-      <div class="hero__foot">
-        <p class="small rv" style="--d:.5s">Transform your space today. One accountable team, from the first sketch to the final handover.</p>
-        <div class="ctas rv" style="--d:.65s">
-          <a class="btn" href="Home.html"><span>Explore Our Services</span><b aria-hidden="true">↗</b></a>
-          <a class="btn btn--light" href="Home.html"><span>Get a Quotation</span><b aria-hidden="true">↗</b></a>
+    </section>
+
+    <div class="garland" aria-hidden="true"></div>
+
+    <!-- ============ 3. 3D BUILD (pinned, CSS 3D) ============ -->
+    <section class="build" id="build" aria-labelledby="buildTitle">
+      <div class="page build__stick">
+        <div class="board build__board">
+          <div class="cell build__text">
+            <p class="kicker">Design to Handover</p>
+            <h2 class="display" id="buildTitle">Watch a Home Take Shape</h2>
+            <ol class="steps" id="steps">
+              <li class="step active"><b>01</b>
+                <div>
+                  <h3>Plan &amp; Layout</h3>
+                  <p>Site study and drawings first, so every decision has a reason.</p>
+                </div>
+              </li>
+              <li class="step"><b>02</b>
+                <div>
+                  <h3>Structure &amp; Form</h3>
+                  <p>The building rises under our architects’ supervision.</p>
+                </div>
+              </li>
+              <li class="step"><b>03</b>
+                <div>
+                  <h3>Interiors &amp; Glazing</h3>
+                  <p>Materials, joinery and glass fitted by the team that designed them.</p>
+                </div>
+              </li>
+              <li class="step"><b>04</b>
+                <div>
+                  <h3>Handover &amp; Light</h3>
+                  <p>The keys, the lights and the first Diwali diyas.</p>
+                </div>
+              </li>
+            </ol>
+            <a class="btn" href="Home.html" style="align-self:flex-start"><span>Explore Turnkey Services</span><b
+                aria-hidden="true">↗</b></a>
+          </div>
+          <div class="cell build__view">
+            <div class="mv" id="mv" role="img"
+              aria-label="A 3D model of a contemporary home that builds itself as you scroll, then lights up for Diwali">
+              <div class="mv__grid"></div>
+              <div class="scene" id="scene">
+                <div class="ground"></div>
+              </div>
+              <p class="mv__tag mono" aria-hidden="true">Scroll to Build</p>
+              <p class="mv__count" aria-hidden="true" id="mvCount">01</p>
+              <div class="mv__bar" aria-hidden="true"><span></span></div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="cell hero__photo"><div class="ph bw wipe"><img src="https://images.pexels.com/photos/34378030/pexels-photo-34378030.jpeg?auto=compress&cs=tinysrgb&w=1400" width="1400" height="809" alt="Modern luxury villa with a pool and minimalist design" fetchpriority="high" decoding="async" data-speed="0.07" onerror="this.remove()"></div></div>
-    <div class="cell night fw hero__fw" data-fw>
-      <canvas aria-hidden="true"></canvas>
-      <p class="fw__greet" aria-hidden="true">Shubh <em>Diwali</em></p>
-      <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
-      <p class="fw__label mono" aria-hidden="true">Tap to light crackers ✦</p>
-    </div>
-    <div class="cell stat st-a"><b data-count="50" data-suffix="+">0</b><span>Projects Completed</span></div>
-    <div class="cell stat st-b"><b data-count="100" data-suffix="+">0</b><span>Happy Clients</span></div>
-    <div class="cell stat st-c"><b data-count="6" data-suffix="+">0</b><span>Years of Experience</span></div>
-    <div class="cell stat st-d"><b data-count="3">0</b><span>Services, One Team</span></div>
-  </div>
-</section>
+    </section>
 
-<!-- ============ 2. SERVICES ============ -->
-<section class="page" id="services" aria-labelledby="svcTitle">
-  <div class="board services__board">
-    <div class="cell sv-head">
-      <div>
-        <p class="kicker rv">Our Services</p>
-        <h2 class="display rv" id="svcTitle" style="--d:.08s">Three Services. One Team.</h2>
-      </div>
-      <a class="btn btn--light rv" style="--d:.16s" href="Home.html"><span>View All Services</span><b aria-hidden="true">↗</b></a>
-    </div>
+    <div class="garland" aria-hidden="true"></div>
 
-    <article class="cell sv">
-      <div class="sv__top"><b>01</b><span class="mono">Architecture</span></div>
-      <div class="ph bw wipe"><img src="https://images.pexels.com/photos/7522607/pexels-photo-7522607.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="1650" loading="lazy" decoding="async" alt="Modern residential building with a courtyard at dusk" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/17174768/pexels-photo-17174768.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="1650" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/12285892/pexels-photo-12285892.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="1650" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-      <h3>Architecture Services</h3>
-      <a class="sv__cta" href="Home.html" aria-label="Explore Architecture services"><span>Explore Architecture</span><b aria-hidden="true">↗</b></a>
-    </article>
-    <article class="cell sv">
-      <div class="sv__top"><b>02</b><span class="mono">Interiors</span></div>
-      <div class="ph bw wipe" style="--d:.12s"><img src="https://images.pexels.com/photos/35776702/pexels-photo-35776702.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="Cozy minimalist living room with natural light" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/39380256/pexels-photo-39380256.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/18254581/pexels-photo-18254581.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-      <h3>Interior Design</h3>
-      <a class="sv__cta" href="Home.html" aria-label="Explore Interior Design services"><span>Explore Interiors</span><b aria-hidden="true">↗</b></a>
-    </article>
-    <article class="cell sv">
-      <div class="sv__top"><b>03</b><span class="mono">Turnkey</span></div>
-      <div class="ph bw wipe" style="--d:.24s"><img src="https://images.pexels.com/photos/6614757/pexels-photo-6614757.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="An architect making designs and layouts" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/6487940/pexels-photo-6487940.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><img src="https://images.pexels.com/photos/32473245/pexels-photo-32473245.jpeg?auto=compress&cs=tinysrgb&w=1100" width="1100" height="733" loading="lazy" decoding="async" alt="" data-speed="0.05" onerror="this.remove()"><span class="sv__dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-      <h3>Turnkey Design-to-Handover</h3>
-      <a class="sv__cta" href="Home.html" aria-label="Explore Turnkey services"><span>Explore Turnkey</span><b aria-hidden="true">↗</b></a>
-    </article>
+    <!-- ============ 4. DASARA / DIWALI (ANIMATED DURGA MAA & CRACKERS) ============ -->
+    <section class="page" id="festive" aria-labelledby="festTitle">
+      <div class="board fest__board">
+        <figure class="cell fest__idol fw" data-fw>
+          <div class="durga-animated-card">
+            <div class="durga-aura" aria-hidden="true"></div>
+            <div class="durga-ring" aria-hidden="true"></div>
 
-    <a class="cell orange mega" href="Home.html" aria-label="Get a Quotation"><span>Get a Quotation</span><b aria-hidden="true">↗</b></a>
-  </div>
-</section>
+            <!-- Detailed Vector Silhouette Durga Image -->
+            <div class="durga-svg-wrap">
+              <svg class="durga-svg" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Crown / Mukut -->
+                <path
+                  d="M150 20 L165 60 L185 40 L175 75 L200 65 L180 90 L150 80 L120 90 L100 65 L125 75 L115 40 L135 60 Z"
+                  fill="#e8c46a" stroke="#f2b13c" stroke-width="2" />
+                <circle cx="150" cy="35" r="5" fill="#fbf6ea" />
+                <circle cx="150" cy="60" r="4" fill="#7d0f24" />
+                <!-- Face Outline -->
+                <path d="M110 95 C110 160 190 160 190 95 Z" fill="#e8c46a" opacity="0.15" />
+                <!-- Third Eye (Trinetra) -->
+                <path d="M150 90 C145 98 150 106 150 106 C150 106 155 98 150 90 Z" fill="#f2b13c" stroke="#7d0f24"
+                  stroke-width="1.5" />
+                <circle cx="150" cy="98" r="2.5" fill="#7d0f24" />
+                <!-- Eyes -->
+                <path d="M120 108 C130 100 142 112 142 112 C142 112 130 118 120 108 Z" fill="#fbf6ea" stroke="#151413"
+                  stroke-width="2" />
+                <circle cx="132" cy="109" r="3.5" fill="#151413" />
+                <path d="M180 108 C170 100 158 112 158 112 C158 112 170 118 180 108 Z" fill="#fbf6ea" stroke="#151413"
+                  stroke-width="2" />
+                <circle cx="168" cy="109" r="3.5" fill="#151413" />
+                <!-- Eyebrows -->
+                <path d="M116 101 Q130 95 144 105" stroke="#151413" stroke-width="2.5" fill="none"
+                  stroke-linecap="round" />
+                <path d="M184 101 Q170 95 156 105" stroke="#151413" stroke-width="2.5" fill="none"
+                  stroke-linecap="round" />
+                <!-- Nose Ring (Nath) -->
+                <path d="M146 118 Q148 122 150 122" stroke="#151413" stroke-width="1.5" fill="none" />
+                <circle cx="136" cy="125" r="9" stroke="#e8c46a" stroke-width="2" fill="none" />
+                <circle cx="127" cy="125" r="2" fill="#7d0f24" />
+                <!-- Lips -->
+                <path d="M138 136 Q150 144 162 136 Q150 148 138 136 Z" fill="#7d0f24" />
+                <!-- Trident (Trishul) -->
+                <path d="M150 150 L150 310" stroke="#e8c46a" stroke-width="5" stroke-linecap="round" />
+                <path d="M150 150 L150 80 M150 100 Q180 110 175 140 M150 100 Q120 110 125 140" stroke="#f2b13c"
+                  stroke-width="4" fill="none" stroke-linecap="round" />
+                <!-- Decorative Weapons Silhouette Arms -->
+                <path d="M100 150 C70 130 50 160 30 140 M200 150 C230 130 250 160 270 140" stroke="#e8c46a"
+                  stroke-width="3" opacity="0.7" stroke-linecap="round" />
+              </svg>
+            </div>
 
-<div class="garland" aria-hidden="true"></div>
+            <!-- Crackers Canvas Overlay -->
+            <canvas class="durga-fw-canvas" aria-hidden="true"></canvas>
+            <button class="fw__hit" type="button" aria-label="Light firecrackers for Maa Durga"></button>
+          </div>
 
-<!-- ============ 3. 3D BUILD (pinned, CSS 3D) ============ -->
-<section class="build" id="build" aria-labelledby="buildTitle">
-  <div class="page build__stick">
-    <div class="board build__board">
-      <div class="cell build__text">
-        <p class="kicker">Design to Handover</p>
-        <h2 class="display" id="buildTitle">Watch a Home Take Shape</h2>
-        <ol class="steps" id="steps">
-          <li class="step active"><b>01</b><div><h3>Plan &amp; Layout</h3><p>Site study and drawings first, so every decision has a reason.</p></div></li>
-          <li class="step"><b>02</b><div><h3>Structure &amp; Form</h3><p>The building rises under our architects’ supervision.</p></div></li>
-          <li class="step"><b>03</b><div><h3>Interiors &amp; Glazing</h3><p>Materials, joinery and glass fitted by the team that designed them.</p></div></li>
-          <li class="step"><b>04</b><div><h3>Handover &amp; Light</h3><p>The keys, the lights and the first Diwali diyas.</p></div></li>
-        </ol>
-        <a class="btn" href="Home.html" style="align-self:flex-start"><span>Explore Turnkey Services</span><b aria-hidden="true">↗</b></a>
-      </div>
-      <div class="cell build__view">
-        <div class="mv" id="mv" role="img" aria-label="A 3D model of a contemporary home that builds itself as you scroll, then lights up for Diwali">
-          <div class="mv__grid"></div>
-          <div class="scene" id="scene"><div class="ground"></div></div>
-          <p class="mv__tag mono" aria-hidden="true">Scroll to Build</p>
-          <p class="mv__count" aria-hidden="true" id="mvCount">01</p>
-          <div class="mv__bar" aria-hidden="true"><span></span></div>
+          <figcaption>
+            <small>Navratri · Vijayadashami</small>
+            Jai Maa Durga
+          </figcaption>
+        </figure>
+
+        <div class="cell fest__text">
+          <p class="kicker rv">Dasara · Diwali</p>
+          <h2 class="display rv" id="festTitle" style="--d:.08s">Victory of Light over Darkness.</h2>
+          <p class="small rv" style="--d:.16s">This festive season, begin something new. Talk to our architects about
+            the space you have always imagined.</p>
+          <div class="ctas rv" style="--d:.24s"><a class="btn" href="Home.html"><span>Book Consultation</span><b
+                aria-hidden="true">↗</b></a></div>
+        </div>
+        <div class="cell night fw fest__fw" data-fw>
+          <canvas aria-hidden="true"></canvas>
+          <p class="fw__greet" aria-hidden="true">Light the <em>Night</em></p>
+          <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
+          <p class="fw__label mono" aria-hidden="true">Tap for crackers ✦</p>
+        </div>
+        <div class="cell fest__mandala">
+          <svg class="mandala" id="mandala" viewBox="-100 -100 200 200" aria-hidden="true">
+            <g fill="none" stroke="#0c0c0c" stroke-width="2">
+              <circle r="94" />
+              <circle r="70" />
+              <circle r="40" />
+              <circle r="14" fill="#7d0f24" />
+              <g id="lotus">
+                <path d="M0-40Q16-62 0-92Q-16-62 0-40Z" fill="#fbfaf7" />
+                <path d="M0-70Q10-82 0-94Q-10-82 0-70Z" />
+              </g>
+              <use href="#lotus" transform="rotate(30)" />
+              <use href="#lotus" transform="rotate(60)" />
+              <use href="#lotus" transform="rotate(90)" />
+              <use href="#lotus" transform="rotate(120)" />
+              <use href="#lotus" transform="rotate(150)" />
+              <use href="#lotus" transform="rotate(180)" />
+              <use href="#lotus" transform="rotate(210)" />
+              <use href="#lotus" transform="rotate(240)" />
+              <use href="#lotus" transform="rotate(270)" />
+              <use href="#lotus" transform="rotate(300)" />
+              <use href="#lotus" transform="rotate(330)" />
+            </g>
+          </svg>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<div class="garland" aria-hidden="true"></div>
+    <!-- ============ 5. FINAL CTA ============ -->
+    <section class="page" id="final" aria-labelledby="finalTitle">
+      <div class="board final__board">
+        <div class="cell final__text">
+          <p class="kicker rv">Your Next Project</p>
+          <h2 class="display rv" id="finalTitle" style="--d:.08s">Let’s Create Your Dream Space Together</h2>
+          <p class="small rv" style="--d:.16s">Book a friendly, clear layout consultation with our architectural team
+            and build your project with confidence.</p>
+          <div class="ctas rv" style="--d:.24s">
+            <a class="btn" href="Home.html"><span>Book Consultation</span><b aria-hidden="true">↗</b></a>
+            <a class="btn btn--light" href="tel:+919663346095"><span>Call Us</span><b aria-hidden="true">↗</b></a>
+          </div>
+        </div>
+        <div class="cell final__photo">
+          <div class="ph bw wipe"><img
+              src="https://images.pexels.com/photos/6615294/pexels-photo-6615294.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              width="1200" height="800" loading="lazy" decoding="async" alt="Architect working on blueprints at a desk"
+              data-speed="0.06" onerror="this.remove()"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-<!-- ============ 4. DASARA / DIWALI ============ -->
-<section class="page" id="festive" aria-labelledby="festTitle">
-  <div class="board fest__board">
-    <figure class="cell fest__idol">
-      <div class="ph wipe"><img src="https://images.pexels.com/photos/34283958/pexels-photo-34283958.jpeg?auto=compress&cs=tinysrgb&w=1200" width="1200" height="1500" loading="lazy" decoding="async" alt="Intricately crafted Durga idol at a Kolkata Durga Puja pandal" data-speed="0.06" onerror="this.remove()"></div>
-      <figcaption><small>Navratri · Vijayadashami</small>Jai Maa Durga</figcaption>
-    </figure>
-    <div class="cell fest__text">
-      <p class="kicker rv">Dasara · Diwali</p>
-      <h2 class="display rv" id="festTitle" style="--d:.08s">Victory of Light over Darkness.</h2>
-      <p class="small rv" style="--d:.16s">This festive season, begin something new. Talk to our architects about the space you have always imagined.</p>
-      <div class="ctas rv" style="--d:.24s"><a class="btn" href="Home.html"><span>Book Consultation</span><b aria-hidden="true">↗</b></a></div>
-    </div>
-    <div class="cell night fw fest__fw" data-fw>
-      <canvas aria-hidden="true"></canvas>
-      <p class="fw__greet" aria-hidden="true">Light the <em>Night</em></p>
-      <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
-      <p class="fw__label mono" aria-hidden="true">Tap for crackers ✦</p>
-    </div>
-    <div class="cell fest__mandala">
-      <svg class="mandala" id="mandala" viewBox="-100 -100 200 200" aria-hidden="true">
-        <g fill="none" stroke="#0c0c0c" stroke-width="2">
-          <circle r="94"/><circle r="70"/><circle r="40"/><circle r="14" fill="#7d0f24"/>
-          <g id="lotus"><path d="M0-40Q16-62 0-92Q-16-62 0-40Z" fill="#fbfaf7"/><path d="M0-70Q10-82 0-94Q-10-82 0-70Z"/></g>
-          <use href="#lotus" transform="rotate(30)"/><use href="#lotus" transform="rotate(60)"/><use href="#lotus" transform="rotate(90)"/><use href="#lotus" transform="rotate(120)"/><use href="#lotus" transform="rotate(150)"/><use href="#lotus" transform="rotate(180)"/><use href="#lotus" transform="rotate(210)"/><use href="#lotus" transform="rotate(240)"/><use href="#lotus" transform="rotate(270)"/><use href="#lotus" transform="rotate(300)"/><use href="#lotus" transform="rotate(330)"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 5. FINAL CTA ============ -->
-<section class="page" id="final" aria-labelledby="finalTitle">
-  <div class="board final__board">
-    <div class="cell final__text">
-      <p class="kicker rv">Your Next Project</p>
-      <h2 class="display rv" id="finalTitle" style="--d:.08s">Let’s Create Your Dream Space Together</h2>
-      <p class="small rv" style="--d:.16s">Book a friendly, clear layout consultation with our architectural team and build your project with confidence.</p>
-      <div class="ctas rv" style="--d:.24s">
-        <a class="btn" href="Home.html"><span>Book Consultation</span><b aria-hidden="true">↗</b></a>
-        <a class="btn btn--light" href="tel:+919663346095"><span>Call Us</span><b aria-hidden="true">↗</b></a>
+  <footer class="footer page">
+    <div class="board footer__board">
+      <div class="cell footer__brand">
+        <!-- LOCAL PATH LOGO FOR FOOTER -->
+        <a class="logo" href="index.html" style="display:inline-flex;align-items:center;margin-bottom:14px">
+          <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo"
+            onerror="this.style.display='none'">
+          <span translate="no">AKAR <small>Design Studio</small></span>
+        </a>
+        <p class="footer__greet">Wishing you a Happy Diwali &amp; Dasara.</p>
+      </div>
+      <div class="cell">
+        <h3>Studio</h3>
+        <p class="small">138/F, 62, Doddakallasandra, Konanakunte, Karnataka&nbsp;560062</p>
+      </div>
+      <div class="cell">
+        <h3>Contact</h3>
+        <p class="small">+91&nbsp;96633&nbsp;46095<br>info@akararchitects.com</p>
       </div>
     </div>
-    <div class="cell final__photo"><div class="ph bw wipe"><img src="https://images.pexels.com/photos/6615294/pexels-photo-6615294.jpeg?auto=compress&cs=tinysrgb&w=1200" width="1200" height="800" loading="lazy" decoding="async" alt="Architect working on blueprints at a desk" data-speed="0.06" onerror="this.remove()"></div></div>
-  </div>
-</section>
-</main>
+    <p class="copyright"><span>&copy; <span id="year">2026</span> <span
+          translate="no">AKAR&nbsp;Design&nbsp;Studio</span>. All rights reserved.</span><span>Designed with warm
+        residential restraint.</span></p>
+  </footer>
 
-<footer class="footer page">
-  <div class="board footer__board">
-    <div class="cell footer__brand">
-      <p class="logo" style="display:inline-flex;align-items:center;margin-bottom:14px"><i aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background:var(--orange);display:inline-block;margin-right:10px"></i><span translate="no">AKAR <small>Design Studio</small></span></p>
-      <p class="footer__greet">Wishing you a Happy Diwali &amp; Dasara.</p>
-    </div>
-    <div class="cell"><h3>Studio</h3><p class="small">138/F, 62, Doddakallasandra, Konanakunte, Karnataka&nbsp;560062</p></div>
-    <div class="cell"><h3>Contact</h3><p class="small">+91&nbsp;96633&nbsp;46095<br>info@akararchitects.com</p></div>
-  </div>
-  <p class="copyright"><span>&copy; <span id="year">2026</span> <span translate="no">AKAR&nbsp;Design&nbsp;Studio</span>. All rights reserved.</span><span>Designed with warm residential restraint.</span></p>
-</footer>
+  <script>
+    /* =========================================================
+       No external libraries.
+       0 helpers + motion toggle   1 split + reveals   2 nav/counters
+       3 crackers (canvas fireworks)   4 scroll engine (parallax,
+       mandala/sun rotation)   5 CSS-3D house that builds on scroll
+       ========================================================= */
+    (function () {
+      'use strict';
+      var $ = function (s, c) { return (c || document).querySelector(s); };
+      var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+      var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+      var root = document.documentElement;
+      var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var motionOn = !reduceMQ.matches;
+      var finePointer = window.matchMedia('(pointer: fine)').matches;
 
-<script>
-/* =========================================================
-   No external libraries.
-   0 helpers + motion toggle   1 split + reveals   2 nav/counters
-   3 crackers (canvas fireworks)   4 scroll engine (parallax,
-   mandala/sun rotation)   5 CSS-3D house that builds on scroll
-   ========================================================= */
-(function () {
-  'use strict';
-  var $ = function (s, c) { return (c || document).querySelector(s); };
-  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
-  var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
-  var root = document.documentElement;
-  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var motionOn = !reduceMQ.matches;
-  var finePointer = window.matchMedia('(pointer: fine)').matches;
+      /* ---- 0. motion toggle ---- */
+      var mBtn = $('#motionBtn'), mIcon = $('#motionIcon');
+      function setMotion(on) {
+        motionOn = on; root.setAttribute('data-motion', on ? 'on' : 'off');
+        mBtn.setAttribute('aria-pressed', String(!on));
+        mBtn.setAttribute('aria-label', on ? 'Pause decorative motion' : 'Play decorative motion');
+        mIcon.setAttribute('d', on ? 'M2 1h3v10H2zM7 1h3v10H7z' : 'M2 1l9 5-9 5z');
+      }
+      mBtn.addEventListener('click', function () { setMotion(!motionOn); });
+      setMotion(motionOn);
+      $('#year').textContent = new Date().getFullYear();
 
-  /* ---- 0. motion toggle ---- */
-  var mBtn = $('#motionBtn'), mIcon = $('#motionIcon');
-  function setMotion(on) {
-    motionOn = on; root.setAttribute('data-motion', on ? 'on' : 'off');
-    mBtn.setAttribute('aria-pressed', String(!on));
-    mBtn.setAttribute('aria-label', on ? 'Pause decorative motion' : 'Play decorative motion');
-    mIcon.setAttribute('d', on ? 'M2 1h3v10H2zM7 1h3v10H7z' : 'M2 1l9 5-9 5z');
-  }
-  mBtn.addEventListener('click', function () { setMotion(!motionOn); });
-  setMotion(motionOn);
-  $('#year').textContent = new Date().getFullYear();
-
-  /* ---- 1. headline split + reveals ---- */
-  $$('[data-split]').forEach(function (h) {
-    var i = 0, label = h.textContent.replace(/\s+/g, ' ').trim();
-    (function walk(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
-        if (n.nodeType === 3) {
-          var frag = document.createDocumentFragment();
-          n.textContent.split(/(\s+)/).forEach(function (part) {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-            var w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
-            var s = document.createElement('span'); s.textContent = part; s.style.setProperty('--i', i++);
-            w.appendChild(s); frag.appendChild(w);
+      /* ---- 1. headline split + reveals ---- */
+      $$('[data-split]').forEach(function (h) {
+        var i = 0, label = h.textContent.replace(/\s+/g, ' ').trim();
+        (function walk(node) {
+          Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+            if (n.nodeType === 3) {
+              var frag = document.createDocumentFragment();
+              n.textContent.split(/(\s+)/).forEach(function (part) {
+                if (!part) return;
+                if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+                var w = document.createElement('span'); w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+                var s = document.createElement('span'); s.textContent = part; s.style.setProperty('--i', i++);
+                w.appendChild(s); frag.appendChild(w);
+              });
+              node.replaceChild(frag, n);
+            } else if (n.nodeType === 1) { walk(n); }
           });
-          node.replaceChild(frag, n);
-        } else if (n.nodeType === 1) { walk(n); }
+        })(h);
+        h.setAttribute('aria-label', label);
       });
-    })(h);
-    h.setAttribute('aria-label', label);
-  });
-  var targets = $$('.rv, .wipe, [data-split]');
-  if ('IntersectionObserver' in window && motionOn) {
-    var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { (e.target._reveal || e.target).classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    targets.forEach(function (t) { if (t.classList.contains('wipe')) { var h = t.parentElement; h._reveal = t; io.observe(h); } else io.observe(t); });
-    requestAnimationFrame(function () { $$('#top .rv, #top .wipe, #top [data-split]').forEach(function (t) { t.classList.add('in'); }); });
-  } else { targets.forEach(function (t) { t.classList.add('in'); }); }
+      var targets = $$('.rv, .wipe, [data-split]');
+      if ('IntersectionObserver' in window && motionOn) {
+        var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { (e.target._reveal || e.target).classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+        targets.forEach(function (t) { if (t.classList.contains('wipe')) { var h = t.parentElement; h._reveal = t; io.observe(h); } else io.observe(t); });
+        requestAnimationFrame(function () { $$('#top .rv, #top .wipe, #top [data-split]').forEach(function (t) { t.classList.add('in'); }); });
+      } else { targets.forEach(function (t) { t.classList.add('in'); }); }
 
-  /* ---- 2. nav + counters ---- */
-  var burger = $('#burger'), links = $('#navLinks');
-  function setMenu(open) {
-    links.classList.toggle('open', open); burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); document.body.style.overflow = open ? 'hidden' : '';
-  }
-  burger.addEventListener('click', function () { setMenu(!links.classList.contains('open')); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
-  $$('a', links).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
-  var burgerShow = function () { burger.style.display = window.innerWidth <= 860 ? 'block' : 'none'; };
-  burgerShow(); window.addEventListener('resize', function () { burgerShow(); if (window.innerWidth > 860) setMenu(false); });
-
-  var nf = new Intl.NumberFormat(navigator.languages || 'en');
-  function runCount(el) {
-    var end = +el.getAttribute('data-count'), suf = el.getAttribute('data-suffix') || '';
-    if (!motionOn) { el.textContent = nf.format(end) + suf; return; }
-    var t0 = null;
-    (function step(t) { if (t0 === null) t0 = t; var p = clamp((t - t0) / 1600, 0, 1), e = 1 - Math.pow(1 - p, 4); el.textContent = nf.format(Math.round(end * e)) + suf; if (p < 1) requestAnimationFrame(step); })(performance.now());
-  }
-  var counts = $$('[data-count]');
-  if ('IntersectionObserver' in window) {
-    var co = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { runCount(e.target); co.unobserve(e.target); } }); }, { threshold: 0.6 });
-    counts.forEach(function (el) { co.observe(el); });
-  } else { counts.forEach(runCount); }
-
-  /* ---- 3. crackers: canvas fireworks, tap to launch ---- */
-  var palette = ['#ffd166', '#f2b13c', '#ff5a36', '#fff3c4', '#ff9a1a', '#ff3d6e', '#ffffff'];
-  function Crackers(cell) {
-    var cv = $('canvas', cell), ctx = cv.getContext('2d'), hit = $('.fw__hit', cell);
-    var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, rockets = [], sparks = [], visible = false, raf = 0, auto = 0, awake = 0;
-    function size() { W = cell.clientWidth; H = cell.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.fillStyle = '#0c0c0c'; ctx.fillRect(0, 0, W, H); }
-    function launch(tx, ty) {
-      rockets.push({ x: W * (0.3 + Math.random() * 0.4), y: H + 6, tx: tx, ty: ty, c: palette[(Math.random() * palette.length) | 0], sp: 5.2 + Math.random() * 1.6 });
-    }
-    function burst(x, y, c) {
-      var n = 46 + ((Math.random() * 30) | 0), ring = Math.random() < 0.35;
-      for (var i = 0; i < n; i++) {
-        var a = (i / n) * 6.283 + Math.random() * 0.1, v = ring ? 2.6 : 1.2 + Math.random() * 3.2;
-        sparks.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, dec: 0.011 + Math.random() * 0.011, c: Math.random() < 0.25 ? '#ffffff' : c, r: 1.2 + Math.random() * 1.4 });
+      /* ---- 2. counters ---- */
+      var nf = new Intl.NumberFormat(navigator.languages || 'en');
+      function runCount(el) {
+        var end = +el.getAttribute('data-count'), suf = el.getAttribute('data-suffix') || '';
+        if (!motionOn) { el.textContent = nf.format(end) + suf; return; }
+        var t0 = null;
+        (function step(t) { if (t0 === null) t0 = t; var p = clamp((t - t0) / 1600, 0, 1), e = 1 - Math.pow(1 - p, 4); el.textContent = nf.format(Math.round(end * e)) + suf; if (p < 1) requestAnimationFrame(step); })(performance.now());
       }
-    }
-    function frame() {
-      ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'rgba(12,12,12,0.2)'; ctx.fillRect(0, 0, W, H);
-      ctx.globalCompositeOperation = 'lighter';
-      for (var i = rockets.length - 1; i >= 0; i--) {
-        var r = rockets[i], dx = r.tx - r.x, dy = r.ty - r.y, d = Math.sqrt(dx * dx + dy * dy) || 1;
-        r.x += dx / d * r.sp; r.y += dy / d * r.sp;
-        ctx.fillStyle = r.c; ctx.beginPath(); ctx.arc(r.x, r.y, 2, 0, 6.283); ctx.fill();
-        if (d < r.sp + 2) { burst(r.x, r.y, r.c); rockets.splice(i, 1); }
+      var counts = $$('[data-count]');
+      if ('IntersectionObserver' in window) {
+        var co = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { runCount(e.target); co.unobserve(e.target); } }); }, { threshold: 0.6 });
+        counts.forEach(function (el) { co.observe(el); });
+      } else { counts.forEach(runCount); }
+
+      /* ---- 3. crackers: canvas fireworks, tap to launch ---- */
+      var palette = ['#ffd166', '#f2b13c', '#ff5a36', '#fff3c4', '#ff9a1a', '#ff3d6e', '#ffffff'];
+      function Crackers(cell) {
+        var cv = $('canvas', cell), ctx = cv.getContext('2d'), hit = $('.fw__hit', cell);
+        var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, rockets = [], sparks = [], visible = false, raf = 0, auto = 0, awake = 0;
+        function size() { W = cell.clientWidth; H = cell.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.fillStyle = '#0c0c0c'; ctx.fillRect(0, 0, W, H); }
+        function launch(tx, ty) {
+          rockets.push({ x: W * (0.3 + Math.random() * 0.4), y: H + 6, tx: tx, ty: ty, c: palette[(Math.random() * palette.length) | 0], sp: 5.2 + Math.random() * 1.6 });
+        }
+        function burst(x, y, c) {
+          var n = 46 + ((Math.random() * 30) | 0), ring = Math.random() < 0.35;
+          for (var i = 0; i < n; i++) {
+            var a = (i / n) * 6.283 + Math.random() * 0.1, v = ring ? 2.6 : 1.2 + Math.random() * 3.2;
+            sparks.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, dec: 0.011 + Math.random() * 0.011, c: Math.random() < 0.25 ? '#ffffff' : c, r: 1.2 + Math.random() * 1.4 });
+          }
+        }
+        function frame() {
+          ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'rgba(12,12,12,0.2)'; ctx.fillRect(0, 0, W, H);
+          ctx.globalCompositeOperation = 'lighter';
+          for (var i = rockets.length - 1; i >= 0; i--) {
+            var r = rockets[i], dx = r.tx - r.x, dy = r.ty - r.y, d = Math.sqrt(dx * dx + dy * dy) || 1;
+            r.x += dx / d * r.sp; r.y += dy / d * r.sp;
+            ctx.fillStyle = r.c; ctx.beginPath(); ctx.arc(r.x, r.y, 2, 0, 6.283); ctx.fill();
+            if (d < r.sp + 2) { burst(r.x, r.y, r.c); rockets.splice(i, 1); }
+          }
+          for (var j = sparks.length - 1; j >= 0; j--) {
+            var s = sparks[j]; s.x += s.vx; s.y += s.vy; s.vx *= 0.985; s.vy = s.vy * 0.985 + 0.045; s.life -= s.dec;
+            if (s.life <= 0) { sparks.splice(j, 1); continue; }
+            ctx.globalAlpha = s.life; ctx.fillStyle = s.c; ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          var live = rockets.length || sparks.length;
+          if (visible && (motionOn || live || performance.now() < awake)) raf = requestAnimationFrame(frame); else raf = 0;
+        }
+        function ensure() { if (!raf && visible) raf = requestAnimationFrame(frame); }
+        function autoLaunch() { if (visible && motionOn) { launch(W * (0.15 + Math.random() * 0.7), H * (0.15 + Math.random() * 0.4)); ensure(); } }
+        function tap(e) {
+          var b = cell.getBoundingClientRect(), x = e.clientX ? e.clientX - b.left : W / 2, y = e.clientY ? e.clientY - b.top : H * 0.3;
+          if (!e.clientX) { x = W * (0.2 + Math.random() * 0.6); y = H * (0.15 + Math.random() * 0.4); }
+          launch(x, y); if (Math.random() < 0.5) launch(W * Math.random(), H * (0.15 + Math.random() * 0.35));
+          awake = performance.now() + 4500; ensure();
+        }
+        hit.addEventListener('click', tap);
+        size(); window.addEventListener('resize', size);
+        if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) { ensure(); } }, { threshold: 0.1 }).observe(cell); else visible = true;
+        auto = setInterval(autoLaunch, 1500);
+        setTimeout(function () { burst(W * 0.6, H * 0.35, '#ffd166'); ensure(); }, 400);
       }
-      for (var j = sparks.length - 1; j >= 0; j--) {
-        var s = sparks[j]; s.x += s.vx; s.y += s.vy; s.vx *= 0.985; s.vy = s.vy * 0.985 + 0.045; s.life -= s.dec;
-        if (s.life <= 0) { sparks.splice(j, 1); continue; }
-        ctx.globalAlpha = s.life; ctx.fillStyle = s.c; ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+      $$('[data-fw]').forEach(Crackers);
+
+      /* ---- 4. scroll engine ---- */
+      var bar = $('#progressBar'), vh = window.innerHeight, vw = window.innerWidth, ticking = false, vEls = [];
+      var sun = $('#sun'), mandala = $('#mandala');
+      var build = $('#build'), steps = $$('.step'), mvBar = $('.mv__bar'), mvCount = $('#mvCount'), B = { top: 0, h: 0 }, buildP = 0, lastStep = -1;
+
+      function measure() {
+        vh = window.innerHeight; vw = window.innerWidth;
+        var sy = window.scrollY, all = $$('[data-speed]'), prev = all.map(function (el) { return el.style.cssText; });
+        all.forEach(function (el) { el.style.setProperty('--py', '0px'); });
+        vEls = all.map(function (el) { var r = el.parentNode.getBoundingClientRect(); return { el: el, c: r.top + sy + r.height / 2, h: r.height, s: parseFloat(el.getAttribute('data-speed')) || 0 }; });
+        all.forEach(function (el, i) { el.style.cssText = prev[i]; });
+        var rb = build.getBoundingClientRect(); B.top = rb.top + sy; B.h = build.offsetHeight;
+        update();
       }
-      ctx.globalAlpha = 1;
-      var live = rockets.length || sparks.length;
-      if (visible && (motionOn || live || performance.now() < awake)) raf = requestAnimationFrame(frame); else raf = 0;
-    }
-    function ensure() { if (!raf && visible) raf = requestAnimationFrame(frame); }
-    function autoLaunch() { if (visible && motionOn) { launch(W * (0.15 + Math.random() * 0.7), H * (0.15 + Math.random() * 0.4)); ensure(); } }
-    function tap(e) {
-      var b = cell.getBoundingClientRect(), x = e.clientX ? e.clientX - b.left : W / 2, y = e.clientY ? e.clientY - b.top : H * 0.3;
-      if (!e.clientX) { x = W * (0.2 + Math.random() * 0.6); y = H * (0.15 + Math.random() * 0.4); }
-      launch(x, y); if (Math.random() < 0.5) launch(W * Math.random(), H * (0.15 + Math.random() * 0.35));
-      awake = performance.now() + 4500; ensure();
-    }
-    hit.addEventListener('click', tap);
-    size(); window.addEventListener('resize', size);
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) { ensure(); } }, { threshold: 0.1 }).observe(cell); else visible = true;
-    auto = setInterval(autoLaunch, 1500);
-    setTimeout(function () { burst(W * 0.6, H * 0.35, '#ffd166'); ensure(); }, 400);
-  }
-  $$('[data-fw]').forEach(Crackers);
+      function update() {
+        var sy = window.scrollY, doc = document.documentElement.scrollHeight - vh, i, o;
+        bar.style.transform = 'scaleX(' + (doc > 0 ? sy / doc : 0).toFixed(4) + ')';
+        var k = reduceMQ.matches ? 0 : (vw <= 860 ? .6 : 1);
+        for (i = 0; i < vEls.length; i++) {
+          o = vEls[i]; var d = o.c - (sy + vh / 2);
+          if (Math.abs(d) > vh + o.h) continue;
+          o.el.style.setProperty('--py', clamp(-d * o.s * k, -60, 60).toFixed(1) + 'px');
+        }
+        if (sun) sun.style.setProperty('--rot', (sy * 0.12).toFixed(1) + 'deg');
+        if (mandala) mandala.style.setProperty('--rot', (-sy * 0.1).toFixed(1) + 'deg');
+        buildP = clamp((sy - B.top) / Math.max(1, B.h - vh), 0, 1);
+        var idx = clamp(Math.floor(buildP * 4), 0, 3);
+        if (idx !== lastStep) { lastStep = idx; steps.forEach(function (s, n) { s.classList.toggle('active', n === idx); }); mvCount.textContent = '0' + (idx + 1); }
+        mvBar.style.setProperty('--p', buildP.toFixed(4));
+        kick();
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      var rzT; window.addEventListener('resize', function () { clearTimeout(rzT); rzT = setTimeout(function () { sizeModel(); measure(); }, 120); });
+      window.addEventListener('load', function () { sizeModel(); measure(); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sizeModel(); measure(); });
 
-  /* ---- 4. scroll engine ---- */
-  var bar = $('#progressBar'), vh = window.innerHeight, vw = window.innerWidth, ticking = false, vEls = [];
-  var sun = $('#sun'), mandala = $('#mandala');
-  var build = $('#build'), steps = $$('.step'), mvBar = $('.mv__bar'), mvCount = $('#mvCount'), B = { top: 0, h: 0 }, buildP = 0, lastStep = -1;
+      /* ---- 5. CSS-3D house that assembles as you scroll (no WebGL) ---- */
+      var mv = $('#mv'), scene = $('#scene'), parts = [], cur = 0, mouseX = 0, anim = 0;
+      function sizeModel() { var w = mv.clientWidth, h = mv.clientHeight; mv.style.setProperty('--u', clamp(Math.min(w / 14.5, h / 10.5), 12, 58).toFixed(1) + 'px'); }
+      function box(w, h, d, x, y, z, t0, t1, drop, color, cls) {
+        var el = document.createElement('div'); el.className = 'bx ' + (cls || '');
+        el.style.setProperty('--w', w); el.style.setProperty('--h', h); el.style.setProperty('--d', d); if (color) el.style.setProperty('--c', color);
+        el.innerHTML = '<i class="f"></i><i class="k"></i><i class="r"></i><i class="l"></i><i class="t"></i><i class="u"></i>';
+        scene.appendChild(el);
+        parts.push({ el: el, x: x, y: y, z: z, t0: t0, t1: t1, drop: drop, last: -1, lit: /flame|bulb/.test(cls || '') });
+      }
+      /* geometry in "units"; y is up */
+      box(10, .3, 7, .4, .15, .4, .02, .16, 3, '#bdbab2');                                  /* plinth */
+      box(7, 2.6, 4.2, -.5, 1.6, 0, .14, .34, -3.2, '#2b2b2b');                             /* lower mass */
+      box(7.7, .14, 4.1, .9, 2.86, .3, .32, .42, 4, '#f2b13c');                             /* orange slab */
+      box(7.4, 1.75, 3.8, .9, 3.78, .3, .38, .54, 5, '#efece4');                            /* upper volume */
+      box(7.5, .1, 3.9, .9, 4.68, .3, .52, .6, 4, '#f2b13c');                               /* roof edge */
+      box(.14, 2.85, .14, 4.45, 1.72, 2.05, .52, .62, 4, '#f2b13c');                        /* column */
+      box(2.5, 1.9, .08, -2.5, 1.55, 2.13, .6, .74, 0, '#23201c', 'glass');                 /* glazing */
+      box(2.0, 1.9, .08, 1.85, 1.55, 2.13, .62, .76, 0, '#23201c', 'glass');
+      box(1.1, 2.0, .1, -.35, 1.3, 2.13, .64, .76, 0, '#7a4a2a');                           /* door */
+      [-1.4, .9, 3.2].forEach(function (x, i) { box(1.8, .95, .08, x, 3.78, 2.23, .66 + i * .03, .8 + i * .02, 0, '#23201c', 'glass'); });
+      box(1.5, .05, 3.6, -.35, .33, 4.1, .74, .84, 0, '#cfcac0');                           /* walkway */
+      box(2.0, .05, 3.0, 3.9, .33, 3.7, .76, .86, 0, '#2a5a73');                            /* pool */
+      box(2.2, .5, .5, -3.9, .55, 2.9, .78, .88, 0, '#3d5a2e'); box(1.6, .5, .5, 2.9, .55, 2.9, .8, .9, 0, '#3d5a2e');   /* hedges */
+      for (var n = 0; n < 6; n++) {
+        [-1.0, .3].forEach(function (x) {                       /* diyas */
+          var z = 2.95 + n * .55, a = .84 + n * .01;
+          box(.3, .12, .3, x, .4, z, a, a + .06, 0, '#e0a82e'); box(.1, .2, .1, x, .56, z, a + .02, a + .08, 0, '#ffd27a', 'flame');
+        });
+      }
+      for (var m = 0; m < 22; m++) { var tt = m / 21; box(.1, .1, .1, -2.9 + tt * 7.5, 2.72 - .5 * Math.sin(Math.PI * tt), 2.42, .86 + tt * .06, .92 + tt * .06, 0, '#ffd27a', 'bulb'); }  /* string lights */
 
-  function measure() {
-    vh = window.innerHeight; vw = window.innerWidth;
-    var sy = window.scrollY, all = $$('[data-speed]'), prev = all.map(function (el) { return el.style.cssText; });
-    all.forEach(function (el) { el.style.setProperty('--py', '0px'); });
-    vEls = all.map(function (el) { var r = el.parentNode.getBoundingClientRect(); return { el: el, c: r.top + sy + r.height / 2, h: r.height, s: parseFloat(el.getAttribute('data-speed')) || 0 }; });
-    all.forEach(function (el, i) { el.style.cssText = prev[i]; });
-    var rb = build.getBoundingClientRect(); B.top = rb.top + sy; B.h = build.offsetHeight;
-    update();
-  }
-  function update() {
-    var sy = window.scrollY, doc = document.documentElement.scrollHeight - vh, i, o;
-    bar.style.transform = 'scaleX(' + (doc > 0 ? sy / doc : 0).toFixed(4) + ')';
-    var k = reduceMQ.matches ? 0 : (vw <= 860 ? .6 : 1);
-    for (i = 0; i < vEls.length; i++) {
-      o = vEls[i]; var d = o.c - (sy + vh / 2);
-      if (Math.abs(d) > vh + o.h) continue;
-      o.el.style.setProperty('--py', clamp(-d * o.s * k, -60, 60).toFixed(1) + 'px');
-    }
-    if (sun) sun.style.setProperty('--rot', (sy * 0.12).toFixed(1) + 'deg');
-    if (mandala) mandala.style.setProperty('--rot', (-sy * 0.1).toFixed(1) + 'deg');
-    buildP = clamp((sy - B.top) / Math.max(1, B.h - vh), 0, 1);
-    var idx = clamp(Math.floor(buildP * 4), 0, 3);
-    if (idx !== lastStep) { lastStep = idx; steps.forEach(function (s, n) { s.classList.toggle('active', n === idx); }); mvCount.textContent = '0' + (idx + 1); }
-    mvBar.style.setProperty('--p', buildP.toFixed(4));
-    kick();
-    ticking = false;
-  }
-  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  var rzT; window.addEventListener('resize', function () { clearTimeout(rzT); rzT = setTimeout(function () { sizeModel(); measure(); }, 120); });
-  window.addEventListener('load', function () { sizeModel(); measure(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sizeModel(); measure(); });
-
-  /* ---- 5. CSS-3D house that assembles as you scroll (no WebGL) ---- */
-  var mv = $('#mv'), scene = $('#scene'), parts = [], cur = 0, mouseX = 0, anim = 0;
-  function sizeModel() { var w = mv.clientWidth, h = mv.clientHeight; mv.style.setProperty('--u', clamp(Math.min(w / 14.5, h / 10.5), 12, 58).toFixed(1) + 'px'); }
-  function box(w, h, d, x, y, z, t0, t1, drop, color, cls) {
-    var el = document.createElement('div'); el.className = 'bx ' + (cls || '');
-    el.style.setProperty('--w', w); el.style.setProperty('--h', h); el.style.setProperty('--d', d); if (color) el.style.setProperty('--c', color);
-    el.innerHTML = '<i class="f"></i><i class="k"></i><i class="r"></i><i class="l"></i><i class="t"></i><i class="u"></i>';
-    scene.appendChild(el);
-    parts.push({ el: el, x: x, y: y, z: z, t0: t0, t1: t1, drop: drop, last: -1, lit: /flame|bulb/.test(cls || '') });
-  }
-  /* geometry in "units"; y is up */
-  box(10, .3, 7, .4, .15, .4, .02, .16, 3, '#bdbab2');                                  /* plinth */
-  box(7, 2.6, 4.2, -.5, 1.6, 0, .14, .34, -3.2, '#2b2b2b');                             /* lower mass */
-  box(7.7, .14, 4.1, .9, 2.86, .3, .32, .42, 4, '#f2b13c');                             /* orange slab */
-  box(7.4, 1.75, 3.8, .9, 3.78, .3, .38, .54, 5, '#efece4');                            /* upper volume */
-  box(7.5, .1, 3.9, .9, 4.68, .3, .52, .6, 4, '#f2b13c');                               /* roof edge */
-  box(.14, 2.85, .14, 4.45, 1.72, 2.05, .52, .62, 4, '#f2b13c');                        /* column */
-  box(2.5, 1.9, .08, -2.5, 1.55, 2.13, .6, .74, 0, '#23201c', 'glass');                 /* glazing */
-  box(2.0, 1.9, .08, 1.85, 1.55, 2.13, .62, .76, 0, '#23201c', 'glass');
-  box(1.1, 2.0, .1, -.35, 1.3, 2.13, .64, .76, 0, '#7a4a2a');                           /* door */
-  [-1.4, .9, 3.2].forEach(function (x, i) { box(1.8, .95, .08, x, 3.78, 2.23, .66 + i * .03, .8 + i * .02, 0, '#23201c', 'glass'); });
-  box(1.5, .05, 3.6, -.35, .33, 4.1, .74, .84, 0, '#cfcac0');                           /* walkway */
-  box(2.0, .05, 3.0, 3.9, .33, 3.7, .76, .86, 0, '#2a5a73');                            /* pool */
-  box(2.2, .5, .5, -3.9, .55, 2.9, .78, .88, 0, '#3d5a2e'); box(1.6, .5, .5, 2.9, .55, 2.9, .8, .9, 0, '#3d5a2e');   /* hedges */
-  for (var n = 0; n < 6; n++) { [-1.0, .3].forEach(function (x) {                       /* diyas */
-    var z = 2.95 + n * .55, a = .84 + n * .01;
-    box(.3, .12, .3, x, .4, z, a, a + .06, 0, '#e0a82e'); box(.1, .2, .1, x, .56, z, a + .02, a + .08, 0, '#ffd27a', 'flame');
-  }); }
-  for (var m = 0; m < 22; m++) { var tt = m / 21; box(.1, .1, .1, -2.9 + tt * 7.5, 2.72 - .5 * Math.sin(Math.PI * tt), 2.42, .86 + tt * .06, .92 + tt * .06, 0, '#ffd27a', 'bulb'); }  /* string lights */
-
-  var ease = function (k) { return 1 - Math.pow(1 - k, 3); };
-  function render(p) {
-    for (var i = 0; i < parts.length; i++) {
-      var o = parts[i], k = clamp((p - o.t0) / (o.t1 - o.t0), 0, 1), e = ease(k), key = Math.round(e * 400);
-      if (key === o.last) continue; o.last = key;
-      o.el.style.visibility = e > 0.001 ? 'visible' : 'hidden';
-      o.el.style.transform = 'translate3d(calc(var(--u)*' + o.x + '),calc(var(--u)*' + (-(o.y + (1 - e) * o.drop)).toFixed(3) + '),calc(var(--u)*' + o.z + '))';
-    }
-    var L = clamp((p - .84) / .14, 0, 1);
-    scene.classList.toggle('lit', L > .05);
-    mv.style.setProperty('--glow', ease(L).toFixed(3));
-    scene.style.setProperty('--ry', (-38 + p * 84 + mouseX * 6).toFixed(2) + 'deg');
-    scene.style.setProperty('--rx', (-27 + p * 5).toFixed(2) + 'deg');
-  }
-  function tick() {
-    var diff = buildP - cur;
-    if (Math.abs(diff) < .0006) { cur = buildP; render(cur); anim = 0; return; }
-    cur += diff * .14; render(cur); anim = requestAnimationFrame(tick);
-  }
-  function kick() { if (!anim) anim = requestAnimationFrame(tick); }
-  if (finePointer) mv.addEventListener('pointermove', function (e) { var b = mv.getBoundingClientRect(); mouseX = ((e.clientX - b.left) / b.width - .5) * 2; kick(); });
-  sizeModel(); render(0); measure();
-})();
-</script>
+      var ease = function (k) { return 1 - Math.pow(1 - k, 3); };
+      function render(p) {
+        for (var i = 0; i < parts.length; i++) {
+          var o = parts[i], k = clamp((p - o.t0) / (o.t1 - o.t0), 0, 1), e = ease(k), key = Math.round(e * 400);
+          if (key === o.last) continue; o.last = key;
+          o.el.style.visibility = e > 0.001 ? 'visible' : 'hidden';
+          o.el.style.transform = 'translate3d(calc(var(--u)*' + o.x + '),calc(var(--u)*' + (-(o.y + (1 - e) * o.drop)).toFixed(3) + '),calc(var(--u)*' + o.z + '))';
+        }
+        var L = clamp((p - .84) / .14, 0, 1);
+        scene.classList.toggle('lit', L > .05);
+        mv.style.setProperty('--glow', ease(L).toFixed(3));
+        scene.style.setProperty('--ry', (-38 + p * 84 + mouseX * 6).toFixed(2) + 'deg');
+        scene.style.setProperty('--rx', (-27 + p * 5).toFixed(2) + 'deg');
+      }
+      function tick() {
+        var diff = buildP - cur;
+        if (Math.abs(diff) < .0006) { cur = buildP; render(cur); anim = 0; return; }
+        cur += diff * .14; render(cur); anim = requestAnimationFrame(tick);
+      }
+      function kick() { if (!anim) anim = requestAnimationFrame(tick); }
+      if (finePointer) mv.addEventListener('pointermove', function (e) { var b = mv.getBoundingClientRect(); mouseX = ((e.clientX - b.left) / b.width - .5) * 2; kick(); });
+      sizeModel(); render(0); measure();
+    })();
+  </script>
 </body>
+
 </html>
