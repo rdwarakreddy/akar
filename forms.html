@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Architectural Inquiry | AKAR Design Studio</title>
+    <title>Get Your Free Estimate | AKAR Design Studio</title>
     <meta name="description" content="Book a project consultation with AKAR Design Studio for architecture, interior design, and turnkey execution.">
 
     <!-- Fonts -->
@@ -91,7 +91,7 @@
             color: #FFF;
         }
 
-        /* Custom Dropdown Animation */
+        /* Fully Custom Dropdown Animation & Styling */
         .custom-select-menu {
             transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
         }
@@ -112,7 +112,7 @@
 
 <body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen justify-between">
 
-    <!-- NAVIGATION HEADER (Identical to index.html) -->
+    <!-- NAVIGATION HEADER -->
     <header id="site-header" class="sticky top-0 w-full z-50 transition-all duration-300">
         <nav class="flex justify-between items-center w-full px-6 sm:px-8 md:px-12 mx-auto h-16 sm:h-20 max-w-[90rem]">
             <a href="index.html" class="brand font-serif-premium text-2xl sm:text-3xl font-light tracking-widest z-50 transition-colors flex items-center gap-3">
@@ -171,22 +171,24 @@
         <div class="mb-10 sm:mb-14 text-center max-w-2xl mx-auto">
             <span class="font-sans-premium text-xs uppercase tracking-[0.3em] text-secondary font-semibold block mb-2">Architectural Inquiry</span>
             <h1 class="font-serif-premium text-3xl sm:text-5xl font-light tracking-tight text-on-surface leading-tight">
-                Start Your Architectural <span class="italic font-normal text-secondary">Journey.</span>
+                Get your <span class="italic font-normal text-secondary">free estimate.</span>
             </h1>
             <p class="font-sans-premium text-xs sm:text-sm text-on-surface/80 font-normal tracking-wide mt-3 max-w-lg mx-auto leading-relaxed">
                 Provide your project specifications below to connect directly with our principal architectural and interior design team.
             </p>
         </div>
 
-        <form id="architectForm" class="bg-white border border-outline-variant/60 p-6 sm:p-10 md:p-14 rounded-2xl shadow-xl space-y-10">
+        <form id="architectForm" class="bg-white border border-outline-variant/60 p-6 sm:p-10 md:p-14 rounded-3xl shadow-xl space-y-10">
             
             <!-- Web3Forms Hidden Metadata -->
             <input type="hidden" name="access_key" value="f0e931f9-63bf-4311-a614-04f9891d5a90">
             <input type="hidden" name="subject" value="New Architectural Project Inquiry - AKAR Studio">
             <input type="hidden" name="from_name" value="AKAR Consultation Form">
 
-            <!-- Hidden Input to Sync Custom Select Value -->
+            <!-- Hidden Inputs to Sync Custom Select Values -->
             <input type="hidden" id="projectType" name="Requested Service" value="Architecture Services in Bengaluru" required>
+            <input type="hidden" id="possessionTimeline" name="Possession Timeline" value="Within 3 months" required>
+            <input type="hidden" id="budgetRange" name="Budget Range" value="₹10–20L" required>
 
             <!-- SECTION 01: CONTACT DETAILS -->
             <div class="space-y-6">
@@ -195,23 +197,23 @@
                     <h2 class="font-sans-premium text-xs uppercase tracking-[0.2em] text-primary font-semibold">Contact Details</h2>
                 </div>
                 
-                <div class="space-y-2">
-                    <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Full Name *</label>
-                    <input type="text" id="clientName" name="Client Name" required placeholder="e.g. Ramesh Reddy"
-                        class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-secondary focus:ring-0 text-sm font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="space-y-2">
-                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Email Address *</label>
-                        <input type="email" id="clientEmail" name="Client Email" required placeholder="name@example.com"
-                            class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-secondary focus:ring-0 text-sm font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Full Name *</label>
+                        <input type="text" id="clientName" name="Client Name" required placeholder="e.g. Ramesh Reddy"
+                            class="w-full bg-surface-container/40 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary text-sm font-light py-3 px-4 rounded-xl text-on-surface placeholder-on-surface/30 transition-all outline-none" />
                     </div>
                     <div class="space-y-2">
                         <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Phone / WhatsApp Number *</label>
                         <input type="tel" id="clientPhone" name="Client Phone" required placeholder="+91 96633 46095"
-                            class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-secondary focus:ring-0 text-sm font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                            class="w-full bg-surface-container/40 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary text-sm font-light py-3 px-4 rounded-xl text-on-surface placeholder-on-surface/30 transition-all outline-none" />
                     </div>
+                </div>
+
+                <div class="space-y-2 pt-1">
+                    <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Email Address <span class="text-on-surface/40 normal-case font-normal">(Optional)</span></label>
+                    <input type="email" id="clientEmail" name="Client Email" placeholder="name@example.com"
+                        class="w-full bg-surface-container/40 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary text-sm font-light py-3 px-4 rounded-xl text-on-surface placeholder-on-surface/30 transition-all outline-none" />
                 </div>
             </div>
 
@@ -219,64 +221,94 @@
             <div class="space-y-6 pt-4">
                 <div class="flex items-center gap-3 border-b border-outline-variant/50 pb-3">
                     <span class="font-numeric text-secondary text-sm tracking-widest font-semibold">02</span>
-                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.2em] text-primary font-semibold">Project Specifications</h2>
+                    <h2 class="font-sans-premium text-xs uppercase tracking-[0.2em] text-primary font-semibold">Project Specifications & Requirements</h2>
                 </div>
                 
+                <!-- CUSTOM DROPDOWN 1: Required Service -->
+                <div class="space-y-2 relative">
+                    <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Required Service *</label>
+                    <button type="button" id="service-dropdown-btn" 
+                        class="w-full bg-surface-container/40 border border-outline-variant/60 text-left py-3 px-4 rounded-xl flex justify-between items-center focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+                        <span id="selected-service-label" class="font-sans-premium text-sm text-primary font-normal">Architecture Services in Bengaluru</span>
+                        <span id="service-dropdown-arrow" class="material-symbols-outlined text-secondary text-xl transition-transform duration-300">expand_more</span>
+                    </button>
+
+                    <div id="service-dropdown-menu" 
+                        class="custom-select-menu hidden-menu absolute left-0 right-0 top-full mt-2 bg-white border border-outline-variant/80 rounded-2xl shadow-2xl z-30 overflow-hidden py-2">
+                        <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors flex flex-col"
+                            data-value="Architecture Services in Bengaluru">
+                            <span class="font-sans-premium text-sm text-primary font-medium">Architecture Services in Bengaluru</span>
+                            <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Villa & residential blueprints, structural drawings, commercial plans</span>
+                        </div>
+                        <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors border-t border-outline-variant/40 flex flex-col"
+                            data-value="Interior Design for Homes and Workplaces in Bengaluru">
+                            <span class="font-sans-premium text-sm text-primary font-medium">Interior Design for Homes & Workplaces</span>
+                            <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Bespoke home interiors, kitchens, wardrobes & office space design</span>
+                        </div>
+                        <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors border-t border-outline-variant/40 flex flex-col"
+                            data-value="Turnkey Design-to-Handover Services">
+                            <span class="font-sans-premium text-sm text-primary font-medium">Turnkey Design-to-Handover Services</span>
+                            <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Complete end-to-end management, site supervision & execution</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- CUSTOM DROPDOWN (Replaces Standard Bootstrap Dropdown) -->
+                    <!-- CUSTOM DROPDOWN 2: Possession Timeline -->
                     <div class="space-y-2 relative">
-                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Required Service *</label>
-                        
-                        <!-- Custom Select Trigger -->
-                        <button type="button" id="custom-dropdown-btn" 
-                            class="w-full border-b border-outline-variant/80 text-left py-2.5 px-0 flex justify-between items-center focus:outline-none transition-colors group">
-                            <span id="selected-service-label" class="font-serif-premium text-base text-primary font-medium">Architecture Services in Bengaluru</span>
-                            <span id="dropdown-arrow" class="material-symbols-outlined text-secondary text-xl transition-transform duration-300">expand_more</span>
+                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Possession Timeline *</label>
+                        <button type="button" id="possession-dropdown-btn" 
+                            class="w-full bg-surface-container/40 border border-outline-variant/60 text-left py-3 px-4 rounded-xl flex justify-between items-center focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+                            <span id="selected-possession-label" class="font-sans-premium text-sm text-primary font-normal">Within 3 months</span>
+                            <span id="possession-dropdown-arrow" class="material-symbols-outlined text-secondary text-xl transition-transform duration-300">expand_more</span>
                         </button>
 
-                        <!-- Custom Select Dropdown Panel -->
-                        <div id="custom-dropdown-menu" 
-                            class="custom-select-menu hidden-menu absolute left-0 right-0 top-full mt-2 bg-white border border-outline-variant/80 rounded-xl shadow-2xl z-30 overflow-hidden py-2">
-                            
-                            <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors flex flex-col"
-                                data-value="Architecture Services in Bengaluru">
-                                <span class="font-serif-premium text-base text-primary font-medium">Architecture Services in Bengaluru</span>
-                                <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Villa & residential blueprints, structural drawings, commercial plans</span>
-                            </div>
-
-                            <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors border-t border-outline-variant/40 flex flex-col"
-                                data-value="Interior Design for Homes and Workplaces in Bengaluru">
-                                <span class="font-serif-premium text-base text-primary font-medium">Interior Design for Homes & Workplaces</span>
-                                <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Bespoke home interiors, kitchens, wardrobes & office space design</span>
-                            </div>
-
-                            <div class="dropdown-option cursor-pointer px-5 py-3 hover:bg-surface-container transition-colors border-t border-outline-variant/40 flex flex-col"
-                                data-value="Turnkey Design-to-Handover Services">
-                                <span class="font-serif-premium text-base text-primary font-medium">Turnkey Design-to-Handover Services</span>
-                                <span class="font-sans-premium text-[11px] text-on-surface/60 mt-0.5">Complete end-to-end management, site supervision & execution</span>
-                            </div>
+                        <div id="possession-dropdown-menu" 
+                            class="custom-select-menu hidden-menu absolute left-0 right-0 top-full mt-2 bg-white border border-outline-variant/80 rounded-2xl shadow-2xl z-30 overflow-hidden py-2">
+                            <div class="possession-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors text-sm text-primary font-normal" data-value="Already have keys">Already have keys</div>
+                            <div class="possession-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="Within 3 months">Within 3 months</div>
+                            <div class="possession-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="3–6 months">3–6 months</div>
+                            <div class="possession-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="Later">Later</div>
                         </div>
                     </div>
 
-                    <div class="space-y-2">
-                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Built-Up Area (sq.ft.)</label>
-                        <input type="text" id="projectArea" name="Built-Up Area" placeholder="e.g. 2,400 sq.ft."
-                            class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-secondary focus:ring-0 text-sm font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30 transition-colors" />
+                    <!-- CUSTOM DROPDOWN 3: Budget Range -->
+                    <div class="space-y-2 relative">
+                        <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Budget Range *</label>
+                        <button type="button" id="budget-dropdown-btn" 
+                            class="w-full bg-surface-container/40 border border-outline-variant/60 text-left py-3 px-4 rounded-xl flex justify-between items-center focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+                            <span id="selected-budget-label" class="font-sans-premium text-sm text-primary font-normal">₹10–20L</span>
+                            <span id="budget-dropdown-arrow" class="material-symbols-outlined text-secondary text-xl transition-transform duration-300">expand_more</span>
+                        </button>
+
+                        <div id="budget-dropdown-menu" 
+                            class="custom-select-menu hidden-menu absolute left-0 right-0 top-full mt-2 bg-white border border-outline-variant/80 rounded-2xl shadow-2xl z-30 overflow-hidden py-2">
+                            <div class="budget-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors text-sm text-primary font-normal" data-value="Under ₹10L">Under ₹10L</div>
+                            <div class="budget-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="₹10–20L">₹10–20L</div>
+                            <div class="budget-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="₹20–35L">₹20–35L</div>
+                            <div class="budget-option cursor-pointer px-4 py-2.5 hover:bg-surface-container transition-colors border-t border-outline-variant/40 text-sm text-primary font-normal" data-value="₹35L+">₹35L+</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="space-y-2 pt-2">
+                <div class="space-y-2 pt-1">
+                    <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Built-Up Area (sq.ft.)</label>
+                    <input type="text" id="projectArea" name="Built-Up Area" placeholder="e.g. 2,400 sq.ft."
+                        class="w-full bg-surface-container/40 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary text-sm font-light py-3 px-4 rounded-xl text-on-surface placeholder-on-surface/30 transition-all outline-none" />
+                </div>
+
+                <div class="space-y-2 pt-1">
                     <label class="block font-sans-premium text-[11px] uppercase tracking-widest font-semibold text-on-surface/70">Project Brief & Site Location</label>
                     <textarea id="projectBrief" name="Project Brief" rows="3" placeholder="Detail your plot dimensions, structural preferences, or specific design goals..."
-                        class="w-full border-t-0 border-r-0 border-l-0 border-b border-outline-variant/80 focus:border-secondary focus:ring-0 text-sm font-light py-2.5 px-0 bg-transparent text-on-surface placeholder-on-surface/30 resize-none leading-relaxed transition-colors"></textarea>
+                        class="w-full bg-surface-container/40 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary text-sm font-light py-3 px-4 rounded-xl text-on-surface placeholder-on-surface/30 resize-none leading-relaxed transition-all outline-none"></textarea>
                 </div>
             </div>
 
             <!-- SUBMIT BUTTON & STATUS -->
             <div class="pt-4">
                 <button type="submit" id="submitBtn"
-                    class="w-full bg-primary text-surface py-4 rounded-lg font-sans-premium text-xs uppercase tracking-[0.2em] font-medium hover:bg-secondary transition-all duration-300 shadow-md flex items-center justify-center gap-2">
-                    <span>Submit Architectural Inquiry</span>
+                    class="w-full bg-primary text-surface py-4 rounded-xl font-sans-premium text-xs uppercase tracking-[0.2em] font-medium hover:bg-secondary transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                    <span>Get my free estimate</span>
                     <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
                 <div id="statusMessage" class="text-center font-sans-premium text-xs tracking-wide mt-4 hidden"></div>
@@ -285,7 +317,7 @@
         </form>
     </main>
 
-    <!-- FOOTER (Identical to index.html) -->
+    <!-- FOOTER -->
     <footer class="bg-surface py-16 border-t border-outline-variant/60">
         <div class="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
             <div class="flex flex-col text-left">
@@ -324,25 +356,11 @@
             <div class="flex flex-col text-left">
                 <h6 class="font-sans-premium text-xs uppercase tracking-[0.2em] font-semibold text-on-surface mb-4">Connect</h6>
                 <div class="flex flex-col gap-2 font-sans-premium text-sm text-on-surface font-normal">
-                    <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://www.instagram.com/akar.design.studio?igshid=NzZlODBkYWE4Ng%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-                        <svg class="w-4 h-4 text-secondary fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://www.instagram.com/akar.design.studio" target="_blank" rel="noopener noreferrer">
                         <span>Instagram</span>
                     </a>
-                    <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://www.facebook.com/akararchitect" target="_blank" rel="noopener noreferrer">
-                        <svg class="w-4 h-4 text-secondary fill-current" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-                        <span>Facebook</span>
-                    </a>
                     <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://www.linkedin.com/company/akar-design-studio/" target="_blank" rel="noopener noreferrer">
-                        <svg class="w-4 h-4 text-secondary fill-current" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
                         <span>LinkedIn</span>
-                    </a>
-                    <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://in.pinterest.com/AKARDesignStudio_architects/" target="_blank" rel="noopener noreferrer">
-                        <svg class="w-4 h-4 text-secondary fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.331 1.363-.053.225-.172.271-.399.165-1.493-.695-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.464-6.221 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.545.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-                        <span>Pinterest</span>
-                    </a>
-                    <a class="hover:text-secondary transition-colors flex items-center gap-2" href="https://www.youtube.com/@AKARDesignStudio" target="_blank" rel="noopener noreferrer">
-                        <svg class="w-4 h-4 text-secondary fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                        <span>YouTube</span>
                     </a>
                 </div>
             </div>
@@ -384,52 +402,66 @@
             btn.addEventListener('click', toggleMenu);
             document.querySelectorAll('.mobile-nav-link').forEach(a => a.addEventListener('click', () => { if (open) toggleMenu(); }));
 
-            // Custom Select Dropdown Logic
-            const dropBtn = document.getElementById('custom-dropdown-btn');
-            const dropMenu = document.getElementById('custom-dropdown-menu');
-            const dropArrow = document.getElementById('dropdown-arrow');
-            const selectedLabel = document.getElementById('selected-service-label');
-            const hiddenInput = document.getElementById('projectType');
-            const options = document.querySelectorAll('.dropdown-option');
+            // Custom Dropdown Helper Function
+            function setupCustomDropdown(btnId, menuId, arrowId, labelId, inputId, optionSelector) {
+                const dropBtn = document.getElementById(btnId);
+                const dropMenu = document.getElementById(menuId);
+                const dropArrow = document.getElementById(arrowId);
+                const selectedLabel = document.getElementById(labelId);
+                const hiddenInput = document.getElementById(inputId);
+                const options = document.querySelectorAll(optionSelector);
 
-            let isDropdownOpen = false;
+                let isOpen = false;
 
-            function toggleDropdown() {
-                isDropdownOpen = !isDropdownOpen;
-                if (isDropdownOpen) {
-                    dropMenu.classList.remove('hidden-menu');
-                    dropMenu.classList.add('visible-menu');
-                    dropArrow.style.transform = 'rotate(180deg)';
-                } else {
-                    dropMenu.classList.remove('visible-menu');
-                    dropMenu.classList.add('hidden-menu');
-                    dropArrow.style.transform = 'rotate(0deg)';
+                function toggle() {
+                    isOpen = !isOpen;
+                    if (isOpen) {
+                        dropMenu.classList.remove('hidden-menu');
+                        dropMenu.classList.add('visible-menu');
+                        dropArrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        dropMenu.classList.remove('visible-menu');
+                        dropMenu.classList.add('hidden-menu');
+                        dropArrow.style.transform = 'rotate(0deg)';
+                    }
                 }
+
+                dropBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close other dropdowns first
+                    document.querySelectorAll('.custom-select-menu').forEach(m => {
+                        if (m !== dropMenu) {
+                            m.classList.remove('visible-menu');
+                            m.classList.add('hidden-menu');
+                        }
+                    });
+                    toggle();
+                });
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const value = option.getAttribute('data-value');
+                        hiddenInput.value = value;
+                        selectedLabel.textContent = option.querySelector('.font-sans-premium') ? option.querySelector('.font-sans-premium').textContent : value;
+                        
+                        if (isOpen) toggle();
+                    });
+                });
+
+                return {
+                    close: () => { if (isOpen) { isOpen = false; dropMenu.classList.remove('visible-menu'); dropMenu.classList.add('hidden-menu'); dropArrow.style.transform = 'rotate(0deg)'; } }
+                };
             }
 
-            dropBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleDropdown();
-            });
+            const serviceDropdown = setupCustomDropdown('service-dropdown-btn', 'service-dropdown-menu', 'service-dropdown-arrow', 'selected-service-label', 'projectType', '.dropdown-option');
+            const possessionDropdown = setupCustomDropdown('possession-dropdown-btn', 'possession-dropdown-menu', 'possession-dropdown-arrow', 'selected-possession-label', 'possessionTimeline', '.possession-option');
+            const budgetDropdown = setupCustomDropdown('budget-dropdown-btn', 'budget-dropdown-menu', 'budget-dropdown-arrow', 'selected-budget-label', 'budgetRange', '.budget-option');
 
-            options.forEach(option => {
-                option.addEventListener('click', () => {
-                    const value = option.getAttribute('data-value');
-                    hiddenInput.value = value;
-                    selectedLabel.textContent = option.querySelector('.font-serif-premium').textContent;
-                    
-                    options.forEach(opt => opt.classList.remove('bg-surface-container'));
-                    option.classList.add('bg-surface-container');
-
-                    if (isDropdownOpen) toggleDropdown();
-                });
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (isDropdownOpen && !dropBtn.contains(e.target) && !dropMenu.contains(e.target)) {
-                    toggleDropdown();
-                }
+            // Close all custom dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                serviceDropdown.close();
+                possessionDropdown.close();
+                budgetDropdown.close();
             });
 
             // Form Processing & Redirection
@@ -450,7 +482,7 @@
                 submitBtn.innerHTML = `<span>Transmitting Inquiry...</span>`;
                 statusMessage.classList.remove('hidden', 'text-rose-600');
                 statusMessage.classList.add('text-on-surface/60');
-                statusMessage.innerText = "Transmitting email inquiry to studio...";
+                statusMessage.innerText = "Transmitting inquiry to studio...";
 
                 const formData = new FormData(form);
                 const object = Object.fromEntries(formData);
@@ -472,28 +504,30 @@
                         statusMessage.innerText = "Inquiry registered! Connecting to WhatsApp...";
 
                         const name = document.getElementById('clientName').value;
-                        const email = document.getElementById('clientEmail').value;
                         const phone = document.getElementById('clientPhone').value;
-                        const service = hiddenInput.value;
+                        const email = document.getElementById('clientEmail').value || 'Not provided';
+                        const service = document.getElementById('projectType').value;
+                        const possession = document.getElementById('possessionTimeline').value;
+                        const budget = document.getElementById('budgetRange').value;
                         const area = document.getElementById('projectArea').value || 'N/A';
                         const brief = document.getElementById('projectBrief').value || 'N/A';
 
                         const waMessage = 
-                            `*New Architectural Consultation Request*%0A%0A` +
+                            `*New Estimate Request*%0A%0A` +
                             `*Name:* ${encodeURIComponent(name)}%0A` +
-                            `*Email:* ${encodeURIComponent(email)}%0A` +
                             `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                            `*Email:* ${encodeURIComponent(email)}%0A` +
                             `*Service:* ${encodeURIComponent(service)}%0A` +
+                            `*Possession:* ${encodeURIComponent(possession)}%0A` +
+                            `*Budget:* ${encodeURIComponent(budget)}%0A` +
                             `*Built-Up Area:* ${encodeURIComponent(area)}%0A` +
                             `*Project Details:* ${encodeURIComponent(brief)}`;
 
                         setTimeout(() => {
                             window.open(`https://wa.me/${targetWhatsAppNumber}?text=${waMessage}`, '_blank');
                             form.reset();
-                            selectedLabel.textContent = "Architecture Services in Bengaluru";
-                            hiddenInput.value = "Architecture Services in Bengaluru";
                             submitBtn.disabled = false;
-                            submitBtn.innerHTML = `<span>Submit Architectural Inquiry</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
+                            submitBtn.innerHTML = `<span>Get my free estimate</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
                         }, 1200);
 
                     } else {
@@ -505,7 +539,7 @@
                     statusMessage.classList.add('text-rose-600');
                     statusMessage.innerText = "Failed to submit inquiry automatically. Please try via phone or WhatsApp directly.";
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<span>Submit Architectural Inquiry</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
+                    submitBtn.innerHTML = `<span>Get my free estimate</span><span class="material-symbols-outlined text-sm">arrow_forward</span>`;
                 });
             });
         });
