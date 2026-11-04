@@ -10,22 +10,38 @@
   <meta name="theme-color" content="#0b0b0c">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://images.pexels.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <link rel="dns-prefetch" href="https://images.pexels.com">
+  <!-- Fonts load without blocking the first paint. Only the weights the page uses are requested. -->
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@400;500;600&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Jost:wght@400;500;600&display=swap"></noscript>
   <style>
     /* =========================================================
-   AKAR Design Studio landing page (v6)
-   Editorial Swiss grid. Hero now carries the CSS 3D house
-   animation (auto-plays on load, tap to replay).
+   AKAR Design Studio landing page (v7, performance build)
+   Editorial Swiss grid. Hero carries the CSS 3D house
+   animation (builds once visible, tap to replay).
+   iPhone, iPad and Safari draw the same house on one WebGL
+   canvas with a true depth buffer, because Safari can blink
+   when many glowing CSS 3D layers overlap. Same geometry,
+   timing and colours. Other browsers keep the CSS 3D path.
+   Typography: two families only.
+     --display  Cormorant Garamond  headings, buttons, greetings
+     --sans     Jost                body, navigation, labels, numbers
+   Icons (arrow, tick, spark) are inline SVG, not font glyphs,
+   so no system font is ever pulled in to draw them.
    Link map (change in one place if the site structure changes):
      Site root    https://akararchitects.com/
      Services     https://akararchitects.com/services.html
      About        https://akararchitects.com/about.html
      Contact/Quote https://akararchitects.com/contactus.html
    ========================================================= */
+    /* Same two families, sized to match while the web fonts swap in, so text does not jump. */
+    @font-face { font-family: "Cormorant Swap"; src: local("Georgia"), local("Noto Serif"); size-adjust: 86.0%; ascent-override: 107.4%; descent-override: 33.4%; line-gap-override: 0% }
+    @font-face { font-family: "Jost Swap"; src: local("Arial"), local("Roboto"); size-adjust: 88.6%; ascent-override: 120.8%; descent-override: 42.3%; line-gap-override: 0% }
+
     :root {
       --paper: #0b0b0c;
       --paper-2: #151413;
@@ -39,8 +55,8 @@
       --white: #fbf6ea;
       --on: #0b0b0c;
       --wa: #25d366;
-      --display: "Cormorant Garamond", Georgia, serif;
-      --sans: "Jost", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --display: "Cormorant Garamond", "Cormorant Swap", Georgia, serif;
+      --sans: "Jost", "Jost Swap", Arial, sans-serif;
       --mono: var(--sans);
       --ease: cubic-bezier(.22, .8, .24, 1);
       --gutter: clamp(10px, 1.8vw, 26px);
@@ -163,6 +179,10 @@
 
     .ctas { display: flex; flex-wrap: wrap; gap: 12px }
 
+    /* icons (SVG, so they never fall back to a system font) */
+    .ar { display: inline-block; width: .82em; height: .82em; vertical-align: -.06em; flex: none }
+    .spark { display: inline-block; width: .9em; height: .9em; vertical-align: -.08em }
+
     /* reveals */
     .js .rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease) var(--d, 0s), transform 1s var(--ease) var(--d, 0s) }
     .js .rv.in { opacity: 1; transform: none }
@@ -247,9 +267,19 @@
     /* 3D house in hero */
     .mv {
       --u: 40px; position: absolute; inset: 0; perspective: 2000px; perspective-origin: 50% 30%;
-      overflow: hidden;
-      background: radial-gradient(ellipse at 50% 75%, rgba(242, 177, 60, calc(var(--glow, 0)*.38)), transparent 60%), #0c0c0c
+      overflow: hidden; background: #0c0c0c; contain: layout paint
     }
+    /* Festive glow: its own layer, faded with opacity so the hero never repaints */
+    .mv__glow { position: absolute; inset: 0; opacity: 0; background: radial-gradient(ellipse at 50% 75%, rgba(242, 177, 60, .38), transparent 60%) }
+    /* WebGL house (iPhone, iPad, Safari) */
+    .mv__gl { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; pointer-events: none }
+    .mv.gl .scene { display: none }
+    /* Safari without WebGL: drop the overlapping glow layers so the house stays stable */
+    .mv.lite .bx.flame i, .mv.lite .bx.bulb i, .mv.lite .scene.lit .bx.glass i { box-shadow: none }
+    /* Lightweight placeholder, shown until the 3D model is ready */
+    .mv__ph { position: absolute; left: 50%; top: 56%; width: min(70%, 340px); translate: -50% -50%; opacity: .55; transition: opacity .45s var(--ease); animation: phPulse 1.6s ease-in-out infinite }
+    .mv.ready .mv__ph { opacity: 0; animation: none }
+    @keyframes phPulse { 50% { opacity: .25 } }
     .mv__grid {
       position: absolute; inset: 0;
       background-image: linear-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .07) 1px, transparent 1px);
@@ -265,22 +295,18 @@
       position: absolute; left: calc(var(--u)*-14); top: calc(var(--u)*-14);
       width: calc(var(--u)*28); height: calc(var(--u)*28);
       transform: translateY(calc(var(--u)*.03)) rotateX(90deg);
-      background-image: linear-gradient(rgba(255, 255, 255, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .22) 1px, transparent 1px);
-      background-size: var(--u) var(--u); border-radius: 50%;
-      -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
-      mask-image: radial-gradient(circle, #000 30%, transparent 70%)
+      max-width: none
     }
     .bx { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; visibility: hidden }
     .bx i { position: absolute; display: block; backface-visibility: hidden; background: var(--c, #ddd); box-shadow: inset 0 0 0 1px var(--edge, rgba(12, 12, 12, .55)) }
-    .bx .f, .bx .k { width: calc(var(--u)*var(--w)); height: calc(var(--u)*var(--h)); margin: calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--w)/-2) }
+    /* Back and underside faces are never in view (the camera stays in front and above), so they are not built */
+    .bx .f { width: calc(var(--u)*var(--w)); height: calc(var(--u)*var(--h)); margin: calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--w)/-2) }
     .bx .f { transform: translateZ(calc(var(--u)*var(--d)/2)) }
-    .bx .k { transform: rotateY(180deg) translateZ(calc(var(--u)*var(--d)/2)); background-image: linear-gradient(rgba(0, 0, 0, .34), rgba(0, 0, 0, .34)) }
     .bx .r, .bx .l { width: calc(var(--u)*var(--d)); height: calc(var(--u)*var(--h)); margin: calc(var(--u)*var(--h)/-2) 0 0 calc(var(--u)*var(--d)/-2) }
     .bx .r { transform: rotateY(90deg) translateZ(calc(var(--u)*var(--w)/2)); background-image: linear-gradient(rgba(0, 0, 0, .16), rgba(0, 0, 0, .16)) }
     .bx .l { transform: rotateY(-90deg) translateZ(calc(var(--u)*var(--w)/2)); background-image: linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .3)) }
-    .bx .t, .bx .u { width: calc(var(--u)*var(--w)); height: calc(var(--u)*var(--d)); margin: calc(var(--u)*var(--d)/-2) 0 0 calc(var(--u)*var(--w)/-2) }
+    .bx .t { width: calc(var(--u)*var(--w)); height: calc(var(--u)*var(--d)); margin: calc(var(--u)*var(--d)/-2) 0 0 calc(var(--u)*var(--w)/-2) }
     .bx .t { transform: rotateX(90deg) translateZ(calc(var(--u)*var(--h)/2)); background-image: linear-gradient(rgba(255, 255, 255, .22), rgba(255, 255, 255, .22)) }
-    .bx .u { transform: rotateX(-90deg) translateZ(calc(var(--u)*var(--h)/2)); background-image: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)) }
     .bx.glass { --c: #23201c }
     .scene.lit .bx.glass i { background: linear-gradient(#ffd27a, #ff9a2e); box-shadow: 0 0 calc(var(--u)*.7) calc(var(--u)*.12) rgba(255, 160, 50, .75) }
     .bx.flame i, .bx.bulb i { background: #ffd27a; box-shadow: 0 0 calc(var(--u)*.5) calc(var(--u)*.16) rgba(255, 170, 50, .95) }
@@ -289,12 +315,12 @@
     .mv__step { position: absolute; left: 16px; top: 14px; z-index: 2; color: #fff; font-family: var(--display); font-size: 1.15rem; line-height: 1.1; pointer-events: none; max-width: 16ch }
     .mv__step small { display: block; font-family: var(--mono); font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--orange); margin-bottom: 4px }
     .mv__bar { position: absolute; right: 16px; top: 16px; bottom: 16px; width: 3px; background: rgba(255, 255, 255, .18); z-index: 2; pointer-events: none }
-    .mv__bar span { display: block; width: 100%; height: 100%; background: var(--orange); transform-origin: top; transform: scaleY(var(--p, 0)) }
+    .mv__bar span { display: block; width: 100%; height: 100%; background: var(--orange); transform-origin: top; transform: scaleY(0) }
     .mv__replay { position: absolute; inset: 0; z-index: 3; background: none; border: 0; cursor: pointer }
     .mv__replay:focus-visible { outline-offset: -6px }
 
     /* crackers (canvas cells) */
-    .fw { padding: 0; cursor: crosshair; position: relative }
+    .fw { padding: 0; cursor: crosshair; position: relative; contain: layout paint }
     .fw canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none }
     .fw__label { position: absolute; left: 18px; bottom: 16px; z-index: 3; color: #ffd9a0; pointer-events: none }
     .fw__greet { position: absolute; left: 18px; top: 16px; z-index: 3; font-family: var(--display); font-size: clamp(1.1rem, 1.8vw, 1.6rem); line-height: 1.15; color: var(--white); pointer-events: none; max-width: 12ch }
@@ -397,7 +423,7 @@
     .svc__get { color: var(--orange); margin-top: 4px }
     .svc__list { display: grid; gap: 8px; margin-bottom: 14px }
     .svc__list li { position: relative; padding-left: 26px; font-size: .9rem; line-height: 1.45 }
-    .svc__list li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--orange); font-weight: 600 }
+    .svc__list li::before { content: ""; position: absolute; left: 0; top: .22em; width: .95em; height: .95em; background: var(--orange); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.8 6.3 13 13.5 3.2' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.8 6.3 13 13.5 3.2' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat }
     .svc p.small { max-width: none }
 
     /* ---------- portfolio ---------- */
@@ -448,14 +474,14 @@
 
     /* ---------- LOADER ---------- */
     .loader { display: none }
-    .js .loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #000; transition: opacity .7s var(--ease), visibility .7s }
+    .js .loader { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #000; transition: opacity .4s var(--ease), visibility .4s }
     .loader.done { opacity: 0; visibility: hidden; pointer-events: none }
     .loader canvas { position: absolute; inset: 0; width: 100%; height: 100% }
     .loader__txt { position: relative; z-index: 2; text-align: center; padding: 0 20px }
     .loader__hd { font-family: var(--display); font-weight: 600; font-size: clamp(3.2rem, 11vw, 8.5rem); line-height: 1; letter-spacing: -.02em; color: var(--gold); text-shadow: 0 0 40px rgba(242, 177, 60, .5); animation: ldIn 1.4s var(--ease) both }
     .loader__sub { margin-top: 16px; font-size: .8rem; letter-spacing: .26em; text-transform: uppercase; opacity: .8; animation: ldIn 1.4s var(--ease) .5s both }
     .loader__bar { position: absolute; left: 50%; bottom: 9vh; width: min(260px, 60vw); height: 3px; translate: -50% 0; background: rgba(255, 255, 255, .18); border-radius: 2px; overflow: hidden; z-index: 2 }
-    .loader__bar span { display: block; height: 100%; background: var(--orange); transform-origin: left; animation: ldBar 5s linear forwards }
+    .loader__bar span { display: block; height: 100%; background: var(--orange); transform-origin: left; animation: ldBar var(--intro, 2.5s) linear forwards }
     .loader__skip { position: absolute; z-index: 3; top: max(16px, env(safe-area-inset-top)); right: 16px; background: none; border: 1px solid rgba(255, 255, 255, .4); color: var(--ink); border-radius: 999px; padding: 8px 16px; font: 600 .95rem var(--display); letter-spacing: .04em; cursor: pointer }
     .loader__skip:hover { background: var(--ink); color: var(--on) }
     @keyframes ldIn { from { opacity: 0; transform: translateY(24px) scale(.96) } to { opacity: 1; transform: none } }
@@ -531,6 +557,10 @@
 </head>
 
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-ar" viewBox="0 0 16 16"><path d="M3.5 12.5 12 4M5 3.5h7.5V11" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 16 16"><path d="M8 0c.7 4.6 2.4 7 8 8-5.6 1-7.3 3.4-8 8-.7-4.6-2.4-7-8-8 5.6-1 7.3-3.4 8-8z" fill="currentColor"/></symbol>
+  </svg>
   <div class="loader" id="loader" role="status" aria-label="Loading AKAR Design Studio">
     <canvas id="loaderCv" aria-hidden="true"></canvas>
     <div class="loader__txt">
@@ -547,7 +577,7 @@
   <header class="nav" id="nav">
     <div class="nav__board">
       <a class="cell logo" href="https://akararchitects.com/" target="_blank" rel="noopener" aria-label="AKAR Design Studio website">
-        <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo" onerror="this.style.display='none'">
+        <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo" fetchpriority="high" onerror="this.style.display='none'">
         <span translate="no">AKAR <small>Design Studio</small></span>
       </a>
       <nav class="cell nav__links" id="navLinks" aria-label="Primary">
@@ -556,7 +586,7 @@
         <a href="https://akararchitects.com/about.html" target="_blank" rel="noopener">About Us</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="cell nav__cta" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><span aria-hidden="true">↗</span></a>
+      <a class="cell nav__cta" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><span aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></span></a>
     </div>
   </header>
 
@@ -587,8 +617,8 @@
           </div>
           <div class="hero__foot rv" style="--d:.65s">
             <div class="ctas">
-              <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><b aria-hidden="true">↗</b></a>
-              <a class="btn btn--light" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true">↗</b></a>
+              <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+              <a class="btn btn--light" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
               <a class="btn btn--wa" href="https://wa.me/919663346095?text=Hi%20AKAR%20Design%20Studio%2C%20I%27d%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener"><span>WhatsApp Us</span><b aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></b></a>
             </div>
             <p class="hero__note">Prefer to talk? Call <a href="tel:+919663346095">+91&nbsp;96633&nbsp;46095</a></p>
@@ -598,9 +628,11 @@
         <div class="cell flush hero__view">
           <div class="mv" id="mv" role="img"
             aria-label="A 3D model of a contemporary home that builds itself, then lights up for Diwali">
+            <div class="mv__glow" id="mvGlow"></div>
             <div class="mv__grid"></div>
+            <svg class="mv__ph" id="mvPh" viewBox="0 0 240 170" aria-hidden="true"><path d="M8 124 120 158l112-46M8 124V58l112 34 112-46v66M120 92v66M8 58 34 26l112 32 86-12M120 92l26-34" fill="none" stroke="#f2b13c" stroke-width="1.5"/></svg>
             <div class="scene" id="scene">
-              <div class="ground"></div>
+              <canvas class="ground" id="ground" aria-hidden="true"></canvas>
             </div>
             <p class="mv__step" aria-hidden="true"><small id="mvNum">01 / 04</small><span id="mvName">Plan &amp; Layout</span></p>
             <p class="mv__tag mono" aria-hidden="true">Design to Handover · Tap to replay</p>
@@ -613,7 +645,7 @@
           <canvas aria-hidden="true"></canvas>
           <p class="fw__greet" aria-hidden="true">Shubh <em>Diwali</em></p>
           <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
-          <p class="fw__label mono" aria-hidden="true">Tap to light crackers ✦</p>
+          <p class="fw__label mono" aria-hidden="true">Tap to light crackers <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg></p>
         </div>
         <div class="cell stat st-a"><b data-count="50" data-suffix="+">0</b><span>Projects Completed</span></div>
         <div class="cell stat st-b"><b data-count="100" data-suffix="+">0</b><span>Happy Clients</span></div>
@@ -630,13 +662,13 @@
             <p class="kicker rv">Our Services</p>
             <h2 class="display rv" id="svcTitle" style="--d:.08s">Three Services. One Team.</h2>
           </div>
-          <a class="btn btn--light rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>View All Services</span><b aria-hidden="true">↗</b></a>
+          <a class="btn btn--light rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>View All Services</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
         </div>
 
         <article class="cell svc">
           <div class="ph bw wipe still"><img
-              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80"
-              srcset="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80 1200w"
+              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=72"
+              srcset="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=72 1200w"
               sizes="(max-width:640px) 92vw, (max-width:1024px) 90vw, 31vw"
               width="900" height="720" loading="lazy" decoding="async"
               alt="Modern villa exterior designed by AKAR" onerror="this.remove()"></div>
@@ -646,13 +678,13 @@
             <p class="small">Your home or commercial building planned around how you live and work, from the first layout to drawings your contractor can build from.</p>
             <p class="svc__get mono">What you get</p>
             <ul class="svc__list"><li>Space planning and floor layouts</li><li>Working drawings and structural plans</li><li>Villa, residential and commercial design</li></ul>
-            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Architecture on the AKAR website"><span>Explore Architecture</span><b aria-hidden="true">↗</b></a>
+            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Architecture on the AKAR website"><span>Explore Architecture</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
           </div>
         </article>
         <article class="cell svc">
           <div class="ph bw wipe still" style="--d:.12s"><img
-              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80"
-              srcset="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80 1200w"
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=72"
+              srcset="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=72 1200w"
               sizes="(max-width:640px) 92vw, (max-width:1024px) 90vw, 31vw"
               width="900" height="720" loading="lazy" decoding="async"
               alt="Warm minimalist living room interior" onerror="this.remove()"></div>
@@ -662,13 +694,13 @@
             <p class="small">Complete interiors for your home or workplace, designed around your comfort, budget and everyday routine.</p>
             <p class="svc__get mono">What you get</p>
             <ul class="svc__list"><li>Space planning, materials and finishes</li><li>3D visualisation before work begins</li><li>Kitchen and wardrobe drawings</li></ul>
-            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Interiors on the AKAR website"><span>Explore Interiors</span><b aria-hidden="true">↗</b></a>
+            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Interiors on the AKAR website"><span>Explore Interiors</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
           </div>
         </article>
         <article class="cell svc">
           <div class="ph bw wipe still" style="--d:.24s"><img
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
-              srcset="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80 1200w"
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=72"
+              srcset="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=72 1200w"
               sizes="(max-width:640px) 92vw, (max-width:1024px) 90vw, 31vw"
               width="900" height="720" loading="lazy" decoding="async"
               alt="Completed modern home lounge" onerror="this.remove()"></div>
@@ -678,11 +710,11 @@
             <p class="small">One accountable team from design to handover, so you do not have to coordinate separate architects, designers and contractors.</p>
             <p class="svc__get mono">What you get</p>
             <ul class="svc__list"><li>Architecture and interiors under one team</li><li>Vendor and labour sourcing with on-site supervision</li><li>Smooth project handover</li></ul>
-            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Turnkey on the AKAR website"><span>Explore Turnkey</span><b aria-hidden="true">↗</b></a>
+            <a class="sv__cta" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Explore Turnkey on the AKAR website"><span>Explore Turnkey</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
           </div>
         </article>
 
-        <a class="cell orange mega" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener" aria-label="Get a Quotation"><span>Get a Quotation</span><b aria-hidden="true">↗</b></a>
+        <a class="cell orange mega" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener" aria-label="Get a Quotation"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
       </div>
     </section>
 
@@ -694,7 +726,7 @@
             <p class="kicker rv">Design to Handover</p>
             <h2 class="display rv" id="procTitle" style="--d:.08s">How a Home Takes Shape</h2>
           </div>
-          <a class="btn rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>Explore Turnkey Services</span><b aria-hidden="true">↗</b></a>
+          <a class="btn rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>Explore Turnkey Services</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
         </div>
         <div class="cell pstep"><b>01</b><h3>Plan &amp; Layout</h3><p>Site study and drawings first, so every decision has a reason.</p></div>
         <div class="cell pstep"><b>02</b><h3>Structure &amp; Form</h3><p>The building rises under our architects’ supervision.</p></div>
@@ -711,18 +743,18 @@
             <p class="kicker rv">Our Work</p>
             <h2 class="display rv" id="portTitle" style="--d:.08s">Recent Projects</h2>
           </div>
-          <a class="btn rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>View Full Portfolio</span><b aria-hidden="true">↗</b></a>
+          <a class="btn rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>View Full Portfolio</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
         </div>
         <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Luxury Villa, Bangalore. View portfolio on the AKAR website">
-          <div class="ph bw wipe still"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Luxury Villa, Bangalore" onerror="this.remove()"></div>
+          <div class="ph bw wipe still"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Luxury Villa, Bangalore" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Luxury Villa</h3><span class="mono">Bangalore</span></div>
         </a>
         <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Modern Office, Hubballi. View portfolio on the AKAR website">
-          <div class="ph bw wipe still" style="--d:.12s"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Modern Office, Hubballi" onerror="this.remove()"></div>
+          <div class="ph bw wipe still" style="--d:.12s"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Modern Office, Hubballi" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Modern Office</h3><span class="mono">Hubballi</span></div>
         </a>
         <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Premium Bedroom Suite, Interior Design. View portfolio on the AKAR website">
-          <div class="ph bw wipe still" style="--d:.24s"><img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Premium Bedroom Suite, Interior Design" onerror="this.remove()"></div>
+          <div class="ph bw wipe still" style="--d:.24s"><img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Premium Bedroom Suite, Interior Design" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Premium Bedroom Suite</h3><span class="mono">Interior Design</span></div>
         </a>
       </div>
@@ -741,7 +773,7 @@
           <p class="aw__year">2023</p>
           <h3>VTU Gold Medal</h3>
           <p class="small">Awarded to Ar. Ashritha K of AKAR Design Studio, in recognition of excellence in urban planning.</p>
-          <a class="aw__link" href="https://topinteriorsindia.com/the-journey-of-ashritha-in-crafting-timeless-spaces/" target="_blank" rel="noopener">Read the feature ↗</a>
+          <a class="aw__link" href="https://topinteriorsindia.com/the-journey-of-ashritha-in-crafting-timeless-spaces/" target="_blank" rel="noopener">Read the feature <svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></a>
         </article>
       </div>
     </section>
@@ -753,13 +785,13 @@
           <p class="kicker rv">Happy Diwali</p>
           <h2 class="display rv" id="festTitle" style="--d:.08s">Begin Something Bright This Diwali.</h2>
           <p class="small rv" style="--d:.16s">This festive season, talk to our architects about the space you have always imagined.</p>
-          <div class="ctas rv" style="--d:.24s"><a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true">↗</b></a></div>
+          <div class="ctas rv" style="--d:.24s"><a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a></div>
         </div>
         <div class="cell night fw fest__fw" data-fw>
           <canvas aria-hidden="true"></canvas>
           <p class="fw__greet" aria-hidden="true">Light the <em>Night</em></p>
           <button class="fw__hit" type="button" aria-label="Light a firecracker"></button>
-          <p class="fw__label mono" aria-hidden="true">Tap for crackers ✦</p>
+          <p class="fw__label mono" aria-hidden="true">Tap for crackers <svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg></p>
         </div>
       </div>
     </section>
@@ -772,14 +804,16 @@
           <h2 class="display rv" id="finalTitle" style="--d:.08s">Let’s Create Your Dream Space Together</h2>
           <p class="small rv" style="--d:.16s">Book a friendly, clear layout consultation with our architectural team and build your project with confidence.</p>
           <div class="ctas rv" style="--d:.24s">
-            <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true">↗</b></a>
-            <a class="btn btn--light" href="tel:+919663346095"><span>Call Us</span><b aria-hidden="true">↗</b></a>
+            <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+            <a class="btn btn--light" href="tel:+919663346095"><span>Call Us</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
             <a class="btn btn--wa" href="https://wa.me/919663346095?text=Hi%20AKAR%20Design%20Studio%2C%20I%27d%20like%20to%20book%20a%20consultation." target="_blank" rel="noopener"><span>WhatsApp Enquiry</span><b aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></b></a>
           </div>
         </div>
         <div class="cell final__photo">
           <div class="ph bw wipe"><img
               src="https://images.pexels.com/photos/6615294/pexels-photo-6615294.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              srcset="https://images.pexels.com/photos/6615294/pexels-photo-6615294.jpeg?auto=compress&cs=tinysrgb&w=700 700w, https://images.pexels.com/photos/6615294/pexels-photo-6615294.jpeg?auto=compress&cs=tinysrgb&w=1200 1200w"
+              sizes="(max-width:1024px) 92vw, 42vw"
               width="1200" height="800" loading="lazy" decoding="async" alt="Architect working on blueprints at a desk"
               data-speed="0.06" onerror="this.remove()"></div>
         </div>
@@ -824,14 +858,14 @@
             <textarea id="fDesc" name="Description" rows="4" placeholder="Tell us a little about your plot, flat or space"></textarea>
           </div>
           <div class="f-full f-actions">
-            <button class="btn" type="submit"><span>Send Enquiry</span><b aria-hidden="true">↗</b></button>
+            <button class="btn" type="submit"><span>Send Enquiry</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></button>
             <p class="f-msg" id="fMsg" role="status" aria-live="polite"></p>
           </div>
         </form>
       </div>
       <div class="cell ft-info">
         <a class="logo" href="https://akararchitects.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center">
-          <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo" onerror="this.style.display='none'">
+          <img src="Akar_logo.jpeg" alt="AKAR Design Studio Logo" class="company-logo" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <span translate="no">AKAR <small>Design Studio</small></span>
         </a>
         <p class="footer__greet">Wishing you a Happy Diwali.</p>
@@ -864,7 +898,9 @@
        No external libraries.
        0 helpers + motion toggle   1 split + reveals   2 counters
        3 crackers (canvas)   4 scroll (parallax, sun)
-       5 hero: CSS-3D house that builds itself on load
+       5 hero: CSS-3D house, built only once it is near the screen
+       Load order: page content first, then the 3D house and the
+       crackers, and only after the first paint.
        ========================================================= */
     (function () {
       'use strict';
@@ -875,6 +911,16 @@
       var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
       var motionOn = !reduceMQ.matches;
       var heroKick = function () { };
+      /* slow devices or Data Saver: sharper savings on the crackers only */
+      var conn = navigator.connection;
+      var LOW = !!((conn && conn.saveData) || (navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2));
+      var CANVAS_DPR = LOW ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+      /* run heavy work after the browser has painted the page */
+      function afterPaint(fn) {
+        requestAnimationFrame(function () {
+          setTimeout(function () { if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 400 }); else fn(); }, 0);
+        });
+      }
 
       /* ---- 0. motion toggle ---- */
       function setMotion(on) {
@@ -883,15 +929,18 @@
       }
       $('#year').textContent = new Date().getFullYear();
 
-      /* ---- -1. loader: 5s Diwali crackers, then start the page ---- */
-      var loader = $('#loader'), started = false, startQ = [];
+      /* ---- -1. Happy Diwali intro: plays on every page load, the content loads beneath it.
+         INTRO_MS sets its length in milliseconds. Set it to 0 to remove the intro. ---- */
+      var INTRO_MS = 2500;
+      var intro = INTRO_MS > 0;
+      var loader = $('#loader'), started = false, startQ = [], loaderStop = function () { };
       function whenStarted(fn) { if (started) fn(); else startQ.push(fn); }
-      (function () {
-        var cv = $('#loaderCv'), ctx = cv.getContext('2d'), W = 0, H = 0, rk = [], sp = [], raf = 0, tm = 0;
+      if (intro && motionOn) (function () {
+        var cv = $('#loaderCv'), ctx = cv.getContext('2d', { alpha: false }), W = 0, H = 0, rk = [], sp = [], raf = 0, tm = 0;
         var pal = ['#ffd166', '#f2b13c', '#ff5a36', '#fff3c4', '#ff9a1a', '#ff3d6e', '#ffffff'];
-        function size() { var d = Math.min(window.devicePixelRatio || 1, 2); W = window.innerWidth; H = window.innerHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
+        function size() { var d = CANVAS_DPR; W = window.innerWidth; H = window.innerHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); }
         function launch() { rk.push({ x: W * (.15 + Math.random() * .7), y: H + 6, tx: W * (.1 + Math.random() * .8), ty: H * (.1 + Math.random() * .5), c: pal[(Math.random() * pal.length) | 0], s: 6 + Math.random() * 3 }); }
-        function burst(x, y, c) { var n = 60 + ((Math.random() * 40) | 0), ring = Math.random() < .35; for (var i = 0; i < n; i++) { var a = i / n * 6.283, v = ring ? 3 : 1.4 + Math.random() * 3.6; sp.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, l: 1, d: .011 + Math.random() * .012, c: Math.random() < .25 ? '#fff' : c, r: 1.3 + Math.random() * 1.5 }); } }
+        function burst(x, y, c) { var n = (60 + ((Math.random() * 40) | 0)) * (LOW ? .6 : 1) | 0, ring = Math.random() < .35; for (var i = 0; i < n; i++) { var a = i / n * 6.283, v = ring ? 3 : 1.4 + Math.random() * 3.6; sp.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, l: 1, d: .011 + Math.random() * .012, c: Math.random() < .25 ? '#fff' : c, r: 1.3 + Math.random() * 1.5 }); } }
         function frame() {
           raf = 0; if (started) return;
           ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'rgba(0,0,0,.2)'; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'lighter';
@@ -899,18 +948,25 @@
           for (var j = sp.length - 1; j >= 0; j--) { var q = sp[j]; q.x += q.vx; q.y += q.vy; q.vx *= .985; q.vy = q.vy * .985 + .05; q.l -= q.d; if (q.l <= 0) { sp.splice(j, 1); continue; } ctx.globalAlpha = q.l; ctx.fillStyle = q.c; ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 6.283); ctx.fill(); }
           ctx.globalAlpha = 1; raf = requestAnimationFrame(frame);
         }
-        if (motionOn) { size(); window.addEventListener('resize', size); launch(); launch(); tm = setInterval(function () { if (!started) { launch(); if (Math.random() < .5) launch(); } }, 380); raf = requestAnimationFrame(frame); }
-        window.__loaderStop = function () { clearInterval(tm); };
+        size(); window.addEventListener('resize', size);
+        /* the intro is short, so the first bursts open straight away and do not wait for rockets to climb */
+        burst(W * .3, H * .32, pal[0]); setTimeout(function () { if (!started) burst(W * .7, H * .26, pal[2]); }, 220); setTimeout(function () { if (!started) burst(W * .5, H * .44, pal[5]); }, 520);
+        launch(); launch(); tm = setInterval(function () { if (!started) { launch(); if (Math.random() < .5) launch(); } }, 380); raf = requestAnimationFrame(frame);
+        loaderStop = function () { clearInterval(tm); window.removeEventListener('resize', size); };
       })();
       function startPage() {
         if (started) return; started = true;
-        if (window.__loaderStop) window.__loaderStop();
-        loader.classList.add('done'); root.classList.remove('loading');
-        setTimeout(function () { loader.style.display = 'none'; }, 800);
+        loaderStop();
+        if (intro) { loader.classList.add('done'); setTimeout(function () { loader.remove(); }, 500); } else loader.remove();
+        root.classList.remove('loading');
         startQ.forEach(function (f) { f(); });
       }
-      setTimeout(startPage, 5000);
-      $('#loaderSkip').addEventListener('click', startPage);
+      if (intro) {
+        loader.style.setProperty('--intro', INTRO_MS + 'ms');
+        /* the clock starts once the intro is on screen, so visitors always get the full greeting */
+        requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(startPage, INTRO_MS); }); });
+        $('#loaderSkip').addEventListener('click', startPage);
+      } else startPage();
 
       /* ---- 1. headline split + reveals ---- */
       $$('[data-split]').forEach(function (h) {
@@ -956,18 +1012,25 @@
       /* ---- 3. crackers: canvas fireworks, tap to launch ---- */
       var palette = ['#ffd166', '#f2b13c', '#ff5a36', '#fff3c4', '#ff9a1a', '#ff3d6e', '#ffffff'];
       function Crackers(cell) {
-        var cv = $('canvas', cell), ctx = cv.getContext('2d'), hit = $('.fw__hit', cell);
-        var dpr = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0, rockets = [], sparks = [], visible = false, raf = 0, awake = 0;
-        function size() { W = cell.clientWidth; H = cell.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.fillStyle = '#0c0c0c'; ctx.fillRect(0, 0, W, H); }
+        var cv = $('canvas', cell), ctx = null, hit = $('.fw__hit', cell);
+        var dpr = CANVAS_DPR, W = 0, H = 0, rockets = [], sparks = [], visible = false, raf = 0, awake = 0, timer = 0, settle = 0, lastF = 0;
+        function size() {
+          var w = cell.clientWidth, h = cell.clientHeight;
+          if (w === W && h === H) return; /* mobile address-bar resizes no longer wipe the canvas */
+          W = w; H = h; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.fillStyle = '#0c0c0c'; ctx.fillRect(0, 0, W, H);
+        }
         function launch(tx, ty) { rockets.push({ x: W * (0.3 + Math.random() * 0.4), y: H + 6, tx: tx, ty: ty, c: palette[(Math.random() * palette.length) | 0], sp: 5.2 + Math.random() * 1.6 }); }
         function burst(x, y, c) {
-          var n = 46 + ((Math.random() * 30) | 0), ring = Math.random() < 0.35;
+          var n = (46 + ((Math.random() * 30) | 0)) * (LOW ? .6 : 1) | 0, ring = Math.random() < 0.35;
           for (var i = 0; i < n; i++) {
             var a = (i / n) * 6.283 + Math.random() * 0.1, v = ring ? 2.6 : 1.2 + Math.random() * 3.2;
             sparks.push({ x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, dec: 0.011 + Math.random() * 0.011, c: Math.random() < 0.25 ? '#ffffff' : c, r: 1.2 + Math.random() * 1.4 });
           }
         }
-        function frame() {
+        function frame(now) {
+          /* hold 60fps on 90/120Hz screens: same motion, half the work */
+          if (now - lastF < 12) { raf = visible ? requestAnimationFrame(frame) : 0; return; }
+          lastF = now;
           ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = 'rgba(12,12,12,0.2)'; ctx.fillRect(0, 0, W, H);
           ctx.globalCompositeOperation = 'lighter';
           for (var i = rockets.length - 1; i >= 0; i--) {
@@ -983,26 +1046,40 @@
           }
           ctx.globalAlpha = 1;
           var live = rockets.length || sparks.length;
-          if (visible && (motionOn || live || performance.now() < awake)) raf = requestAnimationFrame(frame); else raf = 0;
+          settle = live ? 0 : settle + 1; /* sleep once the sky has faded, the next launch wakes it */
+          if (visible && (live || performance.now() < awake || (motionOn && settle < 60))) raf = requestAnimationFrame(frame); else raf = 0;
         }
         function ensure() { if (!raf && visible) raf = requestAnimationFrame(frame); }
-        function autoLaunch() { if (visible && motionOn) { launch(W * (0.15 + Math.random() * 0.7), H * (0.15 + Math.random() * 0.4)); ensure(); } }
+        function autoLaunch() { if (visible && motionOn && !document.hidden) { launch(W * (0.15 + Math.random() * 0.7), H * (0.15 + Math.random() * 0.4)); ensure(); } }
         function tap(e) {
           var b = cell.getBoundingClientRect(), x = e.clientX ? e.clientX - b.left : W / 2, y = e.clientY ? e.clientY - b.top : H * 0.3;
           if (!e.clientX) { x = W * (0.2 + Math.random() * 0.6); y = H * (0.15 + Math.random() * 0.4); }
           launch(x, y); if (Math.random() < 0.5) launch(W * Math.random(), H * (0.15 + Math.random() * 0.35));
           awake = performance.now() + 4500; ensure();
         }
-        hit.addEventListener('click', tap);
-        size(); window.addEventListener('resize', size);
-        if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) ensure(); }, { threshold: 0.1 }).observe(cell); else visible = true;
-        setInterval(autoLaunch, 1500);
-        setTimeout(function () { burst(W * 0.6, H * 0.35, '#ffd166'); ensure(); }, 400);
+        function setVisible(v) {
+          visible = v;
+          if (v) { ensure(); if (!timer) timer = setInterval(autoLaunch, 1500); }
+          else { clearInterval(timer); timer = 0; }
+        }
+        /* nothing below runs until this cell is close to the screen */
+        function init() {
+          ctx = cv.getContext('2d', { alpha: false });
+          size(); window.addEventListener('resize', size);
+          hit.addEventListener('click', tap);
+          if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { setVisible(en[0].isIntersecting); }, { threshold: 0.1 }).observe(cell); else setVisible(true);
+          setTimeout(function () { burst(W * 0.6, H * 0.35, '#ffd166'); ensure(); }, 400);
+        }
+        var boot = function () { whenStarted(function () { afterPaint(init); }); };
+        if ('IntersectionObserver' in window) {
+          var near = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { near.disconnect(); boot(); } }, { rootMargin: '200px 0px' });
+          near.observe(cell);
+        } else boot();
       }
       $$('[data-fw]').forEach(Crackers);
 
       /* ---- 4. scroll engine (parallax, sun, progress) ---- */
-      var bar = $('#progressBar'), vh = window.innerHeight, vw = window.innerWidth, ticking = false, vEls = [];
+      var bar = $('#progressBar'), vh = window.innerHeight, vw = window.innerWidth, ticking = false, vEls = [], docH = 0;
       var sun = $('#sun');
       function measure() {
         vh = window.innerHeight; vw = window.innerWidth;
@@ -1010,10 +1087,11 @@
         all.forEach(function (el) { el.style.setProperty('--py', '0px'); });
         vEls = all.map(function (el) { var r = el.parentNode.getBoundingClientRect(); return { el: el, c: r.top + sy + r.height / 2, h: r.height, s: parseFloat(el.getAttribute('data-speed')) || 0 }; });
         all.forEach(function (el, i) { el.style.cssText = prev[i]; });
+        docH = document.documentElement.scrollHeight - vh; /* cached: reading it on scroll forces layout */
         update();
       }
       function update() {
-        var sy = window.scrollY, doc = document.documentElement.scrollHeight - vh, i, o;
+        var sy = window.scrollY, doc = docH, i, o;
         bar.style.transform = 'scaleX(' + (doc > 0 ? sy / doc : 0).toFixed(4) + ')';
         var k = reduceMQ.matches ? 0 : (vw <= 860 ? .6 : 1);
         for (i = 0; i < vEls.length; i++) {
@@ -1028,43 +1106,171 @@
       var rzT; window.addEventListener('resize', function () { clearTimeout(rzT); rzT = setTimeout(function () { sizeModel(); measure(); }, 120); });
       window.addEventListener('load', function () { sizeModel(); measure(); });
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { sizeModel(); measure(); });
+      /* re-measure when late fonts or images change the page height */
+      if (window.ResizeObserver) { var roT = 0; new ResizeObserver(function () { if (!roT) roT = requestAnimationFrame(function () { roT = 0; measure(); }); }).observe(document.body); }
 
-      /* ---- 5. HERO: CSS-3D house that builds itself on load ---- */
-      var mv = $('#mv'), scene = $('#scene'), parts = [];
-      var mvBar = $('.mv__bar'), mvNum = $('#mvNum'), mvName = $('#mvName');
+      /* ---- 5. HERO: CSS-3D house, built only when it is about to be seen ---- */
+      var mv = $('#mv'), scene = $('#scene'), parts = [], built = false, U = 0, sway = null, glh = null;
+      /* every iOS browser and desktop Safari run on WebKit */
+      var UA = navigator.userAgent, WEBKIT = /AppleWebKit/.test(UA) && !/Chrome\/|Chromium|Android|Edg\//.test(UA);
+      var mvBar = $('.mv__bar span'), mvNum = $('#mvNum'), mvName = $('#mvName'), mvGlow = $('#mvGlow'), ground = $('#ground');
       var BUILD_MS = 7000, names = ['Plan & Layout', 'Structure & Form', 'Interiors & Glazing', 'Handover & Light'];
-      function sizeModel() { var w = mv.clientWidth, h = mv.clientHeight; mv.style.setProperty('--u', clamp(Math.min(w / 14.5, h / 10.5), 12, 58).toFixed(1) + 'px'); }
-      function box(w, h, d, x, y, z, t0, t1, drop, color, cls) {
-        var el = document.createElement('div'); el.className = 'bx ' + (cls || '');
-        el.style.setProperty('--w', w); el.style.setProperty('--h', h); el.style.setProperty('--d', d); if (color) el.style.setProperty('--c', color);
-        el.innerHTML = '<i class="f"></i><i class="k"></i><i class="r"></i><i class="l"></i><i class="t"></i><i class="u"></i>';
-        scene.appendChild(el);
-        parts.push({ el: el, x: x, y: y, z: z, t0: t0, t1: t1, drop: drop, last: -1 });
+      function sizeModel() {
+        var w = mv.clientWidth, h = mv.clientHeight; if (!w || !h) return;
+        var next = +clamp(Math.min(w / 14.5, h / 10.5), 12, 58).toFixed(1), resized = glh ? glh.size(w, h) : false;
+        if (next === U) { if (resized && built) render(prog, idleT); return; } /* unchanged size must not restyle the whole model */
+        U = next; mv.style.setProperty('--u', U + 'px');
+        if (built) { drawGround(); if (sway) startSway(); else render(prog, idleT); }
+      }
+      /* ground: drawn once to a canvas, so the live CSS mask no longer redraws as the scene turns */
+      function drawGround() {
+        var q = Math.min(window.devicePixelRatio || 1, 1.5), S = Math.min(2048, Math.round(U * 28 * q)), k = S / (U * 28), c = ground.getContext('2d'), i;
+        ground.width = S; ground.height = S;
+        c.fillStyle = 'rgba(255,255,255,.22)';
+        for (i = 0; i < 28; i++) { c.fillRect(0, i * U * k, S, k); c.fillRect(i * U * k, 0, k, S); }
+        var g = c.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S * .7071);
+        g.addColorStop(.3, '#000'); g.addColorStop(.7, 'rgba(0,0,0,0)');
+        c.globalCompositeOperation = 'destination-in'; c.fillStyle = g; c.fillRect(0, 0, S, S);
+        if (glh) glh.ground(ground);
+      }
+      /* WebGL house: one canvas and a real depth buffer, so glows and walls can never swap order.
+         The build animation runs in the vertex shader, so each frame is only two uniforms and three draw calls. */
+      function GLHouse(onLost) {
+        var cv = document.createElement('canvas'); cv.className = 'mv__gl'; cv.setAttribute('aria-hidden', 'true');
+        var gl = cv.getContext('webgl2', { alpha: true, premultipliedAlpha: true, antialias: true, depth: true });
+        if (!gl) return null;
+        var VS = '#version 300 es\nprecision highp float;' +
+          'layout(location=0)in vec3 aP;layout(location=1)in vec2 aT;layout(location=2)in float aDrop;layout(location=3)in vec2 aL;layout(location=4)in vec2 aS;layout(location=5)in vec3 aC;layout(location=6)in float aK;' +
+          'uniform vec4 uCam;uniform float uU,uP;uniform vec2 uV;out vec2 vL;flat out vec2 vS;flat out vec3 vC;flat out float vK;' +
+          'void main(){float k=clamp((uP-aT.x)/(aT.y-aT.x),0.,1.),i=1.-k,e=1.-i*i*i;vL=aL;vS=aS;vC=aC;vK=aK;' +
+          'if(e<=.001){gl_Position=vec4(2.,2.,2.,1.);return;}' +
+          'vec3 p=aP;p.y-=(1.-e)*aDrop;p*=uU;' +
+          'vec3 q=vec3(p.x*uCam.w+p.z*uCam.z,p.y,-p.x*uCam.z+p.z*uCam.w);' +
+          'vec3 r=vec3(q.x,q.y*uCam.y-q.z*uCam.x,q.y*uCam.x+q.z*uCam.y);' +
+          'r.y+=1.2*uU+.28*uV.y;float w=1.-r.z/2000.;' +
+          'vec2 n=vec2(r.x*2./uV.x,-r.y*2./uV.y)+vec2(0.,.4)*w;gl_Position=vec4(n,-r.z/4000.,w);}';
+        var FS = '#version 300 es\nprecision highp float;' +
+          'in vec2 vL;flat in vec2 vS;flat in vec3 vC;flat in float vK;uniform float uU,uDpr,uLit;uniform int uPass;uniform sampler2D uTex;out vec4 o;' +
+          'vec2 erf2(vec2 x){vec2 s=sign(x),a=abs(x);x=1.+(.278393+(.230389+.078108*(a*a))*a)*a;x*=x;return s-s/(x*x);}' +
+          'float sh(vec2 p,vec2 h,float g){vec2 a=erf2((p+h)*.7071/g),b=erf2((p-h)*.7071/g);vec2 d=(a-b)*.5;return d.x*d.y;}' +
+          'void main(){if(uPass==0){o=texture(uTex,vL);return;}vec2 h=vS*.5;' +
+          'if(uPass==2){if(vK<.5||(vK<1.5&&uLit<=0.))discard;if(abs(vL.x)<h.x&&abs(vL.y)<h.y)discard;' +
+          'float g=vK<1.5?.35:.25,sp=vK<1.5?.12:.16,al=vK<1.5?.75:.95;vec3 c=vK<1.5?vec3(1.,.6275,.1961):vec3(1.,.6667,.1961);' +
+          'float a=sh(vL,h+sp,g)*al*(vK<1.5?uLit:1.);o=vec4(c*a,a);return;}' +
+          'vec3 c=vC;if(vK<1.5){float d=min(h.x-abs(vL.x),h.y-abs(vL.y))*uU;c=mix(c,vec3(.047),.55*clamp((1.-d)*uDpr+.5,0.,1.));}' +
+          'if(vK>.5&&vK<1.5&&uLit>0.)c=mix(c,mix(vec3(1.,.8235,.4784),vec3(1.,.6039,.1804),vL.y/vS.y+.5),uLit);o=vec4(c,1.);}';
+        var pgm, un, vao, vbo, ibo, tex, nOpaque = 0, nGlow = 0, data = [], idx = [], glowIdx = [], verts = 0, W = 0, H = 0, D = 1, lastGround = null, dead = false, deadT = 0;
+        function hex(c) { var n = parseInt(c.slice(1), 16); return [(n >> 16) / 255, (n >> 8 & 255) / 255, (n & 255) / 255]; }
+        function quad(list, cx, cy, cz, ex, ey, lw, lh, sw, sh, t0, t1, drop, c, k) {
+          for (var i = 0; i < 4; i++) {
+            var lx = (i === 1 || i === 2 ? .5 : -.5) * lw, ly = (i > 1 ? .5 : -.5) * lh;
+            data.push(cx + ex[0] * lx + ey[0] * ly, cy + ex[1] * lx + ey[1] * ly, cz + ex[2] * lx + ey[2] * ly, t0, t1, drop, lx, ly, sw, sh, c[0], c[1], c[2], k);
+          }
+          list.push(verts, verts + 1, verts + 2, verts, verts + 2, verts + 3); verts += 4;
+        }
+        function box(w, h, d, x, y, z, t0, t1, drop, color, cls) {
+          var hw = w / 2, hh = h / 2, hd = d / 2, base = hex(color), k = cls === 'glass' ? 1 : cls ? 2 : 0;
+          /* the same four camera-facing faces and shading as the CSS model */
+          [[0, 0, hd, [1, 0, 0], [0, 1, 0], w, h, 0, 0], [hw, 0, 0, [0, 0, -1], [0, 1, 0], d, h, 0, .16], [-hw, 0, 0, [0, 0, 1], [0, 1, 0], d, h, 0, .3], [0, -hh, 0, [1, 0, 0], [0, 0, 1], w, d, 1, .22]].forEach(function (f) {
+            var ov = f[8], tone = f[7], c = k === 2 ? hex('#ffd27a') : base.map(function (b) { return b * (1 - ov) + tone * ov; });
+            quad(idx, x + f[0], -y + f[1], z + f[2], f[3], f[4], f[5], f[6], f[5], f[6], t0, t1, drop, c, k);
+            if (k) { var r = k === 1 ? 2.2 : 1.8, e = 2 * r; quad(glowIdx, x + f[0], -y + f[1], z + f[2], f[3], f[4], f[5] + e, f[6] + e, f[5], f[6], t0, t1, drop, c, k); }
+          });
+        }
+        function compile(type, src) { var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; }
+        function init() {
+          pgm = gl.createProgram(); gl.attachShader(pgm, compile(gl.VERTEX_SHADER, VS)); gl.attachShader(pgm, compile(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pgm);
+          if (!gl.getProgramParameter(pgm, gl.LINK_STATUS)) return false;
+          gl.useProgram(pgm); un = {}; ['uCam', 'uU', 'uP', 'uV', 'uDpr', 'uLit', 'uPass', 'uTex'].forEach(function (n) { un[n] = gl.getUniformLocation(pgm, n); });
+          gl.enable(gl.DEPTH_TEST); gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA); gl.frontFace(gl.CW); gl.cullFace(gl.BACK); gl.clearColor(0, 0, 0, 0);
+          tex = gl.createTexture(); return true;
+        }
+        function upload() {
+          /* ground quad comes first, carrying texture coordinates in aL */
+          var g = [-14, .03, -14, 14, .03, -14, 14, .03, 14, -14, .03, 14], uv = [0, 0, 1, 0, 1, 1, 0, 1], all = [], i;
+          for (i = 0; i < 4; i++) all.push(g[i * 3], g[i * 3 + 1], g[i * 3 + 2], -1, 0, 0, uv[i * 2], uv[i * 2 + 1], 1, 1, 0, 0, 0, 3);
+          var shift = 4, ind = [0, 1, 2, 0, 2, 3].concat(idx.map(function (v) { return v + shift; }), glowIdx.map(function (v) { return v + shift; }));
+          nOpaque = idx.length; nGlow = glowIdx.length;
+          vao = gl.createVertexArray(); gl.bindVertexArray(vao);
+          vbo = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vbo); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(all.concat(data)), gl.STATIC_DRAW);
+          ibo = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(ind), gl.STATIC_DRAW);
+          [[0, 3, 0], [1, 2, 3], [2, 1, 5], [3, 2, 6], [4, 2, 8], [5, 3, 10], [6, 1, 13]].forEach(function (a) { gl.enableVertexAttribArray(a[0]); gl.vertexAttribPointer(a[0], a[1], gl.FLOAT, false, 56, a[2] * 4); });
+        }
+        function setGround(src) {
+          lastGround = src; if (dead) return;
+          gl.bindTexture(gl.TEXTURE_2D, tex); gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src); gl.generateMipmap(gl.TEXTURE_2D);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          var an = gl.getExtension('EXT_texture_filter_anisotropic'); if (an) gl.texParameterf(gl.TEXTURE_2D, an.TEXTURE_MAX_ANISOTROPY_EXT, 8);
+        }
+        /* a phone can drop the context, for example when the tab sleeps: restore it, or fall back to CSS 3D */
+        cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); dead = true; deadT = setTimeout(onLost, 2500); });
+        cv.addEventListener('webglcontextrestored', function () { clearTimeout(deadT); dead = false; if (init()) { upload(); if (lastGround) setGround(lastGround); render(prog, idleT); heroKick(); } else onLost(); });
+        if (!init()) return null;
+        return {
+          el: cv, box: box, upload: upload, ground: setGround,
+          size: function (w, h) {
+            var d = Math.min(window.devicePixelRatio || 1, 2), bw = Math.round(w * d), bh = Math.round(h * d);
+            if (w === W && h === H && d === D) return false;
+            W = w; H = h; D = d; cv.width = bw; cv.height = bh; if (!dead) gl.viewport(0, 0, bw, bh); return true;
+          },
+          draw: function (p, rx, ry, lit) {
+            if (dead) return;
+            var a = rx * Math.PI / 180, b = ry * Math.PI / 180;
+            gl.depthMask(true); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); /* depth writes must be on for the clear */
+            gl.uniform4f(un.uCam, Math.sin(a), Math.cos(a), Math.sin(b), Math.cos(b));
+            gl.uniform1f(un.uU, U); gl.uniform1f(un.uP, p); gl.uniform2f(un.uV, W, H); gl.uniform1f(un.uDpr, D); gl.uniform1f(un.uLit, lit); gl.uniform1i(un.uTex, 0);
+            gl.uniform1i(un.uPass, 0); gl.disable(gl.CULL_FACE); gl.depthMask(false); gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+            gl.enable(gl.CULL_FACE); gl.depthMask(true); gl.uniform1i(un.uPass, 1); gl.drawElements(gl.TRIANGLES, nOpaque, gl.UNSIGNED_SHORT, 12);
+            gl.depthMask(false); gl.uniform1i(un.uPass, 2); gl.drawElements(gl.TRIANGLES, nGlow, gl.UNSIGNED_SHORT, 12 + nOpaque * 2);
+          }
+        };
+      }
+      function buildModel() {
+        if (glh) buildGL(); else buildDOM();
+      }
+      function buildGL() { houseGeometry(glh.box); glh.upload(); }
+      function buildDOM() {
+        var frag = document.createDocumentFragment(), tpl = document.createElement('div');
+        tpl.innerHTML = '<i class="f"></i><i class="r"></i><i class="l"></i><i class="t"></i>';
+        function box(w, h, d, x, y, z, t0, t1, drop, color, cls) {
+          var el = tpl.cloneNode(true); el.className = 'bx ' + (cls || '');
+          el.style.setProperty('--w', w); el.style.setProperty('--h', h); el.style.setProperty('--d', d); if (color) el.style.setProperty('--c', color);
+          frag.appendChild(el);
+          parts.push({ el: el, x: x, y: y, z: z, t0: t0, t1: t1, drop: drop, last: -1 });
+        }
+        houseGeometry(box);
+        scene.appendChild(frag);
       }
       /* geometry in "units"; y is up */
-      box(10, .3, 7, .4, .15, .4, .02, .16, 3, '#bdbab2');
-      box(7, 2.6, 4.2, -.5, 1.6, 0, .14, .34, -3.2, '#2b2b2b');
-      box(7.7, .14, 4.1, .9, 2.86, .3, .32, .42, 4, '#f2b13c');
-      box(7.4, 1.75, 3.8, .9, 3.78, .3, .38, .54, 5, '#efece4');
-      box(7.5, .1, 3.9, .9, 4.68, .3, .52, .6, 4, '#f2b13c');
-      box(.14, 2.85, .14, 4.45, 1.72, 2.05, .52, .62, 4, '#f2b13c');
-      box(2.5, 1.9, .08, -2.5, 1.55, 2.13, .6, .74, 0, '#23201c', 'glass');
-      box(2.0, 1.9, .08, 1.85, 1.55, 2.13, .62, .76, 0, '#23201c', 'glass');
-      box(1.1, 2.0, .1, -.35, 1.3, 2.13, .64, .76, 0, '#7a4a2a');
-      [-1.4, .9, 3.2].forEach(function (x, i) { box(1.8, .95, .08, x, 3.78, 2.23, .66 + i * .03, .8 + i * .02, 0, '#23201c', 'glass'); });
-      box(1.5, .05, 3.6, -.35, .33, 4.1, .74, .84, 0, '#cfcac0');
-      box(2.0, .05, 3.0, 3.9, .33, 3.7, .76, .86, 0, '#2a5a73');
-      box(2.2, .5, .5, -3.9, .55, 2.9, .78, .88, 0, '#3d5a2e'); box(1.6, .5, .5, 2.9, .55, 2.9, .8, .9, 0, '#3d5a2e');
-      for (var n = 0; n < 6; n++) {
-        [-1.0, .3].forEach(function (x) {
-          var z = 2.95 + n * .55, a = .84 + n * .01;
-          box(.3, .12, .3, x, .4, z, a, a + .06, 0, '#e0a82e'); box(.1, .2, .1, x, .56, z, a + .02, a + .08, 0, '#ffd27a', 'flame');
-        });
+      function houseGeometry(box) {
+        box(10, .3, 7, .4, .15, .4, .02, .16, 3, '#bdbab2');
+        box(7, 2.6, 4.2, -.5, 1.6, 0, .14, .34, -3.2, '#2b2b2b');
+        box(7.7, .14, 4.1, .9, 2.86, .3, .32, .42, 4, '#f2b13c');
+        box(7.4, 1.75, 3.8, .9, 3.78, .3, .38, .54, 5, '#efece4');
+        box(7.5, .1, 3.9, .9, 4.68, .3, .52, .6, 4, '#f2b13c');
+        box(.14, 2.85, .14, 4.45, 1.72, 2.05, .52, .62, 4, '#f2b13c');
+        box(2.5, 1.9, .08, -2.5, 1.55, 2.13, .6, .74, 0, '#23201c', 'glass');
+        box(2.0, 1.9, .08, 1.85, 1.55, 2.13, .62, .76, 0, '#23201c', 'glass');
+        box(1.1, 2.0, .1, -.35, 1.3, 2.13, .64, .76, 0, '#7a4a2a');
+        [-1.4, .9, 3.2].forEach(function (x, i) { box(1.8, .95, .08, x, 3.78, 2.23, .66 + i * .03, .8 + i * .02, 0, '#23201c', 'glass'); });
+        box(1.5, .05, 3.6, -.35, .33, 4.1, .74, .84, 0, '#cfcac0');
+        box(2.0, .05, 3.0, 3.9, .33, 3.7, .76, .86, 0, '#2a5a73');
+        box(2.2, .5, .5, -3.9, .55, 2.9, .78, .88, 0, '#3d5a2e'); box(1.6, .5, .5, 2.9, .55, 2.9, .8, .9, 0, '#3d5a2e');
+        for (var n = 0; n < 6; n++) {
+          [-1.0, .3].forEach(function (x) {
+            var z = 2.95 + n * .55, a = .84 + n * .01;
+            box(.3, .12, .3, x, .4, z, a, a + .06, 0, '#e0a82e'); box(.1, .2, .1, x, .56, z, a + .02, a + .08, 0, '#ffd27a', 'flame');
+          });
+        }
+        for (var m = 0; m < 22; m++) { var tt = m / 21; box(.1, .1, .1, -2.9 + tt * 7.5, 2.72 - .5 * Math.sin(Math.PI * tt), 2.42, .86 + tt * .06, .92 + tt * .06, 0, '#ffd27a', 'bulb'); }
       }
-      for (var m = 0; m < 22; m++) { var tt = m / 21; box(.1, .1, .1, -2.9 + tt * 7.5, 2.72 - .5 * Math.sin(Math.PI * tt), 2.42, .86 + tt * .06, .92 + tt * .06, 0, '#ffd27a', 'bulb'); }
 
       var ease = function (k) { return 1 - Math.pow(1 - k, 3); };
-      var lastIdx = -1;
+      var lastIdx = -1, lastGlow = -1;
+      /* the scene transform is set directly: changing custom properties here restyled every face, every frame */
+      function sceneT(rx, ry) { return 'translateY(' + (U * 1.2).toFixed(2) + 'px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)'; }
       function render(p, idle) {
         for (var i = 0; i < parts.length; i++) {
           var o = parts[i], k = clamp((p - o.t0) / (o.t1 - o.t0), 0, 1), e = ease(k), key = Math.round(e * 400);
@@ -1072,14 +1278,25 @@
           o.el.style.visibility = e > 0.001 ? 'visible' : 'hidden';
           o.el.style.transform = 'translate3d(calc(var(--u)*' + o.x + '),calc(var(--u)*' + (-(o.y + (1 - e) * o.drop)).toFixed(3) + '),calc(var(--u)*' + o.z + '))';
         }
-        var L = clamp((p - .84) / .14, 0, 1);
-        scene.classList.toggle('lit', L > .05);
-        mv.style.setProperty('--glow', ease(L).toFixed(3));
-        scene.style.setProperty('--ry', (-38 + p * 84 + Math.sin(idle * .5) * 8).toFixed(2) + 'deg');
-        scene.style.setProperty('--rx', (-27 + p * 5).toFixed(2) + 'deg');
-        mvBar.style.setProperty('--p', p.toFixed(4));
+        var L = clamp((p - .84) / .14, 0, 1), glow = +ease(L).toFixed(3), rx = -27 + p * 5, ry = -38 + p * 84 + Math.sin(idle * .5) * 8;
+        if (glow !== lastGlow) { lastGlow = glow; mvGlow.style.opacity = glow; }
+        /* the windows fade on over a moment, so the lighting never reads as a flash */
+        if (glh) glh.draw(p, rx, ry, clamp((L - .05) / .3, 0, 1));
+        else { scene.classList.toggle('lit', L > .05); scene.style.transform = sceneT(rx.toFixed(2), ry.toFixed(2)); }
+        mvBar.style.transform = 'scaleY(' + p.toFixed(4) + ')';
         var idx = clamp(Math.floor(p * 4), 0, 3);
         if (idx !== lastIdx) { lastIdx = idx; mvNum.textContent = '0' + (idx + 1) + ' / 04'; mvName.textContent = names[idx]; }
+      }
+
+      /* Once built, the gentle sway runs on the compositor (GPU), with no JavaScript per frame */
+      var SWAY_MS = 4000 * Math.PI;
+      function stopSway() { if (sway) { idleT += (sway.currentTime || 0) / 1000; sway.cancel(); sway = null; } }
+      function startSway() {
+        stopSway();
+        if (glh || !scene.animate || !motionOn) return;
+        for (var kf = [], i = 0; i <= 24; i++) kf.push({ transform: sceneT(-22, (46 + Math.sin(idleT * .5 + i / 24 * 6.28318) * 8).toFixed(2)) });
+        sway = scene.animate(kf, { duration: SWAY_MS, iterations: Infinity });
+        if (!heroVisible) sway.pause();
       }
 
       var prog = 0, idleT = 0, lastT = 0, heroRaf = 0, heroVisible = true;
@@ -1090,21 +1307,45 @@
           prog = clamp(prog + dt / BUILD_MS, 0, 1);
           idleT += dt / 1000;
           render(prog, idleT);
+          /* the WebGL house keeps swaying from this loop, one cheap draw per frame */
+          if (prog >= 1 && !glh) { lastT = 0; startSway(); return; }
         }
         if (motionOn && heroVisible) heroRaf = requestAnimationFrame(heroTick); else lastT = 0;
       }
-      heroKick = function () { if (!started) return; if (!heroRaf && motionOn && heroVisible) heroRaf = requestAnimationFrame(heroTick); };
-
-      sizeModel();
-      if (!motionOn) { prog = 1; render(1, 0); }
-      else { render(0, 0); whenStarted(function () { heroKick(); }); }
+      heroKick = function () {
+        if (!started || !built) return;
+        if (sway) { if (heroVisible) sway.play(); else sway.pause(); return; }
+        if (!heroRaf && motionOn && heroVisible && (prog < 1 || glh)) heroRaf = requestAnimationFrame(heroTick);
+      };
+      function ensureModel() {
+        if (built) return;
+        if (WEBKIT) { glh = GLHouse(useCSS3D); if (glh) { mv.classList.add('gl'); mv.insertBefore(glh.el, scene); } else mv.classList.add('lite'); }
+        sizeModel(); drawGround(); buildModel(); built = true;
+        if (!motionOn) prog = 1;
+        render(prog, 0);
+        mv.classList.add('ready');
+        setTimeout(function () { var ph = $('#mvPh'); if (ph) ph.remove(); }, 500);
+        heroKick();
+      }
+      /* last resort if WebGL cannot come back: the CSS house, without its overlapping glows */
+      function useCSS3D() {
+        if (!glh) return;
+        glh.el.remove(); glh = null; mv.classList.remove('gl'); mv.classList.add('lite');
+        buildDOM(); render(prog, idleT); heroKick();
+      }
+      whenStarted(function () { heroKick(); });
+      var bootModel = function () { afterPaint(ensureModel); };
+      if ('IntersectionObserver' in window) {
+        var nearMv = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { nearMv.disconnect(); bootModel(); } }, { rootMargin: '200px 0px' });
+        nearMv.observe(mv);
+        new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; heroKick(); }, { threshold: 0.05 }).observe(mv);
+      } else bootModel();
 
       $('#mvReplay').addEventListener('click', function () {
+        if (!built) return;
         if (!motionOn && reduceMQ.matches) { render(1, 0); return; }
-        prog = 0; idleT = 0; lastIdx = -1; render(0, 0); heroKick();
+        stopSway(); prog = 0; idleT = 0; lastIdx = -1; render(0, 0); heroKick();
       });
-      if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { heroVisible = en[0].isIntersecting; heroKick(); }, { threshold: 0.05 }).observe(mv);
-
 
       /* ---- 6. enquiry form (Web3Forms, same access key as Budgetplanner.html) ---- */
       var form = $('#enquiryForm');
@@ -1127,7 +1368,7 @@
       }
 
       setMotion(motionOn);
-      measure();
+      afterPaint(measure);
     })();
   </script>
 </body>
