@@ -36,7 +36,8 @@
      Site root    https://akararchitects.com/
      Services     https://akararchitects.com/services.html
      About        https://akararchitects.com/about.html
-     Contact/Quote https://akararchitects.com/contactus.html
+     Contact/Quote/Consultation  forms.html
+     Portfolio    portfolio.html
    ========================================================= */
     /* Same two families, sized to match while the web fonts swap in, so text does not jump. */
     @font-face { font-family: "Cormorant Swap"; src: local("Georgia"), local("Noto Serif"); size-adjust: 86.0%; ascent-override: 107.4%; descent-override: 33.4%; line-gap-override: 0% }
@@ -448,25 +449,14 @@
     .aw__link { margin-top: 10px; align-self: flex-start; font-family: var(--display); font-weight: 600; font-size: 1.05rem; border-bottom: 2px solid var(--orange); padding-bottom: 2px }
     .aw__link:hover { color: var(--orange) }
 
-    /* ---------- footer: form + info ---------- */
-    .ft-title { font-size: clamp(1.9rem, 3.6vw, 3.2rem); margin-bottom: 22px; max-width: 16ch }
-    .f-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px }
-    .f-full { grid-column: 1/-1 }
-    .f-field { display: flex; flex-direction: column; gap: 6px; min-width: 0 }
-    .f-field label { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75 }
-    .f-field input, .f-field select, .f-field textarea {
-      width: 100%; background: var(--paper-2); color: var(--ink); border: 2px solid var(--line); border-radius: 12px;
-      padding: 13px 14px; font: 400 1rem/1.4 var(--sans); transition: border-color .3s; color-scheme: dark
-    }
-    .f-field textarea { resize: vertical; min-height: 110px }
-    .f-field input::placeholder, .f-field textarea::placeholder { color: rgba(243, 237, 225, .4) }
-    .f-field input:focus, .f-field select:focus, .f-field textarea:focus { outline: none; border-color: var(--orange) }
-    .f-hp { position: absolute; left: -9999px; opacity: 0; pointer-events: none }
-    .f-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap }
-    .f-actions .btn[disabled] { opacity: .6; cursor: wait }
-    .f-msg { font-size: .92rem; flex: 1 1 220px }
-    .f-msg.ok { color: #7fe3a2 }
-    .f-msg.err { color: #ff8a7a }
+    /* ---------- footer: CTA + info ---------- */
+    .ft-cta { display: flex; flex-direction: column; justify-content: center; gap: 18px; padding-block: clamp(30px, 5vw, 64px) }
+    .ft-title { font-size: clamp(1.9rem, 3.6vw, 3.2rem); max-width: 16ch }
+    .ft-lead { max-width: 52ch; opacity: .9 }
+    .ft-perks { display: grid; gap: 10px; margin-bottom: 6px }
+    .ft-perks li { position: relative; padding-left: 26px; font-size: .95rem; line-height: 1.45 }
+    .ft-perks li::before { content: ""; position: absolute; left: 0; top: .22em; width: .95em; height: .95em; background: var(--orange); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.8 6.3 13 13.5 3.2' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.8 6.3 13 13.5 3.2' fill='none' stroke='%23000' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat }
+    .ft-urgency { font-size: .85rem; color: var(--gold); display: flex; align-items: center; gap: 8px }
     .ft-info { display: flex; flex-direction: column; gap: 14px }
     .ft-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 18px; margin-top: 10px }
     .ft-cols > div:last-child { grid-column: 1/-1 }
@@ -530,7 +520,7 @@
       .btn { width: 100%; justify-content: space-between }
       .ctas { width: 100% }
       .process__board { grid-template-columns: 1fr }
-      .f-grid, .ft-cols { grid-template-columns: 1fr }
+      .ft-cols { grid-template-columns: 1fr }
       .port__cap { flex-direction: column; gap: 2px }
       .port__cap .mono { text-align: left }
       .port .bw img, .svc .bw img { filter: none }
@@ -584,9 +574,9 @@
         <a href="https://akararchitects.com/" target="_blank" rel="noopener">Website</a>
         <a href="#services">Services</a>
         <a href="https://akararchitects.com/about.html" target="_blank" rel="noopener">About Us</a>
-        <a href="#contact">Contact</a>
+        <a href="forms.html">Contact</a>
       </nav>
-      <a class="cell nav__cta" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><span aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></span></a>
+      <a class="cell nav__cta" href="forms.html"><span>Get a Quotation</span><span aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></span></a>
     </div>
   </header>
 
@@ -617,8 +607,8 @@
           </div>
           <div class="hero__foot rv" style="--d:.65s">
             <div class="ctas">
-              <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
-              <a class="btn btn--light" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+              <a class="btn" href="forms.html"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+              <a class="btn btn--light" href="forms.html"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
               <a class="btn btn--wa" href="https://wa.me/919663346095?text=Hi%20AKAR%20Design%20Studio%2C%20I%27d%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener"><span>WhatsApp Us</span><b aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></b></a>
             </div>
             <p class="hero__note">Prefer to talk? Call <a href="tel:+919663346095">+91&nbsp;96633&nbsp;46095</a></p>
@@ -714,7 +704,7 @@
           </div>
         </article>
 
-        <a class="cell orange mega" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener" aria-label="Get a Quotation"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+        <a class="cell orange mega" href="forms.html" aria-label="Get a Quotation"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
       </div>
     </section>
 
@@ -743,17 +733,17 @@
             <p class="kicker rv">Our Work</p>
             <h2 class="display rv" id="portTitle" style="--d:.08s">Recent Projects</h2>
           </div>
-          <a class="btn rv" style="--d:.16s" href="https://akararchitects.com/services.html" target="_blank" rel="noopener"><span>View Full Portfolio</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+          <a class="btn rv" style="--d:.16s" href="portfolio.html"><span>View Full Portfolio</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
         </div>
-        <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Luxury Villa, Bangalore. View portfolio on the AKAR website">
+        <a class="cell port" href="portfolio.html" aria-label="Luxury Villa, Bangalore. View in our portfolio">
           <div class="ph bw wipe still"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Luxury Villa, Bangalore" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Luxury Villa</h3><span class="mono">Bangalore</span></div>
         </a>
-        <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Modern Office, Hubballi. View portfolio on the AKAR website">
+        <a class="cell port" href="portfolio.html" aria-label="Modern Office, Hubballi. View in our portfolio">
           <div class="ph bw wipe still" style="--d:.12s"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Modern Office, Hubballi" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Modern Office</h3><span class="mono">Hubballi</span></div>
         </a>
-        <a class="cell port" href="https://akararchitects.com/services.html" target="_blank" rel="noopener" aria-label="Premium Bedroom Suite, Interior Design. View portfolio on the AKAR website">
+        <a class="cell port" href="portfolio.html" aria-label="Premium Bedroom Suite, Interior Design. View in our portfolio">
           <div class="ph bw wipe still" style="--d:.24s"><img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=72" srcset="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=600&q=72 600w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=900&q=72 900w, https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1200&q=72 1200w" sizes="(max-width:1024px) 92vw, 31vw" width="900" height="675" loading="lazy" decoding="async" alt="Premium Bedroom Suite, Interior Design" onerror="this.remove()"></div>
           <div class="port__cap"><h3>Premium Bedroom Suite</h3><span class="mono">Interior Design</span></div>
         </a>
@@ -785,7 +775,7 @@
           <p class="kicker rv">Happy Diwali</p>
           <h2 class="display rv" id="festTitle" style="--d:.08s">Begin Something Bright This Diwali.</h2>
           <p class="small rv" style="--d:.16s">This festive season, talk to our architects about the space you have always imagined.</p>
-          <div class="ctas rv" style="--d:.24s"><a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a></div>
+          <div class="ctas rv" style="--d:.24s"><a class="btn" href="forms.html"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a></div>
         </div>
         <div class="cell night fw fest__fw" data-fw>
           <canvas aria-hidden="true"></canvas>
@@ -804,7 +794,7 @@
           <h2 class="display rv" id="finalTitle" style="--d:.08s">Let’s Create Your Dream Space Together</h2>
           <p class="small rv" style="--d:.16s">Book a friendly, clear layout consultation with our architectural team and build your project with confidence.</p>
           <div class="ctas rv" style="--d:.24s">
-            <a class="btn" href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+            <a class="btn" href="forms.html"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
             <a class="btn btn--light" href="tel:+919663346095"><span>Call Us</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
             <a class="btn btn--wa" href="https://wa.me/919663346095?text=Hi%20AKAR%20Design%20Studio%2C%20I%27d%20like%20to%20book%20a%20consultation." target="_blank" rel="noopener"><span>WhatsApp Enquiry</span><b aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.124-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg></b></a>
           </div>
@@ -823,45 +813,20 @@
 
   <footer class="footer page" id="contact">
     <div class="board footer__board">
-      <div class="cell ft-form">
+      <div class="cell ft-cta">
         <p class="kicker">Get in Touch</p>
-        <h2 class="display ft-title">Tell Us About Your Project</h2>
-        <form id="enquiryForm" class="f-grid" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="f0e931f9-63bf-4311-a614-04f9891d5a90">
-          <input type="hidden" name="subject" value="New Enquiry - AKAR Design Studio Landing Page">
-          <input type="hidden" name="from_name" value="AKAR Landing Page">
-          <input type="checkbox" name="botcheck" class="f-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="f-field">
-            <label for="fName">Name</label>
-            <input id="fName" type="text" name="Name" required autocomplete="name" placeholder="Your full name">
-          </div>
-          <div class="f-field">
-            <label for="fPhone">Phone Number</label>
-            <input id="fPhone" type="tel" name="Phone" required autocomplete="tel" inputmode="tel" pattern="[0-9+\s\-]{10,15}" title="Enter a valid phone number" placeholder="+91 98765 43210">
-          </div>
-          <div class="f-field">
-            <label for="fNeed">What you need?</label>
-            <select id="fNeed" name="Requirement" required>
-              <option value="" disabled selected>Select a service</option>
-              <option>Architecture</option>
-              <option>Interiors</option>
-              <option>Turnkey Solutions</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div class="f-field">
-            <label for="fLoc">Project Location</label>
-            <input id="fLoc" type="text" name="Project Location" required placeholder="e.g. Whitefield, Bengaluru">
-          </div>
-          <div class="f-field f-full">
-            <label for="fDesc">Description</label>
-            <textarea id="fDesc" name="Description" rows="4" placeholder="Tell us a little about your plot, flat or space"></textarea>
-          </div>
-          <div class="f-full f-actions">
-            <button class="btn" type="submit"><span>Send Enquiry</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></button>
-            <p class="f-msg" id="fMsg" role="status" aria-live="polite"></p>
-          </div>
-        </form>
+        <h2 class="display ft-title">Your Dream Home Starts With One Conversation.</h2>
+        <p class="small ft-lead">Share your plot, flat or idea with us. Our architects will turn it into a clear plan and a clear quotation, so you know exactly what to expect.</p>
+        <ul class="ft-perks">
+          <li>Talk directly with our architects</li>
+          <li>A clear quotation before any work begins</li>
+          <li>One team from design to handover</li>
+        </ul>
+        <div class="ctas">
+          <a class="btn" href="forms.html"><span>Get a Quotation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+          <a class="btn btn--light" href="forms.html"><span>Book Consultation</span><b aria-hidden="true"><svg class="ar" aria-hidden="true"><use href="#i-ar"/></svg></b></a>
+        </div>
+        <p class="ft-urgency"><svg class="spark" aria-hidden="true"><use href="#i-spark"/></svg> This Diwali, start the home you have always imagined. Book your consultation today.</p>
       </div>
       <div class="cell ft-info">
         <a class="logo" href="https://akararchitects.com/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center">
@@ -883,7 +848,7 @@
             <ul>
               <li><a href="https://akararchitects.com/" target="_blank" rel="noopener">Full Website</a></li>
               <li><a href="https://akararchitects.com/services.html" target="_blank" rel="noopener">All Services</a></li>
-              <li><a href="https://akararchitects.com/contactus.html" target="_blank" rel="noopener">Get a Quotation</a></li>
+              <li><a href="forms.html">Get a Quotation</a></li>
               <li><a href="https://wa.me/919663346095" target="_blank" rel="noopener">WhatsApp</a></li>
             </ul>
           </div>
@@ -1346,26 +1311,6 @@
         if (!motionOn && reduceMQ.matches) { render(1, 0); return; }
         stopSway(); prog = 0; idleT = 0; lastIdx = -1; render(0, 0); heroKick();
       });
-
-      /* ---- 6. enquiry form (Web3Forms, same access key as Budgetplanner.html) ---- */
-      var form = $('#enquiryForm');
-      if (form) {
-        var fBtn = $('button[type=submit]', form), fLabel = $('span', fBtn), fMsg = $('#fMsg');
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (!form.checkValidity()) { form.reportValidity(); return; }
-          fBtn.disabled = true; fLabel.textContent = 'Sending...'; fMsg.className = 'f-msg'; fMsg.textContent = '';
-          var data = {}; new FormData(form).forEach(function (v, k) { data[k] = v; });
-          fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-            .then(function (r) { return r.json().then(function (j) { return { ok: r.status === 200, j: j }; }); })
-            .then(function (res) {
-              if (res.ok) { fMsg.className = 'f-msg ok'; fMsg.textContent = 'Thank you. Our studio team will contact you shortly.'; form.reset(); }
-              else { fMsg.className = 'f-msg err'; fMsg.textContent = (res.j && res.j.message) || 'Could not send. Please call +91 96633 46095 or email info@akararchitects.com.'; }
-            })
-            .catch(function () { fMsg.className = 'f-msg err'; fMsg.textContent = 'Could not send. Please call +91 96633 46095 or email info@akararchitects.com.'; })
-            .then(function () { fBtn.disabled = false; fLabel.textContent = 'Send Enquiry'; });
-        });
-      }
 
       setMotion(motionOn);
       afterPaint(measure);
